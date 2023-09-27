@@ -1,0 +1,8 @@
+.cards-container {
+    gap: 5px;
+
+    .menu-card {
+        flex-basis: 30%;
+        align-self: stretch;
+    }
+}
