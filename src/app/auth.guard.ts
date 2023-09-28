@@ -8,5 +8,9 @@ export const authGuard: CanActivateFn = (route, state) => {
     auth.redirectToLogin();
     return false;
   }
+  if (!auth.isUserActivated()) {
+    auth.redirectToChangePassword();
+    return false;
+  }
   return true;
 };
