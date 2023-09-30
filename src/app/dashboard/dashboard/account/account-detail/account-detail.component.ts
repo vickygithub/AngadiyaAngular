@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CrudService } from 'src/app/services/crud.service';
-import { v4 as uuidv4 } from 'uuid';
 import { NgxSpinnerService } from "ngx-spinner";
 import { CommonService } from 'src/app/services/common.service';
 
