@@ -18,13 +18,17 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AccountComponent } from './dashboard/account/account.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { AccountDetailComponent } from './dashboard/account/account-detail/account-detail.component';
+import { MatRadioModule } from '@angular/material/radio';
 @NgModule({
   declarations: [
     DashboardComponent,
     HeaderComponent,
     MainComponent,
     CreateUserComponent,
-    AccountComponent
+    AccountComponent,
+    AccountDetailComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +44,9 @@ import { AccountComponent } from './dashboard/account/account.component';
     MatButtonToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    MatRadioModule
   ]
 })
 export class DashboardModule { }

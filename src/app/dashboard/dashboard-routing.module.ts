@@ -5,14 +5,18 @@ import { authGuard } from 'src/app/auth.guard';
 import { MainComponent } from './dashboard/main/main.component';
 import { CreateUserComponent } from './dashboard/create-user/create-user.component';
 import { AccountComponent } from './dashboard/account/account.component';
+import { AccountDetailComponent } from './dashboard/account/account-detail/account-detail.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate: [authGuard], children: [
-    { path: '', redirectTo: 'main', pathMatch: 'full' },
-    { path: 'main', component: MainComponent },
-    { path: 'createuser', component: CreateUserComponent },
-    { path: 'account', component: AccountComponent }
-  ]}
+  {
+    path: '', component: DashboardComponent, canActivate: [authGuard], children: [
+      { path: '', redirectTo: 'main', pathMatch: 'full' },
+      { path: 'main', component: MainComponent },
+      { path: 'createuser', component: CreateUserComponent },
+      { path: 'account', component: AccountComponent },
+      { path: 'account/edit', component: AccountDetailComponent }
+    ]
+  }
 ];
 
 @NgModule({

@@ -1,1 +1,41 @@
-<p>account works!</p>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+<mat-tab-group>
+    <mat-tab label="Angadiya">
+        <div class="d-flex flex-column mb-2 gap-3">
+            <mat-card class="w-100" *ngFor="let obj of angadiya" (click)="editAccount(obj)">
+                <mat-card-content>
+                    <div class="d-flex justify-content-between">
+                        <span>{{obj.Name}}</span>
+                        <span>{{obj.OpeningBalance}}</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+    </mat-tab>
+    <mat-tab label="Client">
+        <div class="d-flex flex-column mb-2 gap-3">
+            <mat-card class="w-100" *ngFor="let obj of client" (click)="editAccount(obj)">
+                <mat-card-content>
+                    <div class="d-flex justify-content-between">
+                        <span>{{obj.Name}}</span>
+                        <span>{{obj.OpeningBalance}}</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-tab>
+    <mat-tab label="Others">
+        <div class="d-flex flex-column mb-2 gap-3">
+            <mat-card class="w-100" *ngFor="let obj of others" (click)="editAccount(obj)">
+                <mat-card-content>
+                    <div class="d-flex justify-content-between">
+                        <span>{{obj.Name}}</span>
+                        <span>{{obj.OpeningBalance}}</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-tab>
+</mat-tab-group>
