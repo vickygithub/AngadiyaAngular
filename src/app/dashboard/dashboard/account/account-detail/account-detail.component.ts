@@ -14,7 +14,6 @@ export class AccountDetailComponent {
   constructor(private router: Router, private crudService: CrudService, private spinner: NgxSpinnerService, private commonService: CommonService){}
 
   ngOnInit() {
-    console.log("history.state", history.state)
     this.existingAccountMaster = history.state;
   }
 
@@ -35,7 +34,6 @@ export class AccountDetailComponent {
       Guid: this.existingAccountMaster.Guid
 }).subscribe({
       next: (res: any) => {
-        console.log("Res", res);
         this.spinner.hide();
         if ((typeof res) == "string") {
           this.commonService.openSnackBar(res);
@@ -43,7 +41,6 @@ export class AccountDetailComponent {
         this.back();
       },
       error: (err) => {
-        console.log("err");
         this.spinner.hide();
       }
     })

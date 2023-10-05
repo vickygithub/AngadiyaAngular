@@ -39,7 +39,6 @@ export class AddCityComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        console.log("err");
       }
     })
    }
@@ -48,7 +47,6 @@ export class AddCityComponent {
     this.router.navigate(['/dashboard/city']);
   }
   add() {
-    console.log(this.cityName)
     const existingCityFound = this.existingCities && this.existingCities.find((c: any) => c.Name.toLowerCase() === this.cityName.toLowerCase());
     if (existingCityFound) {
       this.commonService.openSnackBar("City Already Exist");
@@ -68,7 +66,6 @@ export class AddCityComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        console.log("err");
       }
     })
   }

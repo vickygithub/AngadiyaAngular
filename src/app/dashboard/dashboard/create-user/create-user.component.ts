@@ -46,17 +46,14 @@ export class CreateUserComponent {
     this.userDetails.Token = this.loggedInUser.Token;
     this.userDetails.ProjectType = ProjectTypeEnum[this.role];
     this.userDetails.Name = this.userDetails.MobileNo;
-    console.log(this.userDetails)
     this.spinner.show();
     this.crudService.postByUrl('/AdminCreate', this.userDetails).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        console.log("res", res);
         this.commonService.openSnackBar(res);
         this.reset();
       },
       error: (err) => {
-        console.log("err");
         this.spinner.hide();
       }
     })

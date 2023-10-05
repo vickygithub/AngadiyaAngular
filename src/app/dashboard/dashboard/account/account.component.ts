@@ -18,7 +18,6 @@ export class AccountComponent {
   }
 
   editAccount(account: any) {
-    console.log(account)
     this.router.navigate([`/dashboard/account/edit`], {state: account});
   }
   back() {
@@ -34,13 +33,11 @@ export class AccountComponent {
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        console.log("res", res);
         this.angadiya = res.filter((r: any) => r.Type.toLowerCase() === 'angadiya');
         this.client = res.filter((r: any) => r.Type.toLowerCase() === 'client');
         this.others = res.filter((r: any) => r.Type.toLowerCase() !== 'angadiya' && r.Type.toLowerCase() !== 'client');
       },
       error: (err) => {
-        console.log("err");
         this.spinner.hide();
       }
     })

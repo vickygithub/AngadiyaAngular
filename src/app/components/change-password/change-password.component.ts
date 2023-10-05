@@ -26,7 +26,6 @@ export class ChangePasswordComponent {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
     this.userDetails.MobileNo = this.loggedInUser.MobileNo;
     this.userDetails.Token = this.loggedInUser.Token;
-    console.log(this.userDetails)
     this.crudService.postByUrl('/ChangePassword', this.userDetails).subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -34,14 +33,12 @@ export class ChangePasswordComponent {
           this.commonService.openSnackBar(res);
           return;
         }
-        console.log("res", res);
         this.commonService.openSnackBar(res);
         this.loggedInUser.IsActivated = true;
         sessionStorage.setItem('userDetails', JSON.stringify(this.loggedInUser));
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        console.log("err");
         this.spinner.hide();
       }
     })

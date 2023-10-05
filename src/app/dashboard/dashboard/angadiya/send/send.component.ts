@@ -37,7 +37,6 @@ export class SendComponent {
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        console.log("res", res);
         this.accountMasterList = res;
         this.accountMasterList.sort((a: any, b: any) => {
           // Use the localeCompare method to perform a case-insensitive string comparison
@@ -50,7 +49,6 @@ export class SendComponent {
         this.senderGuid = senderList.find((s: any) => s.Type.toLowerCase() === 'cash').Guid;
       },
       error: (err) => {
-        console.log("err");
         this.spinner.hide();
       }
     })
@@ -75,7 +73,6 @@ export class SendComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        console.log("err");
       }
     })
   }
@@ -112,7 +109,6 @@ export class SendComponent {
       DeviceId: "83e9568fa4df9fc1",
       Commission: ""
     }
-    console.log(params)
     this.crudService.postByUrl('/SendTransaction', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -120,7 +116,6 @@ export class SendComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        console.log("err");
       }
     })
   }

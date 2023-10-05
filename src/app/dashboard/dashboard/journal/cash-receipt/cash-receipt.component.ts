@@ -25,7 +25,6 @@ export class CashReceiptComponent {
   }
 
   displayFn(event: any) {
-    console.log(event)
     return event && event.Name ? event.Name : '';
   }
   fetchAccountList() {
@@ -38,17 +37,14 @@ export class CashReceiptComponent {
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        console.log("res", res);
         this.options = res;
       },
       error: (err) => {
-        console.log("err");
         this.spinner.hide();
       }
     })
   }
   doFilter() {
-    console.log(this.receivedFrom);
     this.filteredOptions = this.options.filter((o: any) => o.Name.toLowerCase().includes(typeof this.receivedFrom === 'string' ? this.receivedFrom.toLowerCase() : this.receivedFrom) && o.Type.toLowerCase() !== "cash");
   }
   ngOnInit() {
@@ -92,19 +88,15 @@ export class CashReceiptComponent {
       Token: this.loggedInUser.Token,
       TranDate: moment(this.date).format('YYYY-MM-DD')
     }
-    console.log("params", params);
-    return
     this.spinner.show();
     this.crudService.postByUrl('/ReceiptTransaction', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        console.log("res", res);
         this.commonService.openSnackBar(res);
         this.reset();
       },
       error: (err) => {
         this.spinner.hide();
-        console.log("err");
         this.commonService.openSnackBar("Error!!!");
       }
     })

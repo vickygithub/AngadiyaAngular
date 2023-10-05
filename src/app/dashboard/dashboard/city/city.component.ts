@@ -30,7 +30,6 @@ export class CityComponent {
     this.crudService.postByUrl('/CityList', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        console.log("res", res);
         
         this.cities = res;
         this.cities.forEach((c: any) =>{
@@ -44,7 +43,6 @@ export class CityComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        console.log("err");
       }
     })
   }

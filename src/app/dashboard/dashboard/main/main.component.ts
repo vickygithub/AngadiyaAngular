@@ -28,14 +28,12 @@ export class MainComponent {
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        console.log("res", res);
         res.forEach((r: any) => {
           r.Icons = r.Icon.split(",");
         })
         this.menus = res.sort((a: any, b: any) => a.SortOrder - b.SortOrder);
       },
       error: (err) => {
-        console.log("err");
         this.spinner.hide();
       }
     })

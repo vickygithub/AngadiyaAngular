@@ -30,7 +30,6 @@ export class LoginComponent {
 
   login() {
     this.spinner.show();
-    console.log(this.userDetails)
     this.crudService.postByUrl('/Login', {
       userId: this.userDetails.mobile,
       deviceId: "83e9568fa4df9fc1",
@@ -42,7 +41,6 @@ export class LoginComponent {
           this.commonService.openSnackBar(res);
           return;
         }
-        console.log("res", res);
         let user = res[0];
         user.Password = null;
         sessionStorage.setItem('userDetails', JSON.stringify(user));
@@ -54,7 +52,6 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
       },
       error: (err) => { 
-        console.log("err");
         this.spinner.hide();
       }
     })
