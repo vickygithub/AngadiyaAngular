@@ -21,6 +21,17 @@ import { AccountComponent } from './dashboard/account/account.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AccountDetailComponent } from './dashboard/account/account-detail/account-detail.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { JournalComponent } from './dashboard/journal/journal.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CashReceiptComponent } from './dashboard/journal/cash-receipt/cash-receipt.component';
+import { CityComponent } from './dashboard/city/city.component';
+import { MatListModule } from '@angular/material/list';
+import { AddCityComponent } from './dashboard/city/add-city/add-city.component';
+import { AngadiyaComponent } from './dashboard/angadiya/angadiya.component';
+import { SendComponent } from './dashboard/angadiya/send/send.component';
+import { ReceivedComponent } from './dashboard/angadiya/received/received.component';
+import { MatSelectModule } from '@angular/material/select';
+import {MatDividerModule} from '@angular/material/divider';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -28,7 +39,14 @@ import { MatRadioModule } from '@angular/material/radio';
     MainComponent,
     CreateUserComponent,
     AccountComponent,
-    AccountDetailComponent
+    AccountDetailComponent,
+    JournalComponent,
+    CashReceiptComponent,
+    CityComponent,
+    AddCityComponent,
+    AngadiyaComponent,
+    SendComponent,
+    ReceivedComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +64,11 @@ import { MatRadioModule } from '@angular/material/radio';
     MatNativeDateModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatAutocompleteModule,
+    MatListModule,
+    MatSelectModule,
+    MatDividerModule
   ]
 })
 export class DashboardModule { }

@@ -32,7 +32,7 @@ export class CreateUserComponent {
   reset() {
     this.userDetails.MobileNo = "";
     this.accountStartDate = new Date();
-    this.role = 2;
+    this.role = "angadiya";
   }
   goToDashboard() {
     this.commonService.navigate(['/dashboard']);

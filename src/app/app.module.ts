@@ -18,6 +18,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CommonService } from './services/common.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UpdateService } from './services/update.service';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
       // or after 30 seconds (whichever comes first).
     })
   ],
-  providers: [CrudService, AuthService, CommonService],
+  providers: [CrudService, AuthService, CommonService, UpdateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

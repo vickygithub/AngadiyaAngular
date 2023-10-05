@@ -33,12 +33,12 @@ export class LoginComponent {
     console.log(this.userDetails)
     this.crudService.postByUrl('/Login', {
       userId: this.userDetails.mobile,
-      deviceId: "5c1e2fcc27ce7a8e",
+      deviceId: "83e9568fa4df9fc1",
       password: this.userDetails.password
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        if (res.includes("INVALID")) {
+        if (res.includes("INVALID") || res.includes("MISMATCHED")) {
           this.commonService.openSnackBar(res);
           return;
         }

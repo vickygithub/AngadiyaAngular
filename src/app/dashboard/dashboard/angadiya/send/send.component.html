@@ -1,0 +1,122 @@
+<div class="row mt-3">
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="date" required>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" placeholder="Amount" [(ngModel)]="amount" required>
+            <mat-hint [ngClass]="{'mat-mdc-form-field-error': amount < 0}" *ngIf="amount < 0">
+                Negative amount not allowed
+            </mat-hint>
+        </mat-form-field>
+
+
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>To Angadiya</mat-label>
+            <mat-select [(ngModel)]="receiverGuid" required>
+                <ng-container *ngFor="let account of accountMasterList">
+                    <mat-option *ngIf="account.Type.toLowerCase() === 'angadiya'" [value]="account.Guid">
+                        {{account.Name}}
+                    </mat-option>
+                </ng-container>
+
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>To City</mat-label>
+            <mat-select [(ngModel)]="receiverCity" required>
+                <mat-option *ngFor="let city of cities" [value]="city.Guid">
+                    {{city.Name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Receiver Name</mat-label>
+            <input matInput placeholder="Receiver Name" [(ngModel)]="receiverName" required>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Receiver Mobile</mat-label>
+            <input matInput type="number" placeholder="Receiver Mobile" [(ngModel)]="receiverMobileNo"
+                pattern="^[0-9]{10}$" required>
+            <mat-hint [ngClass]="{'mat-mdc-form-field-error': receiverMobileNo < 0}" *ngIf="receiverMobileNo < 0">
+                Invalid Mobile
+            </mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Charges to Angadiya</mat-label>
+            <input matInput type="number" placeholder="Charges to Angadiya" [(ngModel)]="receiverCharges">
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Note No</mat-label>
+            <input matInput placeholder="Note No" [(ngModel)]="noteNo">
+        </mat-form-field>
+    </div>
+</div>
+<mat-divider class="divider"></mat-divider>
+<div class="row mt-3">
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Sender</mat-label>
+            <mat-select [(ngModel)]="senderGuid" required>
+                <ng-container *ngFor="let account of accountMasterList">
+                    <mat-option *ngIf="account.Type.toLowerCase() === 'cash' || account.Type.toLowerCase() === 'client'"
+                        [value]="account.Guid">
+                        {{account.Name}}
+                    </mat-option>
+                </ng-container>
+
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Sender Name</mat-label>
+            <input matInput placeholder="Sender Name" [(ngModel)]="senderName">
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Sender Mobile</mat-label>
+            <input matInput type="number" placeholder="Sender Mobile" [(ngModel)]="senderMobileNo"
+                pattern="^[0-9]{10}$">
+            <mat-hint [ngClass]="{'mat-mdc-form-field-error': senderMobileNo < 0}" *ngIf="senderMobileNo < 0">
+                Invalid Mobile
+            </mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Charges from Sender</mat-label>
+            <input matInput type="number" placeholder="Charges from Sender" [(ngModel)]="senderCharges">
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Remark</mat-label>
+            <input matInput placeholder="Remark" [(ngModel)]="remark">
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+</div>

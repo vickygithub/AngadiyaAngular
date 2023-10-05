@@ -1,0 +1,22 @@
+<mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+<mat-tab-group class="journal-mat-tab-group">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            CASH <br>
+            PAYMENT
+        </ng-template>
+        <ng-template matTabContent></ng-template>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            CASH <br>
+            RECEIPT
+        </ng-template>
+        <ng-template matTabContent>
+            <app-cash-receipt></app-cash-receipt>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="JOURNAL">
+        <ng-template matTabContent></ng-template>
+    </mat-tab>
+</mat-tab-group>

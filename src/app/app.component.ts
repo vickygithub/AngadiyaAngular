@@ -9,7 +9,7 @@ import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 })
 export class AppComponent {
   title = 'angadiya';
-  private numberOfSeconds: number = 60000;
+  private numberOfSeconds: number = 60;
   constructor(private _idle: Idle, private router: Router) {
 
   }

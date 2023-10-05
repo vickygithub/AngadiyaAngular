@@ -1,0 +1,48 @@
+<div class="row mt-3">
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="date" required>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" placeholder="Amount" [(ngModel)]="amount" required>
+            <mat-hint [ngClass]="{'mat-mdc-form-field-error': amount < 0}" *ngIf="amount < 0">
+                Negative amount not allowed
+            </mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Commission</mat-label>
+            <input matInput type="number" placeholder="Commission" [(ngModel)]="commission">
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Received From</mat-label>
+            <input type="text" placeholder="Pick one" matInput [matAutocomplete]="auto" [(ngModel)]="receivedFrom"
+                (ngModelChange)="doFilter()" required>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filteredOptions" [value]="option">
+                    {{option.Name}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Remark</mat-label>
+            <input matInput placeholder="Remark" [(ngModel)]="remark">
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+</div>

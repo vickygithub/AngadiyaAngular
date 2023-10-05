@@ -6,6 +6,10 @@ import { MainComponent } from './dashboard/main/main.component';
 import { CreateUserComponent } from './dashboard/create-user/create-user.component';
 import { AccountComponent } from './dashboard/account/account.component';
 import { AccountDetailComponent } from './dashboard/account/account-detail/account-detail.component';
+import { JournalComponent } from './dashboard/journal/journal.component';
+import { CityComponent } from './dashboard/city/city.component';
+import { AddCityComponent } from './dashboard/city/add-city/add-city.component';
+import { AngadiyaComponent } from './dashboard/angadiya/angadiya.component';
 
 const routes: Routes = [
   {
@@ -14,7 +18,11 @@ const routes: Routes = [
       { path: 'main', component: MainComponent },
       { path: 'createuser', component: CreateUserComponent },
       { path: 'account', component: AccountComponent },
-      { path: 'account/edit', component: AccountDetailComponent }
+      { path: 'account/edit', component: AccountDetailComponent },
+      { path: 'journal', component: JournalComponent },
+      { path: 'city', component: CityComponent },
+      { path: 'city/add', component: AddCityComponent },
+      { path: 'angadiya', component: AngadiyaComponent }
     ]
   }
 ];
