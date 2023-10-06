@@ -8,10 +8,8 @@ import { interval } from 'rxjs';
 export class UpdateService {
 
   constructor(private swUpdate: SwUpdate, private snackbar: MatSnackBar) {
-    if (swUpdate.isEnabled) {
-      interval(1 * 60 * 1000).subscribe(() => swUpdate.checkForUpdate()
-        .then(() => this.informUser()));
-    }
+    interval(1 * 60 * 1000).subscribe(() => swUpdate.checkForUpdate()
+      .then(() => this.informUser()));
 
   }
   public informUser(): void {
