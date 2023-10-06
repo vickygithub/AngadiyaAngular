@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/services/common.service';
@@ -25,6 +25,7 @@ export class SendComponent {
   public senderMobileNo: any;
   public senderCharges: any;
   public remark: any;
+  @Output() goToMainDashboard = new EventEmitter<any>();
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService) { }
   fetchAccountList() {
     this.spinner.show();
@@ -100,7 +101,7 @@ export class SendComponent {
     this.remark = null;
   }
   save() {
-    if (this.amount == null || this.date == null || this.receiverGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.senderGuid == null || this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && this.commonService.isMobileValid(this.senderMobileNo)))   {
+    if (this.amount == null || this.date == null || this.receiverGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.senderGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo)))   {
       return;
     }
 
@@ -132,6 +133,7 @@ export class SendComponent {
         this.spinner.hide();
         this.commonService.openSnackBar(res);
         this.reset();
+        this.goToMainDashboard.emit();
       },
       error: (err) => {
         this.spinner.hide();

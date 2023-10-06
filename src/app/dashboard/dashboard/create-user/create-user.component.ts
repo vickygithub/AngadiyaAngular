@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import * as moment from 'moment';
-import { v4 as uuidv4 } from 'uuid';
 import { NgxSpinnerService } from "ngx-spinner";
 import { CrudService } from 'src/app/services/crud.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -23,7 +22,7 @@ export class CreateUserComponent {
     MobileNo: "",
     DeviceId: "83e9568fa4df9fc1",
     Password: "admin",
-    LoginId: uuidv4()
+    LoginId: ""
   }
 
   constructor(private crudService: CrudService, private spinner: NgxSpinnerService, private commonService: CommonService) {
@@ -47,6 +46,7 @@ export class CreateUserComponent {
     this.userDetails.Token = this.loggedInUser.Token;
     this.userDetails.ProjectType = ProjectTypeEnum[this.role];
     this.userDetails.Name = this.userDetails.MobileNo;
+    this.userDetails.LoginId = this.loggedInUser.Guid;
     this.spinner.show();
     this.crudService.postByUrl('/AdminCreate', this.userDetails).subscribe({
       next: (res: any) => {
