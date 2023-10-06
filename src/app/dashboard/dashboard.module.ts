@@ -31,7 +31,19 @@ import { AngadiyaComponent } from './dashboard/angadiya/angadiya.component';
 import { SendComponent } from './dashboard/angadiya/send/send.component';
 import { ReceivedComponent } from './dashboard/angadiya/received/received.component';
 import { MatSelectModule } from '@angular/material/select';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { CreateComponent } from './dashboard/account/create/create.component';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY'
+  },
+};
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -46,7 +58,8 @@ import {MatDividerModule} from '@angular/material/divider';
     AddCityComponent,
     AngadiyaComponent,
     SendComponent,
-    ReceivedComponent
+    ReceivedComponent,
+    CreateComponent
   ],
   imports: [
     CommonModule,
@@ -69,6 +82,14 @@ import {MatDividerModule} from '@angular/material/divider';
     MatListModule,
     MatSelectModule,
     MatDividerModule
+  ],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ]
 })
 export class DashboardModule { }

@@ -1,8 +1,17 @@
-<mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+<div class="d-flex justify-content-between align-items-center">
+    <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+    <button mat-raised-button color="primary" (click)="add()">Create New</button>
+</div>
 <mat-tab-group>
     <mat-tab label="Angadiya">
         <div class="d-flex flex-column mb-2 gap-3">
-            <mat-card class="w-100" *ngFor="let obj of angadiya" (click)="editAccount(obj)">
+            <div class="col-xs-12 col-sm-6 col-lg-4">
+                <mat-form-field class="w-100">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input matInput type="search" placeholder="Search" [(ngModel)]="searchText" (keyup)="filterList(1)">
+                </mat-form-field>
+            </div>
+            <mat-card class="w-100" *ngFor="let obj of filteredAngadiya" (click)="editAccount(obj)">
                 <mat-card-content>
                     <div class="d-flex justify-content-between">
                         <span>{{obj.Name}}</span>
@@ -15,7 +24,13 @@
     </mat-tab>
     <mat-tab label="Client">
         <div class="d-flex flex-column mb-2 gap-3">
-            <mat-card class="w-100" *ngFor="let obj of client" (click)="editAccount(obj)">
+            <div class="col-xs-12 col-sm-6 col-lg-4">
+                <mat-form-field class="w-100">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input matInput type="search" placeholder="Search" [(ngModel)]="searchText" (keyup)="filterList(2)">
+                </mat-form-field>
+            </div>
+            <mat-card class="w-100" *ngFor="let obj of filteredClient" (click)="editAccount(obj)">
                 <mat-card-content>
                     <div class="d-flex justify-content-between">
                         <span>{{obj.Name}}</span>
@@ -27,7 +42,13 @@
     </mat-tab>
     <mat-tab label="Others">
         <div class="d-flex flex-column mb-2 gap-3">
-            <mat-card class="w-100" *ngFor="let obj of others" (click)="editAccount(obj)">
+            <div class="col-xs-12 col-sm-6 col-lg-4">
+                <mat-form-field class="w-100">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input matInput type="search" placeholder="Search" [(ngModel)]="searchText" (keyup)="filterList(3)">
+                </mat-form-field>
+            </div>
+            <mat-card class="w-100" *ngFor="let obj of filteredOthers" (click)="editAccount(obj)">
                 <mat-card-content>
                     <div class="d-flex justify-content-between">
                         <span>{{obj.Name}}</span>

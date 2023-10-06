@@ -18,6 +18,9 @@ export class AccountDetailComponent {
   }
 
   update() {
+    if (!this.commonService.isMobileValid(this.existingAccountMaster.MobileNo)) {
+      return;
+    }
     this.spinner.show();
     const loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
     this.crudService.postByUrl('/AccountEdit', {

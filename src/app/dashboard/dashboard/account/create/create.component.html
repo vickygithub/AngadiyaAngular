@@ -1,0 +1,38 @@
+<div class="row mt-3">
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Name" [(ngModel)]="name" required>
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div>
+            <mat-radio-group [(ngModel)]="type" class="d-flex flex-column flex-md-row" required>
+                <mat-radio-button value="Angadiya">Anagiya</mat-radio-button>
+                <mat-radio-button value="Client">Client</mat-radio-button>
+                <mat-radio-button value="Expenses">Expenses</mat-radio-button>
+                <mat-radio-button value="Income">Income</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="type.toLowerCase() === 'angadiya' || type.toLowerCase() === 'client'">
+        <mat-form-field class="w-100">
+            <mat-label>Opening Balance</mat-label>
+            <input matInput type="number" placeholder="Opening Balance" [(ngModel)]="openingBalance">
+        </mat-form-field>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <mat-label>Mobile</mat-label>
+            <input matInput type="number" placeholder="Mobile" [(ngModel)]="mobile"
+                pattern="^[0-9]{10}$" required>
+            <mat-hint [ngClass]="{'mat-mdc-form-field-error': mobile < 0}" *ngIf="mobile < 0">
+                Invalid Mobile
+            </mat-hint>
+        </mat-form-field>
+    </div>
+</div>
+<div class="d-flex flex-wrap gap-2 mt-2">
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+    <button mat-raised-button color="primary" (click)="back()">Back</button>
+</div>
