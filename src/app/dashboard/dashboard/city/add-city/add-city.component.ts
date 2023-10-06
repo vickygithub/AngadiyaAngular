@@ -39,6 +39,7 @@ export class AddCityComponent {
       },
       error: (err) => {
         this.spinner.hide();
+        this.commonService.openSnackBar("Error!!!");
       }
     })
    }
@@ -66,6 +67,7 @@ export class AddCityComponent {
       },
       error: (err) => {
         this.spinner.hide();
+        this.commonService.openSnackBar("Error!!!");
       }
     })
   }

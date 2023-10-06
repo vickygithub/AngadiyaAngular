@@ -24,7 +24,7 @@ export class AccountDetailComponent {
     this.spinner.show();
     const loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
     this.crudService.postByUrl('/AccountEdit', {
-      DeviceId: "5c1e2fcc27ce7a8e",
+      DeviceId: "83e9568fa4df9fc1",
       Token: loggedInUser.Token,
       Name: this.existingAccountMaster.Name,
       OpeningBalance: `${this.existingAccountMaster.OpeningBalance}`,
@@ -45,6 +45,7 @@ export class AccountDetailComponent {
       },
       error: (err) => {
         this.spinner.hide();
+        this.commonService.openSnackBar("Error!!!");
       }
     })
   }

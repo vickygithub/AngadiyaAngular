@@ -21,7 +21,7 @@ export class CreateUserComponent {
   public accountStartDate: any = new Date();
   public userDetails: any = {
     MobileNo: "",
-    DeviceId: "5c1e2fcc27ce7a8e",
+    DeviceId: "83e9568fa4df9fc1",
     Password: "admin",
     LoginId: uuidv4()
   }
@@ -38,10 +38,11 @@ export class CreateUserComponent {
     this.commonService.navigate(['/dashboard']);
   }
   create() {
-    if (!/^[0-9]{10}$/.test(this.userDetails.MobileNo) || this.userDetails.MobileNo.length < 10) {
+    if (!this.commonService.isMobileValid(this.userDetails.MobileNo)) {
       this.commonService.openSnackBar("Invalid Number");
       return;
     }
+    this.userDetails.MobileNo = String(this.userDetails.MobileNo);
     this.userDetails.AccountStartDate = moment(this.accountStartDate).format('YYYY-MM-DD hh:mm:ss');
     this.userDetails.Token = this.loggedInUser.Token;
     this.userDetails.ProjectType = ProjectTypeEnum[this.role];
@@ -55,6 +56,7 @@ export class CreateUserComponent {
       },
       error: (err) => {
         this.spinner.hide();
+        this.commonService.openSnackBar("Error!!!");
       }
     })
   }

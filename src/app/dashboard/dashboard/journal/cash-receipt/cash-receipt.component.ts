@@ -41,6 +41,7 @@ export class CashReceiptComponent {
       },
       error: (err) => {
         this.spinner.hide();
+        this.commonService.openSnackBar("Error in getting Account List!");
       }
     })
   }

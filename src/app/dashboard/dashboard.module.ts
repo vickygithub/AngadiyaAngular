@@ -8,7 +8,6 @@ import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './dashboard/main/main.component';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { NgxSpinnerModule } from "ngx-spinner";
 import { CreateUserComponent } from './dashboard/create-user/create-user.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -69,7 +68,6 @@ export const MY_FORMATS = {
     MatIconModule,
     MatCardModule,
     FlexLayoutModule,
-    NgxSpinnerModule,
     MatInputModule,
     MatButtonModule,
     MatButtonToggleModule,

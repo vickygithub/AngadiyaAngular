@@ -49,7 +49,7 @@ export class AccountComponent {
     this.spinner.show();
     const user = JSON.parse(sessionStorage.getItem('userDetails')!);
     this.crudService.postByUrl('/AccountList', {
-      DeviceId: "5c1e2fcc27ce7a8e",
+      DeviceId: "83e9568fa4df9fc1",
       Token: user.Token,
       LoginId: user.Guid
     }).subscribe({
@@ -65,6 +65,7 @@ export class AccountComponent {
       },
       error: (err) => {
         this.spinner.hide();
+        this.commonService.openSnackBar("Error!!!");
       }
     })
   }

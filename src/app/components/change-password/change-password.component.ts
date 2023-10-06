@@ -15,7 +15,7 @@ export class ChangePasswordComponent {
   public userDetails: any = {
     OldPassword: "",
     NewPassword: null,
-    DeviceId: "5c1e2fcc27ce7a8e"
+    DeviceId: "83e9568fa4df9fc1"
   }
   constructor(private crudService: CrudService, private router: Router, private spinner: NgxSpinnerService, private commonService: CommonService) {
 
@@ -40,6 +40,7 @@ export class ChangePasswordComponent {
       },
       error: (err) => {
         this.spinner.hide();
+        this.commonService.openSnackBar("Error!!!");
       }
     })
   }

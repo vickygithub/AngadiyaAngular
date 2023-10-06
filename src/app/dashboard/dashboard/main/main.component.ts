@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
+import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
 
 enum UserRoleEnum {
@@ -16,14 +17,14 @@ export class MainComponent {
   public loggedInUser: any;
   public menus: any = [];
 
-  constructor(private crudService: CrudService, private router: Router, private spinner: NgxSpinnerService) {
+  constructor(private crudService: CrudService, private router: Router, private spinner: NgxSpinnerService, private commonService: CommonService) {
   }
 
   fetchMenus() {
     this.spinner.show();
     this.crudService.postByUrl('/UserMenuList', {
       Token: this.loggedInUser.Token,
-      DeviceId: "5c1e2fcc27ce7a8e",
+      DeviceId: "83e9568fa4df9fc1",
       ProjectTypeId: this.loggedInUser.ProjectType
     }).subscribe({
       next: (res: any) => {
@@ -35,6 +36,7 @@ export class MainComponent {
       },
       error: (err) => {
         this.spinner.hide();
+        this.commonService.openSnackBar("Error!!!");
       }
     })
   }

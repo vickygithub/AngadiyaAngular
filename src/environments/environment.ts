@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:5123/api/valuesAPI'
+  // API_URL: 'http://localhost:5123/api/valuesAPI'
+  API_URL: 'https://miniangadiyaapitest.azurewebsites.net/api/valuesAPI'
 };
