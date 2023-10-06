@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
+import { UpdateService } from './services/update.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,8 @@ import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 export class AppComponent {
   title = 'angadiya';
   private numberOfSeconds: number = 60;
-  constructor(private _idle: Idle, private router: Router) {
-
+  constructor(private _idle: Idle, private router: Router, private sw: UpdateService) {
+    
   }
   ngOnInit() {
     
