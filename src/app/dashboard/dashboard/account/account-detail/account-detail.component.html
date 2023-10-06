@@ -17,7 +17,7 @@
             <div class="col-xs-12 col-sm-6 col-lg-4">
                 <mat-form-field class="w-100">
                     <mat-label>MobileNo</mat-label>
-                    <input matInput type="number" pattern="^[0-9]{10}$" placeholder="MobileNo" [(ngModel)]="existingAccountMaster.MobileNo">
+                    <input appLimitMobileNumber matInput type="number" pattern="^[0-9]{10}$" placeholder="MobileNo" [(ngModel)]="existingAccountMaster.MobileNo">
                     <mat-hint [ngClass]="{'mat-mdc-form-field-error': existingAccountMaster.MobileNo < 0}" *ngIf="existingAccountMaster.MobileNo < 0">
                         Invalid Mobile
                     </mat-hint>

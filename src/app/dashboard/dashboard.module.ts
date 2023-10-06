@@ -34,6 +34,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { CreateComponent } from './dashboard/account/create/create.component';
+import { LimitMobileNumberDirective } from '../limit-mobile-number.directive';
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -58,7 +60,8 @@ export const MY_FORMATS = {
     AngadiyaComponent,
     SendComponent,
     ReceivedComponent,
-    CreateComponent
+    CreateComponent,
+    LimitMobileNumberDirective
   ],
   imports: [
     CommonModule,
@@ -88,6 +91,7 @@ export const MY_FORMATS = {
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  ]
+  ],
+  exports: [LimitMobileNumberDirective]
 })
 export class DashboardModule { }

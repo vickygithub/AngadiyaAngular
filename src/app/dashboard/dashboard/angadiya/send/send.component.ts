@@ -100,6 +100,7 @@ export class SendComponent {
     this.senderCharges = null;
     this.remark = null;
   }
+ 
   save() {
     if (this.amount == null || this.date == null || this.receiverGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.senderGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo)))   {
       return;

@@ -7,7 +7,7 @@
                     <div class="col-xs-12 col-sm-6 col-lg-4">
                         <mat-form-field class="w-100">
                             <mat-label>Mobile</mat-label>
-                            <input matInput type="number" pattern="^[0-9]{10}$" placeholder="Mobile"
+                            <input appLimitMobileNumber matInput type="number" pattern="^[0-9]{10}$" placeholder="Mobile"
                                 [(ngModel)]="userDetails.MobileNo" required>
                         </mat-form-field>
                     </div>

@@ -19,6 +19,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { CommonService } from './services/common.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UpdateService } from './services/update.service';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { UpdateService } from './services/update.service';
   ],
   imports: [
     NgIdleModule.forRoot(),
+    DashboardModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -48,6 +50,7 @@ import { UpdateService } from './services/update.service';
     })
   ],
   providers: [CrudService, AuthService, CommonService, UpdateService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule { }
