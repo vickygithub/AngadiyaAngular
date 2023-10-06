@@ -17,7 +17,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CommonService } from './services/common.service';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UpdateService } from './services/update.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 
@@ -42,7 +41,6 @@ import { DashboardModule } from './dashboard/dashboard.module';
     MatCardModule,
     MatButtonModule,
     NgxSpinnerModule,
-    MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode()
       // Register the ServiceWorker as soon as the application is stable

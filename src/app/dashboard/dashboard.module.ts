@@ -92,6 +92,6 @@ export const MY_FORMATS = {
     },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
-  exports: [LimitMobileNumberDirective]
+  exports: [MatSnackBarModule, LimitMobileNumberDirective]
 })
 export class DashboardModule { }
