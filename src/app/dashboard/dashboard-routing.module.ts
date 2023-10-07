@@ -13,6 +13,7 @@ import { AngadiyaComponent } from './dashboard/angadiya/angadiya.component';
 import { CreateComponent } from './dashboard/account/create/create.component';
 import { LedgerComponent } from './dashboard/ledger/ledger.component';
 import { ReportComponent } from './dashboard/ledger/report/report.component';
+import { TrialBalanceComponent } from './dashboard/trial-balance/trial-balance.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
       { path: 'city/add', component: AddCityComponent },
       { path: 'angadiya', component: AngadiyaComponent },
       { path: 'ledger', component: LedgerComponent },
-      { path: 'ledger/report', component: ReportComponent }
+      { path: 'ledger/report', component: ReportComponent },
+      { path: 'trialbalance', component: TrialBalanceComponent }
     ]
   }
 ];

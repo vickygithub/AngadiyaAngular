@@ -38,6 +38,7 @@ import { LimitMobileNumberDirective } from '../limit-mobile-number.directive';
 import { LedgerComponent } from './dashboard/ledger/ledger.component';
 import { ReportComponent } from './dashboard/ledger/report/report.component';
 import { MatTableModule } from '@angular/material/table';
+import { TrialBalanceComponent } from './dashboard/trial-balance/trial-balance.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -65,7 +66,8 @@ export const MY_FORMATS = {
     CreateComponent,
     LimitMobileNumberDirective,
     LedgerComponent,
-    ReportComponent
+    ReportComponent,
+    TrialBalanceComponent
   ],
   imports: [
     CommonModule,

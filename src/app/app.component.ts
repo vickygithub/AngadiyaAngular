@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { UpdateService } from './services/update.service';
+import { CommonService } from './services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,10 @@ import { UpdateService } from './services/update.service';
 export class AppComponent {
   title = 'angadiya';
   private numberOfSeconds: number = 60;
-  constructor(private _idle: Idle, private router: Router, private sw: UpdateService) {
-    
+  constructor(private _idle: Idle, private router: Router, private sw: UpdateService, private commonService: CommonService) {
+    this.commonService.getNewAppVersionAvailableEventEmitter().subscribe(() => this.sw.promptUser());
   }
+  
   ngOnInit() {
     
     this._idle.setIdle(this.numberOfSeconds);
