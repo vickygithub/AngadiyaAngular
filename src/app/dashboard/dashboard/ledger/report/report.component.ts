@@ -49,11 +49,27 @@ export class ReportComponent {
             this.sendToken++;
             r['tokenNo'] = this.sendToken;
           }
-          if (this.selectedAcount.Guid === r.ReceiverGuid) {
-            r['displayAmount'] = `-${r.CREADITAMOUNT.toFixed(2)}`
+          if (this.selectedAcount.Type.toLowerCase() == 'commission') {
+            r['bgRed'] = null;
+            if (r.COMMAMOUNT > 0) {
+              r['displayAmount'] = `-${r.COMMAMOUNT.toFixed(2)}`
+            }
+            if (r.COMMAMOUNT < 0) {
+              r['displayAmount'] = `${Math.abs(r.COMMAMOUNT.toFixed(2))}`
+            }
+            if (r.COMMAMOUNT === 0) {
+              r['displayAmount'] = `0.00`
+            }
           } else {
-            r['displayAmount'] = `${r.DEBITAMOUNT.toFixed(2)}`
+            if (this.selectedAcount.Guid === r.ReceiverGuid) {
+              r['bgRed'] = true;
+              r['displayAmount'] = `-${r.CREADITAMOUNT.toFixed(2)}`
+            } else if (this.selectedAcount.Guid !== r.ReceiverGuid) {
+              r['bgRed'] = false;
+              r['displayAmount'] = `${r.DEBITAMOUNT.toFixed(2)}`
+            }
           }
+
         })
         const ob = {
           ReceiverCity: 'Opening',
@@ -63,8 +79,9 @@ export class ReportComponent {
         }
         res.unshift(ob);
         this.totalAmount = res.reduce((acc: any, curr: any) => {
-          return acc + parseFloat(curr.displayAmount); 
+          return acc + parseFloat(curr.displayAmount);
         }, 0);
+
         if (parseFloat(this.balances[0].ClosingBalance) === this.totalAmount) {
           this.amountMatched = true;
         }
