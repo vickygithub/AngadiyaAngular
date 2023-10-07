@@ -35,7 +35,9 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { CreateComponent } from './dashboard/account/create/create.component';
 import { LimitMobileNumberDirective } from '../limit-mobile-number.directive';
-
+import { LedgerComponent } from './dashboard/ledger/ledger.component';
+import { ReportComponent } from './dashboard/ledger/report/report.component';
+import { MatTableModule } from '@angular/material/table';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -61,7 +63,9 @@ export const MY_FORMATS = {
     SendComponent,
     ReceivedComponent,
     CreateComponent,
-    LimitMobileNumberDirective
+    LimitMobileNumberDirective,
+    LedgerComponent,
+    ReportComponent
   ],
   imports: [
     CommonModule,
@@ -82,7 +86,8 @@ export const MY_FORMATS = {
     MatAutocompleteModule,
     MatListModule,
     MatSelectModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTableModule
   ],
   providers: [
     {

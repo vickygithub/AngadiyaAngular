@@ -1,19 +1,21 @@
-<mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
-<mat-tab-group class="journal-mat-tab-group">
-    <mat-tab>
-        <ng-template mat-tab-label>
-            Send
-        </ng-template>
-        <ng-template matTabContent>
-            <app-send (goToMainDashboard)="back()"></app-send>
-        </ng-template>
-    </mat-tab>
-    <mat-tab>
-        <ng-template mat-tab-label>
-            Received
-        </ng-template>
-        <ng-template matTabContent>
-            <app-received></app-received>
-        </ng-template>
-    </mat-tab>
-</mat-tab-group>
+<div class="pt-4 pb-4">
+    <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+    <mat-tab-group class="journal-mat-tab-group">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Send
+            </ng-template>
+            <ng-template matTabContent>
+                <app-send (goToMainDashboard)="back()"></app-send>
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Received
+            </ng-template>
+            <ng-template matTabContent>
+                <app-received></app-received>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>

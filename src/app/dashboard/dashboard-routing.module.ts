@@ -11,6 +11,8 @@ import { CityComponent } from './dashboard/city/city.component';
 import { AddCityComponent } from './dashboard/city/add-city/add-city.component';
 import { AngadiyaComponent } from './dashboard/angadiya/angadiya.component';
 import { CreateComponent } from './dashboard/account/create/create.component';
+import { LedgerComponent } from './dashboard/ledger/ledger.component';
+import { ReportComponent } from './dashboard/ledger/report/report.component';
 
 const routes: Routes = [
   {
@@ -24,7 +26,9 @@ const routes: Routes = [
       { path: 'journal', component: JournalComponent },
       { path: 'city', component: CityComponent },
       { path: 'city/add', component: AddCityComponent },
-      { path: 'angadiya', component: AngadiyaComponent }
+      { path: 'angadiya', component: AngadiyaComponent },
+      { path: 'ledger', component: LedgerComponent },
+      { path: 'ledger/report', component: ReportComponent }
     ]
   }
 ];

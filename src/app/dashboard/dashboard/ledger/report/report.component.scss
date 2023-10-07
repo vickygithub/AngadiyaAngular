@@ -1,0 +1,24 @@
+
+.table-container {
+    height: calc(100vh - 15rem);
+    overflow-y: auto;
+
+    table {
+        th, td {
+            &:last-of-type {
+                text-align: right; 
+            }
+        }
+    }
+    .bg-red {
+        background: #d08383;
+        color: #fff;
+    }
+
+    .amount-matched {
+        color: green;
+    }
+    .amount-mismatched {
+        color: red;
+    }
+}

@@ -3,3 +3,9 @@
         cursor: pointer;
     }
 }
+.top-sticky {
+    position: sticky;
+    top: 64px;
+    z-index: 99;
+    background-color: #fff;
+}
