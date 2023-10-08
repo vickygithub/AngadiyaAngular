@@ -1,0 +1,13 @@
+<div class="mt-4 summary-list">
+    <ul>
+        <li *ngFor="let obj of balanceList" class="d-flex pt-3 pb-3 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <span>{{obj.Date}}</span>
+                <span>{{obj.OpeningBalance.toFixed(2)}}</span>
+            </div>
+            <mat-divider class="divider"></mat-divider>
+        </li>
+        
+    </ul>
+    
+</div>

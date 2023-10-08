@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,7 +7,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./angadiya.component.scss']
 })
 export class AngadiyaComponent {
+  public existingSendDetails: any;
+  public selectedIndex: any = 0;
   constructor(private router: Router){}
+
+  ngOnInit() {
+    this.existingSendDetails = history.state;
+    if (this.existingSendDetails.Guid != null) {
+      if (this.existingSendDetails.TransitionType.toLowerCase() === 'send') {
+        this.selectedIndex = 0;
+      } else {
+        this.selectedIndex = 1;
+      }
+    }
+    
+  }
   back() {
     this.router.navigate(['/dashboard/main']);
   }

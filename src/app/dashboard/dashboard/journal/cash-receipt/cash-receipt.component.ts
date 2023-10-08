@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CrudService } from 'src/app/services/crud.service';
 import * as moment from 'moment';
 import { CommonService } from 'src/app/services/common.service';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cash-receipt',
@@ -20,10 +21,20 @@ export class CashReceiptComponent {
   public receivedFrom: any;
   public remark: any;
   public loggedInUser: any;
+  @Input() existingCrDetails: any;
+
+  public accountListSubjectNotifier = new Subject<any>();
+  public accountListSubject: Subscription;
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
-
+    this.accountListSubject = this.accountListSubjectNotifier.subscribe((res: any) => {
+      if (this.existingCrDetails.Guid != null) {
+        this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.ReceiverGuid);
+      }
+    });
   }
-
+  ngOnDestory() {
+    this.accountListSubjectNotifier.unsubscribe();
+  }
   displayFn(event: any) {
     return event && event.Name ? event.Name : '';
   }
@@ -38,6 +49,9 @@ export class CashReceiptComponent {
       next: (res: any) => {
         this.spinner.hide();
         this.options = res;
+        if (this.existingCrDetails.Guid != null) {
+          this.accountListSubjectNotifier.next(true);
+        }
       },
       error: (err) => {
         this.spinner.hide();
@@ -50,6 +64,12 @@ export class CashReceiptComponent {
   }
   ngOnInit() {
     this.fetchAccountList();
+    if (this.existingCrDetails.Guid != null) {
+      this.date = this.commonService.getDatePickerDate(this.existingCrDetails.TranDate);
+      this.amount = this.existingCrDetails.Amount;
+      this.commission = this.existingCrDetails.COMMAMOUNT;
+      this.remark = this.existingCrDetails.Remark;
+    }
   }
   reset() {
     this.date = new Date();

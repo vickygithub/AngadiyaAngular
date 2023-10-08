@@ -24,7 +24,7 @@
     <div class="col-xs-12 col-sm-6 col-lg-4">
         <mat-form-field class="w-100">
             <mat-label>Mobile</mat-label>
-            <input matInput type="number" placeholder="Mobile" [(ngModel)]="mobile"
+            <input matInput appLimitMobileNumber type="number" placeholder="Mobile" [(ngModel)]="mobile"
                 pattern="^[0-9]{10}$" required>
             <mat-hint [ngClass]="{'mat-mdc-form-field-error': mobile < 0}" *ngIf="mobile < 0">
                 Invalid Mobile

@@ -116,7 +116,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <button mat-raised-button color="primary" (click)="save()">Save</button>
+    <div class="col-md-12 d-flex gap-2">
+        <button mat-raised-button color="primary" (click)="save()">{{actionLabel}}</button>
+        <button mat-raised-button color="primary" (click)="deleteTran()">Delete</button>
     </div>
 </div>

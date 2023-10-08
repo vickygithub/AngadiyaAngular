@@ -52,7 +52,7 @@ export class CreateUserComponent {
       next: (res: any) => {
         this.spinner.hide();
         this.commonService.openSnackBar(res);
-        this.reset();
+        this.goToDashboard();
       },
       error: (err) => {
         this.spinner.hide();

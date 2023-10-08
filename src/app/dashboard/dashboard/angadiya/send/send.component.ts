@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subject, Subscription } from 'rxjs';
 import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
 @Component({
@@ -9,6 +11,7 @@ import { CrudService } from 'src/app/services/crud.service';
   styleUrls: ['./send.component.scss']
 })
 export class SendComponent {
+  public actionLabel: any = "Save";
   public date: any = new Date();
   public amount: any;
   public accountMasterList: any;
@@ -26,7 +29,23 @@ export class SendComponent {
   public senderCharges: any;
   public remark: any;
   @Output() goToMainDashboard = new EventEmitter<any>();
-  constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService) { }
+  @Input() existingSendDetails: any;
+  public citySubjectNotifier = new Subject<any>();
+  public citySubject: Subscription;
+  constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
+
+    this.citySubject = this.citySubjectNotifier.subscribe((res: any) => {
+      if (this.existingSendDetails.Guid != null) {
+        this.receiverCity = this.cities.find((c: any) => c.Name.toLowerCase().replace(/\s/g, '') === this.existingSendDetails.ReceiverCity.toLowerCase().replace(/\s/g, '')).Guid;
+      }
+    });
+
+
+  }
+
+  ngOnDestroy() {
+    this.citySubjectNotifier.unsubscribe();
+  }
   fetchAccountList() {
     this.spinner.show();
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
@@ -42,7 +61,9 @@ export class SendComponent {
           // Use the localeCompare method to perform a case-insensitive string comparison
           return a.Name.localeCompare(b.Name);
         });
-        this.reset();
+        if (this.existingSendDetails.Guid == null) {
+          this.reset();
+        }
       },
       error: (err) => {
         this.spinner.hide();
@@ -67,6 +88,7 @@ export class SendComponent {
         if (this.cities.length > 0) {
           this.receiverCity = this.cities[0].Guid;
         }
+        this.citySubjectNotifier.next(true);
       },
       error: (err) => {
         this.spinner.hide();
@@ -77,8 +99,64 @@ export class SendComponent {
   ngOnInit() {
     this.fetchAccountList();
     this.fetchCities();
+    if (this.existingSendDetails.Guid != null) {
+      this.date = this.commonService.getDatePickerDate(this.existingSendDetails.TranDate);
+      
+      this.amount = this.existingSendDetails.Amount;
+      this.receiverGuid = this.existingSendDetails.ReceiverGuid;
+
+      this.receiverName = this.existingSendDetails.ReceiverName;
+      this.receiverMobileNo = this.existingSendDetails.ReceiverMobileNo;
+      this.receiverCharges = this.existingSendDetails.ReceiveCharges;
+      this.noteNo = this.existingSendDetails.NoteNo;
+      this.senderGuid = this.existingSendDetails.SenderGuid;
+      this.senderName = this.existingSendDetails.SenderName;
+      this.senderMobileNo = this.existingSendDetails.senderMobileNo;
+      this.senderCharges = this.existingSendDetails.SendCharges;
+      this.remark = this.existingSendDetails.Remark;
+
+      this.actionLabel = "Update";
+    }
   }
-  
+  deleteTran() {
+    this.spinner.show()
+    const params = {
+      Amount: "0",
+      SenderName: "",
+      SenderMobileNo: "",
+      SenderCharges: "0",
+      ReceiverName: "",
+      ReceiverMobileNo: "",
+      ReceiverCharges: "0",
+      Remark: "",
+      NoteNo: "",
+      LoginId: "",
+      SenderCity: "",
+      ReceiverCity: "",
+      TranDate: moment(this.date).format('YYYY-MM-DD'),
+      SenderGuid: this.senderGuid,
+      ReceiverGuid: this.receiverGuid,
+      AdminGuid: this.loggedInUser.AdminGuid,
+      TranGuid: this.existingSendDetails.Guid,
+      Token: this.loggedInUser.Token,
+      DeviceId: "83e9568fa4df9fc1" 
+    }
+    
+    this.crudService.postByUrl('/DeleteSendReceiveData', params).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        this.commonService.openSnackBar(res);
+        if (res.includes('Successful')) {
+          this.router.navigate(['/dashboard/ledger']);
+        }
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.commonService.openSnackBar("Error in deleting Transaction!");
+      }
+    })
+    
+  }
   reset() {
     const receiverList = this.accountMasterList.filter((a: any) => a.Type.toLowerCase() === 'angadiya');
     this.receiverGuid = receiverList.length ? receiverList[0].Guid : null;
@@ -94,15 +172,15 @@ export class SendComponent {
     this.receiverName = null;
     this.receiverMobileNo = null;
     this.receiverCharges = null;
-    this.noteNo  = null;
+    this.noteNo = null;
     this.senderName = null;
     this.senderMobileNo = null;
     this.senderCharges = null;
     this.remark = null;
   }
- 
+
   save() {
-    if (this.amount == null || this.date == null || this.receiverGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.senderGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo)))   {
+    if (this.amount == null || this.date == null || this.receiverGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.senderGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo))) {
       return;
     }
 

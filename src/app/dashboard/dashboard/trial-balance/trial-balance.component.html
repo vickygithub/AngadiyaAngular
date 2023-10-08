@@ -5,7 +5,7 @@
             <div class="d-flex flex-column mb-2 gap-3">
 
 
-                <mat-card class="w-100" *ngFor="let obj of filteredReceivable">
+                <mat-card class="w-100" *ngFor="let obj of filteredReceivable" (click)="goToLedger(obj)">
                     <mat-card-content>
                         <div class="d-flex justify-content-between">
                             <span>{{obj.Name}}</span>
@@ -14,14 +14,42 @@
                     </mat-card-content>
                 </mat-card>
             </div>
+            <div class="mb-2">
+                <mat-card class="w-100">
+                    <mat-card-content>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong>Total</strong>
+                            <span>
+                                <mat-icon class="amount-matched" *ngIf="balanceMatched">check</mat-icon>
+                                <mat-icon class="amount-mismatched" *ngIf="!balanceMatched">close</mat-icon>
+                            </span>
+                            <strong>{{totalReceivable}}</strong>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </mat-tab>
         <mat-tab label="Payable">
             <div class="d-flex flex-column mb-2 gap-3">
-                <mat-card class="w-100" *ngFor="let obj of filteredPayable">
+                <mat-card class="w-100" *ngFor="let obj of filteredPayable" (click)="goToLedger(obj)">
                     <mat-card-content>
                         <div class="d-flex justify-content-between">
                             <span>{{obj.Name}}</span>
                             <span>{{obj.ClosingBalance | number:'1.2-2'}}</span>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="mb-2">
+                <mat-card class="w-100">
+                    <mat-card-content>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong>Total</strong>
+                            <span>
+                                <mat-icon class="amount-matched" *ngIf="balanceMatched">check</mat-icon>
+                                <mat-icon class="amount-mismatched" *ngIf="!balanceMatched">close</mat-icon>
+                            </span>
+                            <strong>{{totalPayable}}</strong>
                         </div>
                     </mat-card-content>
                 </mat-card>

@@ -39,12 +39,14 @@ import { LedgerComponent } from './dashboard/ledger/ledger.component';
 import { ReportComponent } from './dashboard/ledger/report/report.component';
 import { MatTableModule } from '@angular/material/table';
 import { TrialBalanceComponent } from './dashboard/trial-balance/trial-balance.component';
+import { ClosingBalanceSummaryComponent } from './dashboard/ledger/report/closing-balance-summary/closing-balance-summary.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
   },
   display: {
-    dateInput: 'DD/MM/YYYY'
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY'
   },
 };
 
@@ -67,7 +69,8 @@ export const MY_FORMATS = {
     LimitMobileNumberDirective,
     LedgerComponent,
     ReportComponent,
-    TrialBalanceComponent
+    TrialBalanceComponent,
+    ClosingBalanceSummaryComponent
   ],
   imports: [
     CommonModule,

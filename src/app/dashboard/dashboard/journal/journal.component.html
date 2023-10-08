@@ -1,6 +1,6 @@
 <div class="pt-4 pb-4">
     <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
-    <mat-tab-group class="journal-mat-tab-group">
+    <mat-tab-group class="journal-mat-tab-group" [selectedIndex]="selectedIndex">
         <mat-tab>
             <ng-template mat-tab-label>
                 CASH <br>
@@ -14,7 +14,7 @@
                 RECEIPT
             </ng-template>
             <ng-template matTabContent>
-                <app-cash-receipt></app-cash-receipt>
+                <app-cash-receipt [existingCrDetails]="existingCrDetails"></app-cash-receipt>
             </ng-template>
         </mat-tab>
         <mat-tab label="JOURNAL">

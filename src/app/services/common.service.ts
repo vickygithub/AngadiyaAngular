@@ -10,7 +10,14 @@ export class CommonService {
   public citiesSubjectNotifier = new BehaviorSubject<any>([]);
   @Output() newAppVersionAvailableEventEmitter: EventEmitter<any> = new EventEmitter();
   constructor(private _snackBar: MatSnackBar, private router: Router) { }
-  
+
+  public getDatePickerDate(date: any) {
+    const parts = date.split("-");
+    const dateArray = [parts[1], parts[0], parts[2]];
+    const dateString = dateArray.join("-");
+    return new Date(dateString);
+  }
+
   public getNewAppVersionAvailableEventEmitter() {
     return this.newAppVersionAvailableEventEmitter;
   }

@@ -15,7 +15,7 @@ export class ReportComponent {
   public loggedInUser: any;
   public report: any;
   public date: any = new Date();
-  public balances: any;
+  public balances: any = [];
   public displayedColumns = ['particular', 'type', 'tno', 'amount'];
   public sendToken: any = 0;
   public totalAmount: any = 0;
@@ -40,9 +40,7 @@ export class ReportComponent {
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        if (res == null || res.length == 0) {
-          this.commonService.openSnackBar("No data found!!!");
-        }
+
         this.sendToken = 0;
         res.forEach((r: any) => {
           if (r.TransitionType.toLowerCase() === 'send') {
@@ -81,7 +79,7 @@ export class ReportComponent {
         this.totalAmount = res.reduce((acc: any, curr: any) => {
           return acc + parseFloat(curr.displayAmount);
         }, 0);
-
+        this.amountMatched = false;
         if (parseFloat(this.balances[0].ClosingBalance) === this.totalAmount) {
           this.amountMatched = true;
         }
@@ -92,6 +90,18 @@ export class ReportComponent {
         this.commonService.openSnackBar("Error!!!");
       }
     });
+  }
+  goToSendComponent(row: any) {
+    switch (row.TransitionType.toLowerCase()) {
+      case "send":
+        this.router.navigate(['/dashboard/angadiya'], { state: row });
+        break;
+      case "cr":
+        this.router.navigate(['/dashboard/journal'], { state: row });
+        break;
+      default:
+        break;
+    }
   }
   ngOnInit() {
     this.fetchDetails();
