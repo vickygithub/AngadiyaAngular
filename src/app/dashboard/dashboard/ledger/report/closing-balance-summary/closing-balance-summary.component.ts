@@ -24,7 +24,7 @@ export class ClosingBalanceSummaryComponent {
       AccountGuid: this.selectedAcount.Guid
     }
     this.spinner.show();
-    this.crudService.postByUrl('/OpeningBalanceSummary', params).subscribe({
+    this.crudService.postByUrl('/ClosingBalanceSummary', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         this.balanceList = res;

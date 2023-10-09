@@ -42,7 +42,7 @@ export class CreateUserComponent {
       return;
     }
     this.userDetails.MobileNo = String(this.userDetails.MobileNo);
-    this.userDetails.AccountStartDate = moment(this.accountStartDate).format('YYYY-MM-DD hh:mm:ss');
+    this.userDetails.AccountStartDate = moment(this.accountStartDate).format('YYYY-MM-DD');
     this.userDetails.Token = this.loggedInUser.Token;
     this.userDetails.ProjectType = ProjectTypeEnum[this.role];
     this.userDetails.Name = this.userDetails.MobileNo;
