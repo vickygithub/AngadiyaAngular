@@ -27,12 +27,12 @@ export class AccountDetailComponent {
       DeviceId: "83e9568fa4df9fc1",
       Token: loggedInUser.Token,
       Name: this.existingAccountMaster.Name,
-      OpeningBalance: `${this.existingAccountMaster.OpeningBalance}`,
-      MobileNo: this.existingAccountMaster.MobileNo,
+      OpeningBalance: `${this.existingAccountMaster.OpeningBalance.toFixed(2)}`,
+      MobileNo: String(this.existingAccountMaster.MobileNo),
       Type: this.existingAccountMaster.Type,
       LoginId: loggedInUser.Guid,
       AdminGuid: this.existingAccountMaster.AdminGuid,
-      SupperAdminGuid: this.existingAccountMaster.SupperAdminGuid,
+      SuperAdminGuid: this.existingAccountMaster.SupperAdminGuid,
       Active: "TRUE",
       Guid: this.existingAccountMaster.Guid
 }).subscribe({
