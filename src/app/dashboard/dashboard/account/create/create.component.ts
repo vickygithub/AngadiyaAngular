@@ -43,11 +43,11 @@ export class CreateComponent {
     this.crudService.postByUrl('/AccountCreate', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.openSnackBar(res);
+        this.commonService.emitSuccessErrorEventEmitter({success: true});
         this.back();
       },
       error: (err) => {
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
         this.spinner.hide();
       }
     })

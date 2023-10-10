@@ -19,13 +19,16 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { CommonService } from './services/common.service';
 import { UpdateService } from './services/update.service';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ErrorDialogComponent
   ],
   imports: [
     NgIdleModule.forRoot(),
@@ -41,6 +44,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     MatCardModule,
     MatButtonModule,
     NgxSpinnerModule,
+    MatDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode()
       // Register the ServiceWorker as soon as the application is stable

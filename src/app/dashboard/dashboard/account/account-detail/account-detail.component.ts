@@ -19,6 +19,7 @@ export class AccountDetailComponent {
 
   update() {
     if (!this.commonService.isMobileValid(this.existingAccountMaster.MobileNo)) {
+      this.commonService.emitSuccessErrorEventEmitter({message: 'Invalid Mobile No.', success: false});
       return;
     }
     this.spinner.show();
@@ -39,13 +40,13 @@ export class AccountDetailComponent {
       next: (res: any) => {
         this.spinner.hide();
         if ((typeof res) == "string") {
-          this.commonService.openSnackBar(res);
+          this.commonService.emitSuccessErrorEventEmitter({success: true});
         }
         this.back();
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }

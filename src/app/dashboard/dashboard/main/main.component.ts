@@ -36,7 +36,7 @@ export class MainComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }

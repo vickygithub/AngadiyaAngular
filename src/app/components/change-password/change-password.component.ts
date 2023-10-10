@@ -30,17 +30,17 @@ export class ChangePasswordComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.includes("INVALID")) {
-          this.commonService.openSnackBar(res);
+          this.commonService.emitSuccessErrorEventEmitter({message: res, success: false});
           return;
         }
-        this.commonService.openSnackBar(res);
+        this.commonService.emitSuccessErrorEventEmitter({success: true});
         this.loggedInUser.IsActivated = true;
         sessionStorage.setItem('userDetails', JSON.stringify(this.loggedInUser));
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: "Error!", success: false});
       }
     })
   }

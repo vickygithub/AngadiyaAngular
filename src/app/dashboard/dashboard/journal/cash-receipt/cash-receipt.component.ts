@@ -55,7 +55,7 @@ export class CashReceiptComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error in getting Account List!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }
@@ -113,12 +113,12 @@ export class CashReceiptComponent {
     this.crudService.postByUrl('/ReceiptTransaction', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.openSnackBar(res);
+        this.commonService.emitSuccessErrorEventEmitter({success: true});
         this.reset();
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }

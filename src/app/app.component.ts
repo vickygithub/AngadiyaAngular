@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { UpdateService } from './services/update.service';
 import { CommonService } from './services/common.service';
-
+import {MatDialog, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,9 +12,21 @@ import { CommonService } from './services/common.service';
 })
 export class AppComponent {
   title = 'angadiya';
+  isSuccess: any = false;
   private numberOfSeconds: number = 60;
-  constructor(private _idle: Idle, private router: Router, private sw: UpdateService, private commonService: CommonService) {
+  constructor(private _idle: Idle, private router: Router, private sw: UpdateService, private commonService: CommonService, public dialog: MatDialog) {
     this.commonService.getNewAppVersionAvailableEventEmitter().subscribe(() => this.sw.promptUser());
+    this.commonService.getSuccessErrorEventEmitter().subscribe((res: any) => {
+      this.isSuccess = res.success;
+      if (!res.success) {
+        const dialogRef = this.dialog.open(ErrorDialogComponent, {
+          data: {message: res.message},
+        });
+      }
+      setTimeout(() => {
+        this.isSuccess = false
+      }, 2000)
+    });
   }
   
   ngOnInit() {

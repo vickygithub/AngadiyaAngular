@@ -39,7 +39,7 @@ export class AddCityComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
    }
@@ -50,7 +50,7 @@ export class AddCityComponent {
   add() {
     const existingCityFound = this.existingCities && this.existingCities.find((c: any) => c.Name.toLowerCase() === this.cityName.toLowerCase());
     if (existingCityFound) {
-      this.commonService.openSnackBar("City Already Exist");
+      this.commonService.emitSuccessErrorEventEmitter({success: false, message: 'City Already Exist!'});
       return;
     }
     this.spinner.show();
@@ -62,12 +62,12 @@ export class AddCityComponent {
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.openSnackBar(res);
+        this.commonService.emitSuccessErrorEventEmitter({success: true});
         this.router.navigate(['/dashboard/city']);
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }

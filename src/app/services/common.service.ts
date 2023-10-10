@@ -9,6 +9,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class CommonService {
   public citiesSubjectNotifier = new BehaviorSubject<any>([]);
   @Output() newAppVersionAvailableEventEmitter: EventEmitter<any> = new EventEmitter();
+  @Output() successErrorEmitter: EventEmitter<any> = new EventEmitter();
   constructor(private _snackBar: MatSnackBar, private router: Router) { }
 
   public getDatePickerDate(date: any) {
@@ -17,7 +18,13 @@ export class CommonService {
     const dateString = dateArray.join("-");
     return new Date(dateString);
   }
+  public getSuccessErrorEventEmitter() {
+    return this.successErrorEmitter;
+  }
 
+  public emitSuccessErrorEventEmitter(val: any) {
+    this.successErrorEmitter.emit(val);
+  }
   public getNewAppVersionAvailableEventEmitter() {
     return this.newAppVersionAvailableEventEmitter;
   }
@@ -31,7 +38,8 @@ export class CommonService {
 
   openSnackBar(message: string) {
     this._snackBar.open(message, "", {
-      duration: 3000
+      duration: 300000,
+      verticalPosition: 'top'
     });
   }
 

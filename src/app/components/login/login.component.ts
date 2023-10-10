@@ -39,7 +39,7 @@ export class LoginComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.includes("INVALID") || res.includes("MISSMATCH")) {
-          this.commonService.openSnackBar(res);
+          this.commonService.emitSuccessErrorEventEmitter({message: res, success: false});
           return;
         }
         let user = res[0];

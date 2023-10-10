@@ -22,6 +22,9 @@ export class AccountComponent {
   }
 
   editAccount(account: any) {
+    if (account.Type.toLowerCase().replace(/\s/g, '') === 'capital' || account.Name.toLowerCase().replace(/\s/g, '') === 'capitalaccount') {
+      return;
+    }
     this.router.navigate([`/dashboard/account/edit`], { state: account });
   }
   back() {
@@ -65,7 +68,7 @@ export class AccountComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: "Error!", success: false});
       }
     })
   }

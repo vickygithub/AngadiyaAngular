@@ -38,7 +38,7 @@ export class CreateUserComponent {
   }
   create() {
     if (!this.commonService.isMobileValid(this.userDetails.MobileNo)) {
-      this.commonService.openSnackBar("Invalid Number");
+      this.commonService.emitSuccessErrorEventEmitter({success: false, message: "Invalid Mobile No."});
       return;
     }
     this.userDetails.MobileNo = String(this.userDetails.MobileNo);
@@ -51,12 +51,12 @@ export class CreateUserComponent {
     this.crudService.postByUrl('/AdminCreate', this.userDetails).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.openSnackBar(res);
+        this.commonService.emitSuccessErrorEventEmitter({success: true});
         this.goToDashboard();
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }

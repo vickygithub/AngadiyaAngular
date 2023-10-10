@@ -67,7 +67,7 @@ export class SendComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }
@@ -92,7 +92,7 @@ export class SendComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }
@@ -145,14 +145,14 @@ export class SendComponent {
     this.crudService.postByUrl('/DeleteSendReceiveData', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.openSnackBar(res);
+        this.commonService.emitSuccessErrorEventEmitter({success: true});
         if (res.includes('Successful')) {
           this.router.navigate(['/dashboard/ledger']);
         }
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error in deleting Transaction!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
     
@@ -210,13 +210,13 @@ export class SendComponent {
     this.crudService.postByUrl('/SendTransaction', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.openSnackBar(res);
+        this.commonService.emitSuccessErrorEventEmitter({success: true});
         this.reset();
         this.goToMainDashboard.emit();
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.openSnackBar("Error!!!");
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
       }
     })
   }
