@@ -17,7 +17,6 @@ export class CashReceiptComponent {
   public amount: any;
   public commission: any;
   public options: any = [];
-  public filteredOptions: any = [];
   public receivedFrom: any;
   public remark: any;
   public loggedInUser: any;
@@ -28,7 +27,7 @@ export class CashReceiptComponent {
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
     this.accountListSubject = this.accountListSubjectNotifier.subscribe((res: any) => {
       if (this.existingCrDetails.Guid != null) {
-        this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.ReceiverGuid);
+        this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.CreditGuid);
       }
     });
   }
@@ -59,9 +58,7 @@ export class CashReceiptComponent {
       }
     })
   }
-  doFilter() {
-    this.filteredOptions = this.options.filter((o: any) => o.Name.toLowerCase().includes(typeof this.receivedFrom === 'string' ? this.receivedFrom.toLowerCase() : this.receivedFrom) && o.Type.toLowerCase() !== "cash");
-  }
+  
   ngOnInit() {
     this.fetchAccountList();
     if (this.existingCrDetails.Guid != null) {
@@ -97,13 +94,13 @@ export class CashReceiptComponent {
       NoteNo: "NA",
       ReceiverCharges: "0",
       ReceiverCity: "NA",
-      ReceiverGuid: this.receivedFrom.Guid,
+      CreditGuid: this.receivedFrom.Guid,
       ReceiverMobileNo: "0",
       ReceiverName: "NA",
       Remark: this.remark || "",
       SenderCharges: "0",
       SenderCity: "NA",
-      SenderGuid: senderGuid,
+      DebitGuid: senderGuid,
       SenderMobileNo: "0",
       SenderName: "NA",
       Token: this.loggedInUser.Token,
@@ -113,8 +110,7 @@ export class CashReceiptComponent {
     this.crudService.postByUrl('/ReceiptTransaction', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({success: true});
-        this.reset();
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.spinner.hide();

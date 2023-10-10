@@ -22,7 +22,7 @@ export class AccountComponent {
   }
 
   editAccount(account: any) {
-    if (account.Type.toLowerCase().replace(/\s/g, '') === 'capital' || account.Name.toLowerCase().replace(/\s/g, '') === 'capitalaccount') {
+    if (account.Type.toLowerCase().replace(/\s/g, '') === 'capital' || account.Name.toLowerCase().replace(/\s/g, '') === 'capitalaccount' || account.Type.toLowerCase().replace(/\s/g, '') === 'commission') {
       return;
     }
     this.router.navigate([`/dashboard/account/edit`], { state: account });

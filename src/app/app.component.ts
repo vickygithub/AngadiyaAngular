@@ -21,6 +21,7 @@ export class AppComponent {
       if (!res.success) {
         const dialogRef = this.dialog.open(ErrorDialogComponent, {
           data: {message: res.message},
+          minWidth: "350px"
         });
       }
       setTimeout(() => {

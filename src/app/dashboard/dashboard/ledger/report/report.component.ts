@@ -59,10 +59,10 @@ export class ReportComponent {
               r['displayAmount'] = `0.00`
             }
           } else {
-            if (this.selectedAcount.Guid === r.ReceiverGuid) {
+            if (this.selectedAcount.Guid === r.CreditGuid) {
               r['bgRed'] = true;
               r['displayAmount'] = `-${r.CREADITAMOUNT.toFixed(2)}`
-            } else if (this.selectedAcount.Guid !== r.ReceiverGuid) {
+            } else if (this.selectedAcount.Guid !== r.CreditGuid) {
               r['bgRed'] = false;
               r['displayAmount'] = `${r.DEBITAMOUNT.toFixed(2)}`
             }

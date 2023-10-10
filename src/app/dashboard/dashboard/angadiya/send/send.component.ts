@@ -16,14 +16,14 @@ export class SendComponent {
   public amount: any;
   public accountMasterList: any;
   public loggedInUser: any;
-  public receiverGuid: any;
+  public creditGuid: any;
   public cities: any = [];
   public receiverCity: any;
   public receiverName: any;
   public receiverMobileNo: any;
   public receiverCharges: any;
   public noteNo: any;
-  public senderGuid: any;
+  public debitGuid: any;
   public senderName: any;
   public senderMobileNo: any;
   public senderCharges: any;
@@ -103,13 +103,13 @@ export class SendComponent {
       this.date = this.commonService.getDatePickerDate(this.existingSendDetails.TranDate);
       
       this.amount = this.existingSendDetails.Amount;
-      this.receiverGuid = this.existingSendDetails.ReceiverGuid;
+      this.creditGuid = this.existingSendDetails.CreditGuid;
 
       this.receiverName = this.existingSendDetails.ReceiverName;
       this.receiverMobileNo = this.existingSendDetails.ReceiverMobileNo;
       this.receiverCharges = this.existingSendDetails.ReceiveCharges;
       this.noteNo = this.existingSendDetails.NoteNo;
-      this.senderGuid = this.existingSendDetails.SenderGuid;
+      this.debitGuid = this.existingSendDetails.SenderGuid;
       this.senderName = this.existingSendDetails.SenderName;
       this.senderMobileNo = this.existingSendDetails.senderMobileNo;
       this.senderCharges = this.existingSendDetails.SendCharges;
@@ -134,8 +134,8 @@ export class SendComponent {
       SenderCity: "",
       ReceiverCity: "",
       TranDate: moment(this.date).format('YYYY-MM-DD'),
-      SenderGuid: this.senderGuid,
-      ReceiverGuid: this.receiverGuid,
+      DebitGuid: this.debitGuid,
+      CreditGuid: this.creditGuid,
       AdminGuid: this.loggedInUser.AdminGuid,
       TranGuid: this.existingSendDetails.Guid,
       Token: this.loggedInUser.Token,
@@ -159,10 +159,10 @@ export class SendComponent {
   }
   reset() {
     const receiverList = this.accountMasterList.filter((a: any) => a.Type.toLowerCase() === 'angadiya');
-    this.receiverGuid = receiverList.length ? receiverList[0].Guid : null;
+    this.creditGuid = receiverList.length ? receiverList[0].Guid : null;
 
     const senderList = this.accountMasterList.filter((a: any) => a.Type.toLowerCase() === 'cash' || a.Type.toLowerCase() === 'client');
-    this.senderGuid = senderList.find((s: any) => s.Type.toLowerCase() === 'cash').Guid;
+    this.debitGuid = senderList.find((s: any) => s.Type.toLowerCase() === 'cash').Guid;
     if (this.cities.length > 0) {
       this.receiverCity = this.cities[0].Guid;
     }
@@ -180,7 +180,7 @@ export class SendComponent {
   }
 
   save() {
-    if (this.amount == null || this.date == null || this.receiverGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.senderGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo))) {
+    if (this.amount == null || this.date == null || this.creditGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.debitGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo))) {
       return;
     }
 
@@ -188,13 +188,13 @@ export class SendComponent {
     const params = {
       TranDate: moment(this.date).format('YYYY-MM-DD'),
       Amount: "" + this.amount.toFixed(2),
-      ReceiverGuid: this.receiverGuid,
+      CreditGuid: this.creditGuid,
       ReceiverCity: this.receiverCity,
       ReceiverName: this.receiverName,
       ReceiverMobileNo: String(this.receiverMobileNo),
       ReceiverCharges: "" + (this.receiverCharges || 0),
       NoteNo: this.noteNo || "",
-      SenderGuid: this.senderGuid,
+      DebitGuid: this.debitGuid,
       SenderName: this.senderName || "",
       SenderMobileNo: String(this.senderMobileNo),
       SenderCharges: "" + (this.senderCharges || 0),

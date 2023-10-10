@@ -21,7 +21,7 @@
     <div class="col-xs-12 col-sm-6 col-lg-4">
         <mat-form-field class="w-100">
             <mat-label>To Angadiya</mat-label>
-            <mat-select [(ngModel)]="receiverGuid" required>
+            <mat-select [(ngModel)]="creditGuid" required>
                 <ng-container *ngFor="let account of accountMasterList">
                     <mat-option *ngIf="account.Type.toLowerCase() === 'angadiya'" [value]="account.Guid">
                         {{account.Name}}
@@ -75,7 +75,7 @@
     <div class="col-xs-12 col-sm-6 col-lg-4">
         <mat-form-field class="w-100">
             <mat-label>Sender</mat-label>
-            <mat-select [(ngModel)]="senderGuid" required>
+            <mat-select [(ngModel)]="debitGuid" required>
                 <ng-container *ngFor="let account of accountMasterList">
                     <mat-option *ngIf="account.Type.toLowerCase() === 'cash' || account.Type.toLowerCase() === 'client'"
                         [value]="account.Guid">
@@ -118,6 +118,6 @@
 <div class="row">
     <div class="col-md-12 d-flex gap-2">
         <button mat-raised-button color="primary" (click)="save()">{{actionLabel}}</button>
-        <button mat-raised-button color="primary" (click)="deleteTran()">Delete</button>
+        <button mat-raised-button color="primary" (click)="deleteTran()" *ngIf="existingSendDetails.Guid != null">Delete</button>
     </div>
 </div>

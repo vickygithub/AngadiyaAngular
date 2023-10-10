@@ -25,13 +25,13 @@
     <div class="col-xs-12 col-sm-6 col-lg-4">
         <mat-form-field class="w-100">
             <mat-label>Received From</mat-label>
-            <input type="text" placeholder="Pick one" matInput [matAutocomplete]="auto" [(ngModel)]="receivedFrom"
-                (ngModelChange)="doFilter()" required>
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let option of filteredOptions" [value]="option">
-                    {{option.Name}}
-                </mat-option>
-            </mat-autocomplete>
+            <mat-select [(ngModel)]="receivedFrom" required>
+                <ng-container *ngFor="let account of options">
+                    <mat-option *ngIf="account.Type.toLowerCase() === 'angadiya'" [value]="account">
+                        {{account.Name}}
+                    </mat-option>
+                </ng-container>
+            </mat-select>
         </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-lg-4">
