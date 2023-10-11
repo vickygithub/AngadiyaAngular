@@ -102,6 +102,9 @@ export class ReportComponent {
       case "cp":
         this.router.navigate(['/dashboard/journal'], { state: row });
         break;
+      case "jr":
+        this.router.navigate(['/dashboard/journal'], { state: row });
+        break;
       default:
         break;
     }

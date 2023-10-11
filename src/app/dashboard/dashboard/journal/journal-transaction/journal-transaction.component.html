@@ -21,7 +21,7 @@
             <mat-label>Debit</mat-label>
             <mat-select [(ngModel)]="debitGuid" required>
                 <ng-container *ngFor="let account of options">
-                    <mat-option *ngIf="account.Type.toLowerCase() !== 'cash'" [value]="account.Guid">
+                    <mat-option *ngIf="account.Type.toLowerCase() !== 'cash' && account.Guid !== creditGuid" [value]="account.Guid">
                         {{account.Name}}
                     </mat-option>
                 </ng-container>
@@ -33,7 +33,7 @@
             <mat-label>Credit</mat-label>
             <mat-select [(ngModel)]="creditGuid" required>
                 <ng-container *ngFor="let account of options">
-                    <mat-option *ngIf="account.Type.toLowerCase() !== 'cash'" [value]="account.Guid">
+                    <mat-option *ngIf="account.Type.toLowerCase() !== 'cash' && account.Guid !== debitGuid" [value]="account.Guid">
                         {{account.Name}}
                     </mat-option>
                 </ng-container>

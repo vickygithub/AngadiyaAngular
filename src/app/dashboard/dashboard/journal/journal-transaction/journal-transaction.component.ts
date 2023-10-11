@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
 import * as moment from 'moment';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-journal-transaction',
@@ -18,12 +19,30 @@ export class JournalTransactionComponent {
   public debitGuid: any;
   public creditGuid: any;
   public options: any = [];
+  @Input() existingCrDetails: any;
+  @Input() tranType: any;
+  public accountListSubjectNotifier = new Subject<any>();
+  public accountListSubject: Subscription;
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
-  }
 
+    this.accountListSubject = this.accountListSubjectNotifier.subscribe((res: any) => {
+      if (this.existingCrDetails.Guid != null) {
+        this.creditGuid = this.options.find((c: any) => c.Guid === this.existingCrDetails.CreditGuid).Guid;
+        this.debitGuid = this.options.find((c: any) => c.Guid === this.existingCrDetails.DebitGuid).Guid;
+      }
+    });
+  }
+  ngOnDestory() {
+    this.accountListSubjectNotifier.unsubscribe();
+  }
   ngOnInit() {
     this.fetchAccountList();
+    if (this.existingCrDetails.Guid != null) {
+      this.date = this.commonService.getDatePickerDate(this.existingCrDetails.TranDate);
+      this.amount = this.existingCrDetails.Amount;
+      this.remark = this.existingCrDetails.Remark;
+    }
   }
   fetchAccountList() {
     this.spinner.show();
@@ -36,6 +55,9 @@ export class JournalTransactionComponent {
       next: (res: any) => {
         this.spinner.hide();
         this.options = res;
+        if (this.existingCrDetails.Guid != null) {
+          this.accountListSubjectNotifier.next(true);
+        }
       },
       error: (err) => {
         this.spinner.hide();
