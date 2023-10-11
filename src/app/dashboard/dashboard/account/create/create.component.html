@@ -31,6 +31,13 @@
             </mat-hint>
         </mat-form-field>
     </div>
+    <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="type.toLowerCase() === 'angadiya' || type.toLowerCase() === 'client'">
+        <mat-form-field class="w-100">
+            <mat-label>City</mat-label>
+            <input matInput placeholder="City" [(ngModel)]="city"
+                pattern="[a-zA-Z]+" required>
+        </mat-form-field>
+    </div>
 </div>
 <div class="d-flex flex-wrap gap-2 mt-2">
     <button mat-raised-button color="primary" (click)="save()">Save</button>

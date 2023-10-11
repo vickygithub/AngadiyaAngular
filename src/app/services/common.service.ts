@@ -56,4 +56,14 @@ export class CommonService {
     }
     return false;
   }
+
+  isCityNameValid(input: any) {
+    if (input == null) {
+      return false;
+    }
+    if ((/^[a-zA-Z]+$/.test(input))) {
+      return true;
+    }
+    return false;
+  }
 }

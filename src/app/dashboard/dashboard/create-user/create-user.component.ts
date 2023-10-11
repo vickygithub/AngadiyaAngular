@@ -22,7 +22,8 @@ export class CreateUserComponent {
     MobileNo: "",
     DeviceId: "83e9568fa4df9fc1",
     Password: "admin",
-    LoginId: ""
+    LoginId: "",
+    City: ""
   }
 
   constructor(private crudService: CrudService, private spinner: NgxSpinnerService, private commonService: CommonService) {
@@ -39,6 +40,10 @@ export class CreateUserComponent {
   create() {
     if (!this.commonService.isMobileValid(this.userDetails.MobileNo)) {
       this.commonService.emitSuccessErrorEventEmitter({success: false, message: "Invalid Mobile No."});
+      return;
+    }
+    if (!this.commonService.isCityNameValid(this.userDetails.City)) {
+      this.commonService.emitSuccessErrorEventEmitter({success: false, message: "Invalid City."});
       return;
     }
     this.userDetails.MobileNo = String(this.userDetails.MobileNo);

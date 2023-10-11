@@ -20,12 +20,19 @@
                         </mat-form-field>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <mat-form-field class="w-100">
+                            <mat-label>City</mat-label>
+                            <input matInput placeholder="City" [(ngModel)]="userDetails.City"
+                                pattern="[a-zA-Z]+" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
                         <mat-button-toggle-group class="w-100 role-group" [(ngModel)]="role">
                             <mat-button-toggle value="angadiya">Angadiya</mat-button-toggle>
                             <mat-button-toggle value="account">Account</mat-button-toggle>
                         </mat-button-toggle-group>
                     </div>
-                
+                    
                 </div>
                 <div class="d-flex flex-wrap gap-2 mt-2">
                     <button mat-raised-button color="primary" (click)="create()">Create</button>

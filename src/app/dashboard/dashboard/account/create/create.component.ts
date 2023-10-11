@@ -15,17 +15,23 @@ export class CreateComponent {
   public mobile: any;
   public type: any = "Angadiya";
   public loggedInUser: any;
+  public city: any;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private router: Router, private commonService: CommonService) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
 
   save() {
+    
     if (this.name == null || this.name == "" || this.type == null) {
       return;
     }
-    if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isMobileValid(this.mobile)) {
+    if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isMobileValid(this.mobile) && (this.city == '' || this.city == null)) {
       return;
     }
+    if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isCityNameValid(this.city)) {
+      return;
+    }
+   
     this.spinner.show();
     const params = {
       Name: this.name,
@@ -38,7 +44,8 @@ export class CreateComponent {
       Token: this.loggedInUser.Token,
       DeviceId: '83e9568fa4df9fc1',
       Active: "",
-      Guid: ""
+      Guid: "",
+      City: this.city == null || this.city == '' ? this.loggedInUser.City : this.city
     }
     this.crudService.postByUrl('/AccountCreate', params).subscribe({
       next: (res: any) => {

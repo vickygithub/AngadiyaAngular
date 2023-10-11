@@ -22,6 +22,10 @@ export class AccountDetailComponent {
       this.commonService.emitSuccessErrorEventEmitter({message: 'Invalid Mobile No.', success: false});
       return;
     }
+    if (!this.commonService.isCityNameValid(this.existingAccountMaster.City)) {
+      this.commonService.emitSuccessErrorEventEmitter({message: 'Invalid City.', success: false});
+      return;
+    }
     this.spinner.show();
     const loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
     this.crudService.postByUrl('/AccountEdit', {
@@ -35,7 +39,8 @@ export class AccountDetailComponent {
       AdminGuid: this.existingAccountMaster.AdminGuid,
       SuperAdminGuid: this.existingAccountMaster.SupperAdminGuid,
       Active: "TRUE",
-      Guid: this.existingAccountMaster.Guid
+      Guid: this.existingAccountMaster.Guid,
+      City: this.existingAccountMaster.City
 }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
