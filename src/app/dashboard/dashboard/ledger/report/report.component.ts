@@ -47,6 +47,19 @@ export class ReportComponent {
             this.sendToken++;
             r['tokenNo'] = this.sendToken;
           }
+          if (r.TransitionType.toLowerCase() === 'jr') {
+            if (this.selectedAcount.Guid === r.DebitGuid) {
+              r['displayParticular'] = `To- ${r.ReceiverName}`;
+            } else {
+              r['displayParticular'] = `By- ${r.SennderName}`;
+            }
+          }
+          if (r.TransitionType.toLowerCase() === 'send') {
+            r['displayParticular'] = `To- ${r.ReceiverCity == 'NA' ? '' : r.ReceiverCity}`;
+          }
+          if (r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr') {
+            r['displayParticular'] = 'By- Cash';
+          }
           if (this.selectedAcount.Type.toLowerCase() == 'commission') {
             r['bgRed'] = null;
             if (r.COMMAMOUNT > 0) {
