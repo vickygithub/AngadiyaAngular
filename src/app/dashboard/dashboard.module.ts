@@ -40,6 +40,7 @@ import { ReportComponent } from './dashboard/ledger/report/report.component';
 import { MatTableModule } from '@angular/material/table';
 import { TrialBalanceComponent } from './dashboard/trial-balance/trial-balance.component';
 import { ClosingBalanceSummaryComponent } from './dashboard/ledger/report/closing-balance-summary/closing-balance-summary.component';
+import { JournalTransactionComponent } from './dashboard/journal/journal-transaction/journal-transaction.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -70,7 +71,8 @@ export const MY_FORMATS = {
     LedgerComponent,
     ReportComponent,
     TrialBalanceComponent,
-    ClosingBalanceSummaryComponent
+    ClosingBalanceSummaryComponent,
+    JournalTransactionComponent
   ],
   imports: [
     CommonModule,

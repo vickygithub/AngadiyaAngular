@@ -21,13 +21,18 @@ export class CashReceiptComponent {
   public remark: any;
   public loggedInUser: any;
   @Input() existingCrDetails: any;
+  @Input() tranType: any;
 
   public accountListSubjectNotifier = new Subject<any>();
   public accountListSubject: Subscription;
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
     this.accountListSubject = this.accountListSubjectNotifier.subscribe((res: any) => {
       if (this.existingCrDetails.Guid != null) {
-        this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.CreditGuid);
+        if (this.existingCrDetails.TransitionType.toLowerCase() === 'cr') {
+          this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.CreditGuid);
+        } else { //cp
+          this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.DebitGuid);
+        }
       }
     });
   }
@@ -85,7 +90,7 @@ export class CashReceiptComponent {
       return;
     }
     const senderGuid = this.options.find((o: any) => o.Type.toLowerCase() === "cash").Guid;
-    const params = {
+    let params = {
       AdminGuid: this.loggedInUser.AdminGuid,
       Amount: "" + this.amount.toFixed(2),
       Commission: "" + (this.commission || 0).toFixed(2),
@@ -106,8 +111,13 @@ export class CashReceiptComponent {
       Token: this.loggedInUser.Token,
       TranDate: moment(this.date).format('YYYY-MM-DD')
     }
+    if (this.tranType === 'cp') {
+      params.CreditGuid = senderGuid;
+      params.DebitGuid = this.receivedFrom.Guid;
+    }
+    
     this.spinner.show();
-    this.crudService.postByUrl('/ReceiptTransaction', params).subscribe({
+    this.crudService.postByUrl(`${this.tranType === 'cr' ? '/ReceiptTransaction' : '/CashPaymentTransaction'}`, params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         this.router.navigate(['/dashboard']);

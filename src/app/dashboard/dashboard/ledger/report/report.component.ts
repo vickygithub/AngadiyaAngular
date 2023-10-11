@@ -87,7 +87,7 @@ export class ReportComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     });
   }
@@ -97,6 +97,9 @@ export class ReportComponent {
         this.router.navigate(['/dashboard/angadiya'], { state: row });
         break;
       case "cr":
+        this.router.navigate(['/dashboard/journal'], { state: row });
+        break;
+      case "cp":
         this.router.navigate(['/dashboard/journal'], { state: row });
         break;
       default:
@@ -126,7 +129,7 @@ export class ReportComponent {
         },
         error: (err) => {
           this.spinner.hide();
-          this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+          this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
         }
       });
     })

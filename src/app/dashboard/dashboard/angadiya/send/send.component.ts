@@ -44,7 +44,9 @@ export class SendComponent {
   }
 
   ngOnDestroy() {
-    this.citySubjectNotifier.unsubscribe();
+    if (this.citySubjectNotifier) {
+      this.citySubjectNotifier.unsubscribe();
+    }
   }
   fetchAccountList() {
     this.spinner.show();

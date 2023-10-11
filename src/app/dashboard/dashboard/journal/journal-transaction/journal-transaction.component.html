@@ -18,17 +18,22 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-lg-4">
         <mat-form-field class="w-100">
-            <mat-label>Commission</mat-label>
-            <input matInput type="number" placeholder="Commission" [(ngModel)]="commission">
+            <mat-label>Debit</mat-label>
+            <mat-select [(ngModel)]="debitGuid" required>
+                <ng-container *ngFor="let account of options">
+                    <mat-option *ngIf="account.Type.toLowerCase() !== 'cash'" [value]="account.Guid">
+                        {{account.Name}}
+                    </mat-option>
+                </ng-container>
+            </mat-select>
         </mat-form-field>
     </div>
     <div class="col-xs-12 col-sm-6 col-lg-4">
         <mat-form-field class="w-100">
-            <mat-label *ngIf="tranType==='cr'">Received From</mat-label>
-            <mat-label *ngIf="tranType==='cp'">Paid To</mat-label>
-            <mat-select [(ngModel)]="receivedFrom" required>
+            <mat-label>Credit</mat-label>
+            <mat-select [(ngModel)]="creditGuid" required>
                 <ng-container *ngFor="let account of options">
-                    <mat-option *ngIf="account.Type.toLowerCase() !== 'cash'" [value]="account">
+                    <mat-option *ngIf="account.Type.toLowerCase() !== 'cash'" [value]="account.Guid">
                         {{account.Name}}
                     </mat-option>
                 </ng-container>

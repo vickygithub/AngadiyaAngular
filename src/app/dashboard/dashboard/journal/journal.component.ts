@@ -17,6 +17,9 @@ export class JournalComponent {
   ngOnInit() {
     this.existingCrDetails = history.state;
     if (this.existingCrDetails.Guid != null) {
+      if (this.existingCrDetails.TransitionType.toLowerCase() === 'cp') {
+        this.selectedIndex = 0;
+      }
       if (this.existingCrDetails.TransitionType.toLowerCase() === 'cr') {
         this.selectedIndex = 1;
       }
