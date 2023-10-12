@@ -83,17 +83,17 @@ export class ReceivedComponent {
     this.fetchAccountList();
     if (this.existingSendDetails.Guid != null) {
       this.date = this.commonService.getDatePickerDate(this.existingSendDetails.TranDate);
-      this.amount = this.existingSendDetails.Amount;
+      this.amount = this.existingSendDetails.Amount.toFixed(2);
 
 
       this.receiverName = this.existingSendDetails.ReceiverName1 || this.existingSendDetails.ReceiverName;
       this.receiverMobileNo = this.existingSendDetails.ReceiverMobileNo;
-      this.chargesFromReceiver = this.existingSendDetails.ReceiveCharges;
+      this.chargesFromReceiver = this.existingSendDetails.ReceiveCharges.toFixed(2);
       this.noteNo = this.existingSendDetails.NoteNo;
 
       this.senderName = this.existingSendDetails.SennderName;
       this.senderMobileNo = this.existingSendDetails.senderMobileNo;
-      this.commissionFromAngadiya = this.existingSendDetails.SendCharges;
+      this.commissionFromAngadiya = this.existingSendDetails.SendCharges.toFixed(2);
       this.remark = this.existingSendDetails.Remark;
 
       this.actionLabel = "Update";

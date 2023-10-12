@@ -107,17 +107,17 @@ export class SendComponent {
     if (this.existingSendDetails.Guid != null) {
       this.date = this.commonService.getDatePickerDate(this.existingSendDetails.TranDate);
 
-      this.amount = this.existingSendDetails.Amount;
+      this.amount = this.existingSendDetails.Amount.toFixed(2);
       this.creditGuid = this.existingSendDetails.CreditGuid;
 
       this.receiverName = this.existingSendDetails.ReceiverName1 || this.existingSendDetails.ReceiverName;
       this.receiverMobileNo = this.existingSendDetails.ReceiverMobileNo;
-      this.receiverCharges = this.existingSendDetails.ReceiveCharges;
+      this.receiverCharges = this.existingSendDetails.ReceiveCharges.toFixed(2);
       this.noteNo = this.existingSendDetails.NoteNo;
       this.debitGuid = this.existingSendDetails.DebitGuid;
       this.senderName = this.existingSendDetails.SennderName;
       this.senderMobileNo = this.existingSendDetails.senderMobileNo;
-      this.senderCharges = this.existingSendDetails.SendCharges;
+      this.senderCharges = this.existingSendDetails.SendCharges.toFixed(2);
       this.remark = this.existingSendDetails.Remark;
 
       this.actionLabel = "Update";
