@@ -14,7 +14,7 @@
                 Received
             </ng-template>
             <ng-template matTabContent>
-                <app-received></app-received>
+                <app-received (goToMainDashboard)="back()" [existingSendDetails]="existingSendDetails"></app-received>
             </ng-template>
         </mat-tab>
     </mat-tab-group>

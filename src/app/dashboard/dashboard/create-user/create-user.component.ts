@@ -18,6 +18,7 @@ export class CreateUserComponent {
   public loggedInUser: any;
   public role: any = "angadiya";
   public accountStartDate: any = new Date();
+  public maxDate: any = new Date();
   public userDetails: any = {
     MobileNo: "",
     DeviceId: "83e9568fa4df9fc1",

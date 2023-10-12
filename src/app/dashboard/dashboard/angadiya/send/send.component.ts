@@ -11,7 +11,7 @@ import { CrudService } from 'src/app/services/crud.service';
   styleUrls: ['./send.component.scss']
 })
 export class SendComponent {
-  public actionLabel: any = "Save";
+  public actionLabel: any = "Submit";
   public date: any = new Date();
   public amount: any;
   public accountMasterList: any;
@@ -28,6 +28,8 @@ export class SendComponent {
   public senderMobileNo: any;
   public senderCharges: any;
   public remark: any;
+  public originalExistingData: any;
+  public maxDate: any = new Date();
   @Output() goToMainDashboard = new EventEmitter<any>();
   @Input() existingSendDetails: any;
   public citySubjectNotifier = new Subject<any>();
@@ -69,7 +71,7 @@ export class SendComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
   }
@@ -94,7 +96,7 @@ export class SendComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
   }
@@ -103,26 +105,37 @@ export class SendComponent {
     this.fetchCities();
     if (this.existingSendDetails.Guid != null) {
       this.date = this.commonService.getDatePickerDate(this.existingSendDetails.TranDate);
-      
+
       this.amount = this.existingSendDetails.Amount;
       this.creditGuid = this.existingSendDetails.CreditGuid;
 
-      this.receiverName = this.existingSendDetails.ReceiverName;
+      this.receiverName = this.existingSendDetails.ReceiverName1 || this.existingSendDetails.ReceiverName;
       this.receiverMobileNo = this.existingSendDetails.ReceiverMobileNo;
       this.receiverCharges = this.existingSendDetails.ReceiveCharges;
       this.noteNo = this.existingSendDetails.NoteNo;
-      this.debitGuid = this.existingSendDetails.SenderGuid;
-      this.senderName = this.existingSendDetails.SenderName;
+      this.debitGuid = this.existingSendDetails.DebitGuid;
+      this.senderName = this.existingSendDetails.SennderName;
       this.senderMobileNo = this.existingSendDetails.senderMobileNo;
       this.senderCharges = this.existingSendDetails.SendCharges;
       this.remark = this.existingSendDetails.Remark;
 
       this.actionLabel = "Update";
+
+
+      //store delete data 
+      const deleteData = {
+        date: moment(this.date).format('YYYY-MM-DD'),
+        debitGuid: this.debitGuid,
+        creditGuid: this.creditGuid
+      }
+      this.originalExistingData = JSON.stringify(deleteData);
     }
   }
-  deleteTran() {
-    this.spinner.show()
-    const params = {
+ 
+  deleteTran(isUpdate: boolean = false) {
+    this.spinner.show();
+    const deleteData = JSON.parse(this.originalExistingData);
+    let params = {
       Amount: "0",
       SenderName: "",
       SenderMobileNo: "",
@@ -135,29 +148,34 @@ export class SendComponent {
       LoginId: "",
       SenderCity: "",
       ReceiverCity: "",
-      TranDate: moment(this.date).format('YYYY-MM-DD'),
-      DebitGuid: this.debitGuid,
-      CreditGuid: this.creditGuid,
+      TranDate: deleteData.date,
+      DebitGuid: deleteData.debitGuid,
+      CreditGuid: deleteData.creditGuid,
       AdminGuid: this.loggedInUser.AdminGuid,
       TranGuid: this.existingSendDetails.Guid,
       Token: this.loggedInUser.Token,
-      DeviceId: "83e9568fa4df9fc1" 
+      DeviceId: "83e9568fa4df9fc1"
     }
-    
+
     this.crudService.postByUrl('/DeleteSendReceiveData', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({success: true});
         if (res.includes('Successful')) {
-          this.router.navigate(['/dashboard/ledger']);
+          
+          if (isUpdate) {
+            this.submitTran();
+          } else {
+            this.commonService.emitSuccessErrorEventEmitter({ success: true });
+            this.router.navigate(['/dashboard/ledger']);
+          }
         }
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
-    
+
   }
   reset() {
     const receiverList = this.accountMasterList.filter((a: any) => a.Type.toLowerCase() === 'angadiya');
@@ -181,11 +199,19 @@ export class SendComponent {
     this.remark = null;
   }
 
-  save() {
+  save(isUpdate: boolean = false) {
     if (this.amount == null || this.date == null || this.creditGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.debitGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo))) {
       return;
     }
+    if (isUpdate) {
+      this.deleteTran(isUpdate);
+    } else {
+      this.submitTran();
+    }
 
+  }
+
+  submitTran() {
     this.spinner.show();
     const params = {
       TranDate: moment(this.date).format('YYYY-MM-DD'),
@@ -212,13 +238,12 @@ export class SendComponent {
     this.crudService.postByUrl('/SendTransaction', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({success: true});
-        this.reset();
+        this.commonService.emitSuccessErrorEventEmitter({ success: true });
         this.goToMainDashboard.emit();
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
   }

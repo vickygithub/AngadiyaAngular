@@ -19,6 +19,7 @@ export class JournalTransactionComponent {
   public debitGuid: any;
   public creditGuid: any;
   public options: any = [];
+  public maxDate: any = new Date();
   @Input() existingCrDetails: any;
   @Input() tranType: any;
   public accountListSubjectNotifier = new Subject<any>();

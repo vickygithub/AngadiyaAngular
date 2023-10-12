@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-sm-6 col-lg-4">
         <mat-form-field class="w-100">
             <mat-label>Date</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="date" required>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="date" readonly [max]="maxDate" required>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -117,7 +117,7 @@
 </div>
 <div class="row">
     <div class="col-md-12 d-flex gap-2">
-        <button mat-raised-button color="primary" (click)="save()">{{actionLabel}}</button>
-        <button mat-raised-button color="primary" (click)="deleteTran()" *ngIf="existingSendDetails.Guid != null">Delete</button>
+        <button mat-raised-button color="primary" (click)="save(existingSendDetails.Guid != null ? true : false)">{{actionLabel}}</button>
+        <button mat-raised-button color="primary" (click)="deleteTran(false)" *ngIf="existingSendDetails.Guid != null">Delete</button>
     </div>
 </div>

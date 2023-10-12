@@ -20,6 +20,7 @@ export class CashReceiptComponent {
   public receivedFrom: any;
   public remark: any;
   public loggedInUser: any;
+  public maxDate: any = new Date();
   @Input() existingCrDetails: any;
   @Input() tranType: any;
 

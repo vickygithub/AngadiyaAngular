@@ -47,6 +47,13 @@ export class ReportComponent {
             this.sendToken++;
             r['tokenNo'] = this.sendToken;
           }
+          if (r.TransitionType.toLowerCase() === 'receive') {
+            if (this.selectedAcount.Guid === r.DebitGuid) {
+              r['displayParticular'] = `${r.ReceiverName1 || r.ReceiverName}`;
+            } else {
+              r['displayParticular'] = `${r.SennderName}`;
+            }
+          }
           if (r.TransitionType.toLowerCase() === 'jr') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
               r['displayParticular'] = `To- ${r.ReceiverName}`;
@@ -83,7 +90,7 @@ export class ReportComponent {
 
         })
         const ob = {
-          ReceiverCity: 'Opening',
+          displayParticular: 'Opening',
           TransitionType: '',
           TranSerialNo: '',
           displayAmount: this.balances[0].OpeningBalance.toFixed(2) || "0.00"
@@ -117,6 +124,9 @@ export class ReportComponent {
         break;
       case "jr":
         this.router.navigate(['/dashboard/journal'], { state: row });
+        break;
+      case "receive":
+        this.router.navigate(['/dashboard/angadiya'], { state: row });
         break;
       default:
         break;

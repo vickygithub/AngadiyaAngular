@@ -1,6 +1,9 @@
 <mat-toolbar color="primary" class="h-100">
     <mat-toolbar-row class="header-row">
-        <span>DetiLeti</span>
-        <mat-icon (click)="logout()">exit_to_app</mat-icon>
+        <span (click)="home()">DetiLeti</span>
+        <div class="d-flex gap-4">
+            <mat-icon (click)="home()">home</mat-icon>
+            <mat-icon (click)="logout()">exit_to_app</mat-icon>
+        </div>
     </mat-toolbar-row>
 </mat-toolbar>
