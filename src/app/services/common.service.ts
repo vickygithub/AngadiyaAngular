@@ -13,9 +13,18 @@ export class CommonService {
   constructor(private _snackBar: MatSnackBar, private router: Router) { }
 
   public getDatePickerDate(date: any) {
-    const parts = date.split("-");
-    const dateArray = [parts[1], parts[0], parts[2]];
-    const dateString = dateArray.join("-");
+    let parts = [];
+    let dateString = '';
+    if (date.indexOf('-') >= 0) {
+      parts = date.split("-");
+      const dateArray = [parts[1], parts[0], parts[2]];
+      dateString = dateArray.join("-");
+    } else if (date.indexOf('/') >= 0) {
+      parts = date.split("/");
+      const dateArray = [parts[1], parts[0], parts[2]];
+      dateString = dateArray.join("/");
+    }
+    
     return new Date(dateString);
   }
   public getSuccessErrorEventEmitter() {

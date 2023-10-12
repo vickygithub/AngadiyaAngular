@@ -30,6 +30,7 @@ export class SendComponent {
   public remark: any;
   public originalExistingData: any;
   public maxDate: any = new Date();
+ 
   @Output() goToMainDashboard = new EventEmitter<any>();
   @Input() existingSendDetails: any;
   public citySubjectNotifier = new Subject<any>();
@@ -131,7 +132,7 @@ export class SendComponent {
       this.originalExistingData = JSON.stringify(deleteData);
     }
   }
- 
+
   deleteTran(isUpdate: boolean = false) {
     this.spinner.show();
     const deleteData = JSON.parse(this.originalExistingData);
@@ -161,7 +162,7 @@ export class SendComponent {
       next: (res: any) => {
         this.spinner.hide();
         if (res.includes('Successful')) {
-          
+
           if (isUpdate) {
             this.submitTran();
           } else {

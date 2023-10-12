@@ -27,8 +27,8 @@
                             <th mat-header-cell *matHeaderCellDef> Type </th>
                             <td mat-cell *matCellDef="let element"> {{element.TransitionType.toLowerCase() == 'send' ? 'S' : element.TransitionType}} </td>
                             <td mat-footer-cell *matFooterCellDef>
-                                <span class="amount-matched" *ngIf="amountMatched">{{balances[0]?.ClosingBalance}}</span>
-                                <span class="amount-mismatched" *ngIf="!amountMatched">{{balances[0]?.ClosingBalance}}</span>
+                                <span class="amount-matched" *ngIf="amountMatched">{{balances[0]?.ClosingBalance.toFixed(2)}}</span>
+                                <span class="amount-mismatched" *ngIf="!amountMatched">{{balances[0]?.ClosingBalance.toFixed(2)}}</span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="tno">
