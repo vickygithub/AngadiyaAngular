@@ -33,7 +33,7 @@
                         </ng-container>
                         <ng-container matColumnDef="tno">
                             <th mat-header-cell *matHeaderCellDef> T No. </th>
-                            <td mat-cell *matCellDef="let element"> {{element.tokenNo}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.TransitionType.toLowerCase() == 'send' ? element.TranSerialNo : ''}} </td>
                             <td mat-footer-cell *matFooterCellDef> <strong>{{sendToken}}</strong> </td>
                         </ng-container>
                         <ng-container matColumnDef="amount">

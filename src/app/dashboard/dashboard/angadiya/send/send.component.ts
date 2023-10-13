@@ -202,8 +202,10 @@ export class SendComponent {
 
   save(isUpdate: boolean = false) {
     if (this.amount == null || this.date == null || this.creditGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.debitGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo))) {
+      this.commonService.emitSuccessErrorEventEmitter({ message: 'Enter all (*) details', success: false });
       return;
     }
+    
     if (isUpdate) {
       this.deleteTran(isUpdate);
     } else {
@@ -233,7 +235,8 @@ export class SendComponent {
       AdminGuid: this.loggedInUser.AdminGuid,
       Token: this.loggedInUser.Token,
       DeviceId: "83e9568fa4df9fc1",
-      Commission: ""
+      Commission: "",
+      TranType: 'SEND'
     }
 
     this.crudService.postByUrl('/SendTransaction', params).subscribe({

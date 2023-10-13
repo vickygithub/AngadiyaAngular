@@ -151,7 +151,12 @@ export class ReceivedComponent {
     if (this.amount == null || this.date == null || this.debitAccount == null || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo)) || this.commissionFromAngadiya == null || this.commissionFromAngadiya === "") {
       return;
     }
-    if (this.creditAccount.Type.toLowerCase() === 'cash' && (this.receiverName == null || this.receiverName == "" || !this.commonService.isMobileValid(this.receiverMobileNo))) {
+    if (this.creditAccount.Type.toLowerCase() === 'cash' && (this.receiverName == null || this.receiverName == "")) {
+      this.commonService.emitSuccessErrorEventEmitter({ message: 'Enter all (*) details', success: false });
+      return;
+    }
+    if (this.creditAccount.Type.toLowerCase() === 'cash' && !this.commonService.isMobileValid(this.receiverMobileNo)) {
+      this.commonService.emitSuccessErrorEventEmitter({ message: 'Enter all (*) details', success: false });
       return;
     }
 
@@ -184,7 +189,8 @@ export class ReceivedComponent {
       AdminGuid: this.loggedInUser.AdminGuid,
       Token: this.loggedInUser.Token,
       DeviceId: "83e9568fa4df9fc1",
-      Commission: ""
+      Commission: "",
+      TranType: 'RECEIVE'
     }
 
     this.crudService.postByUrl('/SendTransaction', params).subscribe({

@@ -19,7 +19,7 @@ export class ReportComponent {
   public displayedColumns = ['particular', 'type', 'tno', 'amount'];
   public sendToken: any = 0;
   public totalAmount: any = 0;
-  public amountMatched: any = false;
+  public amountMatched: any = true;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.selectedAcount = history.state;
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
@@ -41,11 +41,10 @@ export class ReportComponent {
       next: (res: any) => {
         this.spinner.hide();
 
-        this.sendToken = 0;
+        
         res.forEach((r: any) => {
           if (r.TransitionType.toLowerCase() === 'send') {
-            this.sendToken++;
-            r['tokenNo'] = this.sendToken;
+            this.sendToken+=Number(r.TranSerialNo);
           }
           if (r.TransitionType.toLowerCase() === 'receive') {
             if (this.selectedAcount.Guid === r.DebitGuid) {

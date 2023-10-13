@@ -14,6 +14,7 @@ import { CreateComponent } from './dashboard/account/create/create.component';
 import { LedgerComponent } from './dashboard/ledger/ledger.component';
 import { ReportComponent } from './dashboard/ledger/report/report.component';
 import { TrialBalanceComponent } from './dashboard/trial-balance/trial-balance.component';
+import { AngadiyaListComponent } from './dashboard/angadiya-list/angadiya-list.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,8 @@ const routes: Routes = [
       { path: 'angadiya', component: AngadiyaComponent },
       { path: 'ledger', component: LedgerComponent },
       { path: 'ledger/report', component: ReportComponent },
-      { path: 'trialbalance', component: TrialBalanceComponent }
+      { path: 'trialbalance', component: TrialBalanceComponent },
+      { path: 'angadiyalist', component: AngadiyaListComponent }
     ]
   }
 ];

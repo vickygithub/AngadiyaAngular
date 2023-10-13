@@ -1,0 +1,59 @@
+<div class="pt-4 pb-4">
+    <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+    <mat-tab-group class="journal-mat-tab-group">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Send List
+            </ng-template>
+            <ng-template matTabContent>
+                <div class="d-flex flex-column mb-2 gap-3">
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <mat-form-field class="w-100">
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input matInput type="search" placeholder="Search" [(ngModel)]="searchText"
+                                (keyup)="filterList('send')">
+                        </mat-form-field>
+                    </div>
+                    <mat-card class="w-100" *ngFor="let obj of filteredSendList">
+                        
+                            <mat-card-content>
+                                <div class="d-flex justify-content-between">
+                                    <span>To - {{obj.displayName}}</span>
+                                    <span>{{obj.TranSerialNo}}</span>
+                                </div>
+                            </mat-card-content>
+                        
+                        
+                    </mat-card>
+                </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Received List
+            </ng-template>
+            <ng-template matTabContent>
+                <div class="d-flex flex-column mb-2 gap-3">
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <mat-form-field class="w-100">
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input matInput type="search" placeholder="Search" [(ngModel)]="searchText"
+                                (keyup)="filterList('receive')">
+                        </mat-form-field>
+                    </div>
+                    <mat-card class="w-100" *ngFor="let obj of filteredReceiveList">
+                        
+                            <mat-card-content>
+                                <div class="d-flex justify-content-between">
+                                    <span>By - {{obj.displayName}}</span>
+                                    <span>{{obj.TranSerialNo}}</span>
+                                </div>
+                            </mat-card-content>
+                       
+                    </mat-card>
+                </div>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
