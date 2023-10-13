@@ -39,6 +39,10 @@ export class LedgerComponent {
       LoginId: this.loggedInUser.Guid
     }).subscribe({
       next: (res: any) => {
+        if (typeof res === 'string' && res.toLowerCase().includes('')) {
+          this.commonService.emitSuccessErrorEventEmitter({message: res, success: false});
+          return;
+        }
         res.sort((a: any, b: any) => {
           // Use the localeCompare method to perform a case-insensitive string comparison
           return a.Name.localeCompare(b.Name);
