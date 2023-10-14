@@ -105,7 +105,10 @@ export class ReportComponent {
           this.amountMatched = true;
         }
         this.report = [...res];
-        this.selectedIndex = 0;
+        if (closingBalanceDate != null) {
+          this.date = this.commonService.getDatePickerDate(closingBalanceDate);
+          this.selectedIndex = 0;
+        }
         
       },
       error: (err) => {
