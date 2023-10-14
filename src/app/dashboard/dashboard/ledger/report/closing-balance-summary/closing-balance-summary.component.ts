@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
@@ -13,8 +13,13 @@ export class ClosingBalanceSummaryComponent {
   public loggedInUser: any;
   public balanceList: any = [];
   @Input() selectedAcount: any;
+  @Output() goToReport = new EventEmitter<any>();
+
   constructor(private crudService: CrudService, private spinner: NgxSpinnerService, private commonService: CommonService) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
+  }
+  goToReportTab(obj: any) {
+    this.goToReport.emit(obj);
   }
   ngOnInit() {
     const params = {
@@ -29,12 +34,13 @@ export class ClosingBalanceSummaryComponent {
         this.spinner.hide();
         this.balanceList = res;
         this.balanceList.map((b: any) => b.actualDate = moment(this.commonService.getDatePickerDate(b.Date)))
-        this.balanceList.sort((a: any, b: any) => a.actualDate.unix() - b.actualDate.unix()) 
+        this.balanceList.sort((a: any, b: any) => a.actualDate.unix() - b.actualDate.unix())
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
   }
 }
+

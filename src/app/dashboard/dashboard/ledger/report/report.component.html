@@ -2,7 +2,7 @@
 
 
     <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
-    <mat-tab-group>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
         <mat-tab>
             <ng-template mat-tab-label>
                 LEDGER
@@ -54,7 +54,7 @@
                 CLOSING SUMMARY
             </ng-template>
             <ng-template matTabContent>
-                <app-closing-balance-summary [selectedAcount]="selectedAcount"></app-closing-balance-summary>
+                <app-closing-balance-summary [selectedAcount]="selectedAcount" (goToReport)="fetchDetails($event)"></app-closing-balance-summary>
             </ng-template>
         </mat-tab>
     </mat-tab-group>

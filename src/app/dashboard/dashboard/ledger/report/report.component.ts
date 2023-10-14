@@ -20,6 +20,7 @@ export class ReportComponent {
   public sendToken: any = 0;
   public totalAmount: any = 0;
   public amountMatched: any = true;
+  public selectedIndex: any = 0;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.selectedAcount = history.state;
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
@@ -27,7 +28,8 @@ export class ReportComponent {
   back() {
     this.router.navigate(['/dashboard/ledger']);
   }
-  fetchReport() {
+
+  fetchReport(closingBalanceDate: any = null) {
     this.spinner.show();
     this.crudService.postByUrl('/LedgerReport', {
       DeviceId: "83e9568fa4df9fc1",
@@ -35,16 +37,16 @@ export class ReportComponent {
       LoginId: this.loggedInUser.Guid,
       AdminGuid: this.loggedInUser.AdminGuid,
       AccountGuid: this.selectedAcount.Guid,
-      StartDate: moment(this.date).format('YYYY-MM-DD'),
-      EndDate: moment(this.date).format('YYYY-MM-DD')
+      StartDate: moment(closingBalanceDate == null ? this.date : new Date(this.commonService.getDatePickerDate(closingBalanceDate))).format('YYYY-MM-DD'),
+      EndDate: moment(closingBalanceDate == null ? this.date : new Date(this.commonService.getDatePickerDate(closingBalanceDate))).format('YYYY-MM-DD')
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
 
-        
+
         res.forEach((r: any) => {
           if (r.TransitionType.toLowerCase() === 'send') {
-            this.sendToken+=Number(r.TranSerialNo);
+            this.sendToken += Number(r.TranSerialNo);
           }
           if (r.TransitionType.toLowerCase() === 'receive') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
@@ -103,6 +105,8 @@ export class ReportComponent {
           this.amountMatched = true;
         }
         this.report = [...res];
+        this.selectedIndex = 0;
+        
       },
       error: (err) => {
         this.spinner.hide();
@@ -134,7 +138,7 @@ export class ReportComponent {
   ngOnInit() {
     this.fetchDetails();
   }
-  async fetchOpeninBalance() {
+  async fetchOpeninBalance(closingBalanceDate: any = null) {
     this.spinner.show();
     return new Promise((resolve, reject) => {
       this.crudService.postByUrl('/OpeningBalance', {
@@ -143,8 +147,8 @@ export class ReportComponent {
         LoginId: this.loggedInUser.Guid,
         AdminGuid: this.loggedInUser.AdminGuid,
         AccountGuid: this.selectedAcount.Guid,
-        StartDate: moment(this.date).format('YYYY-MM-DD'),
-        EndDate: moment(this.date).format('YYYY-MM-DD')
+        StartDate: moment(closingBalanceDate == null ? this.date : new Date(this.commonService.getDatePickerDate(closingBalanceDate))).format('YYYY-MM-DD'),
+        EndDate: moment(closingBalanceDate == null ? this.date : new Date(this.commonService.getDatePickerDate(closingBalanceDate))).format('YYYY-MM-DD')
       }).subscribe({
         next: (res: any) => {
           this.spinner.hide();
@@ -160,8 +164,8 @@ export class ReportComponent {
     })
 
   }
-  async fetchDetails() {
-    this.balances = await this.fetchOpeninBalance();
-    this.fetchReport();
+  async fetchDetails(obj: any = null) {
+    this.balances = await this.fetchOpeninBalance(obj == null ? null : obj.Date);
+    this.fetchReport(obj == null ? null : obj.Date);
   }
 }
