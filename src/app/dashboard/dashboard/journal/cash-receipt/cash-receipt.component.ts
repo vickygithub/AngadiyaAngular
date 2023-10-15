@@ -23,9 +23,10 @@ export class CashReceiptComponent {
   public maxDate: any = new Date();
   @Input() existingCrDetails: any;
   @Input() tranType: any;
-
+  public actionLabel: any = 'Save';
   public accountListSubjectNotifier = new Subject<any>();
   public accountListSubject: Subscription;
+  public originalExistingData: any;
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
     this.accountListSubject = this.accountListSubjectNotifier.subscribe((res: any) => {
       if (this.existingCrDetails.Guid != null) {
@@ -34,6 +35,15 @@ export class CashReceiptComponent {
         } else { //cp
           this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.DebitGuid);
         }
+
+        //store delete data 
+        const senderGuid = this.options.find((o: any) => o.Type.toLowerCase() === "cash").Guid;
+        const deleteData = {
+          date: moment(this.date).format('YYYY-MM-DD'),
+          debitGuid: this.existingCrDetails.TransitionType.toLowerCase() === 'cr' ? senderGuid : this.receivedFrom.Guid,
+          creditGuid: this.existingCrDetails.TransitionType.toLowerCase() === 'cr' ? this.receivedFrom.Guid : senderGuid
+        }
+        this.originalExistingData = JSON.stringify(deleteData);
       }
     });
   }
@@ -42,6 +52,50 @@ export class CashReceiptComponent {
   }
   displayFn(event: any) {
     return event && event.Name ? event.Name : '';
+  }
+  deleteTran(isUpdate: boolean = false) {
+    this.spinner.hide();
+    const deleteData = JSON.parse(this.originalExistingData);
+    let params = {
+      Amount: "0",
+      SenderName: "",
+      SenderMobileNo: "",
+      SenderCharges: "0",
+      ReceiverName: "",
+      ReceiverMobileNo: "",
+      ReceiverCharges: "0",
+      Remark: "",
+      NoteNo: "",
+      LoginId: "",
+      SenderCity: "",
+      ReceiverCity: "",
+      TranDate: deleteData.date,
+      DebitGuid: deleteData.debitGuid,
+      CreditGuid: deleteData.creditGuid,
+      AdminGuid: this.loggedInUser.AdminGuid,
+      TranGuid: this.existingCrDetails.Guid,
+      Token: this.loggedInUser.Token,
+      DeviceId: "83e9568fa4df9fc1"
+    }
+    console.log("delete params ", params);
+    this.crudService.postByUrl('/DeleteSendReceiveData', params).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.includes('Successful')) {
+
+          if (isUpdate) {
+            this.submitTran();
+          } else {
+            this.commonService.emitSuccessErrorEventEmitter({ success: true });
+            this.router.navigate(['/dashboard/ledger']);
+          }
+        }
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
+      }
+    });
   }
   fetchAccountList() {
     this.spinner.show();
@@ -55,24 +109,24 @@ export class CashReceiptComponent {
         this.spinner.hide();
         this.options = res;
         if (this.existingCrDetails.Guid != null) {
+          this.date = this.commonService.getDatePickerDate(this.existingCrDetails.TranDate);
+          this.amount = this.existingCrDetails.Amount;
+          this.commission = this.existingCrDetails.COMMAMOUNT;
+          this.remark = this.existingCrDetails.Remark;
+
+          this.actionLabel = "Update";
           this.accountListSubjectNotifier.next(true);
         }
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
   }
-  
+
   ngOnInit() {
     this.fetchAccountList();
-    if (this.existingCrDetails.Guid != null) {
-      this.date = this.commonService.getDatePickerDate(this.existingCrDetails.TranDate);
-      this.amount = this.existingCrDetails.Amount;
-      this.commission = this.existingCrDetails.COMMAMOUNT;
-      this.remark = this.existingCrDetails.Remark;
-    }
   }
   reset() {
     this.date = new Date();
@@ -81,15 +135,24 @@ export class CashReceiptComponent {
     this.receivedFrom = null;
     this.remark = null;
   }
-  
 
-  save() {
+
+  save(isUpdate: boolean = false) {
     if (this.date == null || this.amount == null || this.receivedFrom == null) {
       return;
     }
     if (this.amount < 0) {
       return;
     }
+    if (isUpdate) {
+      this.deleteTran(isUpdate);
+    } else {
+      this.submitTran();
+    }
+    
+  }
+
+  submitTran() {
     const senderGuid = this.options.find((o: any) => o.Type.toLowerCase() === "cash").Guid;
     let params = {
       AdminGuid: this.loggedInUser.AdminGuid,
@@ -116,7 +179,7 @@ export class CashReceiptComponent {
       params.CreditGuid = senderGuid;
       params.DebitGuid = this.receivedFrom.Guid;
     }
-    
+
     this.spinner.show();
     this.crudService.postByUrl(`${this.tranType === 'cr' ? '/ReceiptTransaction' : '/CashPaymentTransaction'}`, params).subscribe({
       next: (res: any) => {
@@ -125,8 +188,9 @@ export class CashReceiptComponent {
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
   }
 }
+
