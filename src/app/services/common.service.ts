@@ -1,5 +1,4 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -10,7 +9,7 @@ export class CommonService {
   public citiesSubjectNotifier = new BehaviorSubject<any>([]);
   @Output() newAppVersionAvailableEventEmitter: EventEmitter<any> = new EventEmitter();
   @Output() successErrorEmitter: EventEmitter<any> = new EventEmitter();
-  constructor(private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(private router: Router) { }
 
   public getDatePickerDate(date: any) {
     let parts = [];
@@ -43,13 +42,6 @@ export class CommonService {
   }
   notifyToCityCreatePage(data: any) {
     this.citiesSubjectNotifier.next(data);
-  }
-
-  openSnackBar(message: string) {
-    this._snackBar.open(message, "", {
-      duration: 300000,
-      verticalPosition: 'top'
-    });
   }
 
   navigate(url: any) {

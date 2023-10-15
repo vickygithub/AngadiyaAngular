@@ -18,21 +18,20 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { CommonService } from './services/common.service';
 import { UpdateService } from './services/update.service';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
-
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LimitMobileNumberDirective } from './limit-mobile-number.directive';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ChangePasswordComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    LimitMobileNumberDirective
   ],
   imports: [
     NgIdleModule.forRoot(),
-    DashboardModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -45,6 +44,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
     MatButtonModule,
     NgxSpinnerModule,
     MatDialogModule,
+    MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode()
       // Register the ServiceWorker as soon as the application is stable

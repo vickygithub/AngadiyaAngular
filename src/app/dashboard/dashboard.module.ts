@@ -15,7 +15,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AccountComponent } from './dashboard/account/account.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AccountDetailComponent } from './dashboard/account/account-detail/account-detail.component';
@@ -89,7 +88,6 @@ export const MY_FORMATS = {
     MatButtonToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule,
     MatTabsModule,
     MatRadioModule,
     MatAutocompleteModule,
@@ -105,7 +103,6 @@ export const MY_FORMATS = {
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  ],
-  exports: [MatSnackBarModule, LimitMobileNumberDirective]
+  ]
 })
 export class DashboardModule { }
