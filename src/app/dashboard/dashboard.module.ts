@@ -33,7 +33,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { CreateComponent } from './dashboard/account/create/create.component';
-import { LimitMobileNumberDirective } from '../limit-mobile-number.directive';
+import { LimitMobileNumberDirective } from './limit-mobile-number.directive';
 import { LedgerComponent } from './dashboard/ledger/ledger.component';
 import { ReportComponent } from './dashboard/ledger/report/report.component';
 import { MatTableModule } from '@angular/material/table';

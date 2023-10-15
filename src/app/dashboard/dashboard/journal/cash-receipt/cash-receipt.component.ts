@@ -54,7 +54,7 @@ export class CashReceiptComponent {
     return event && event.Name ? event.Name : '';
   }
   deleteTran(isUpdate: boolean = false) {
-    this.spinner.hide();
+    this.spinner.show();
     const deleteData = JSON.parse(this.originalExistingData);
     let params = {
       Amount: "0",
@@ -77,7 +77,6 @@ export class CashReceiptComponent {
       Token: this.loggedInUser.Token,
       DeviceId: "83e9568fa4df9fc1"
     }
-    console.log("delete params ", params);
     this.crudService.postByUrl('/DeleteSendReceiveData', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
