@@ -22,8 +22,10 @@ export class JournalTransactionComponent {
   public maxDate: any = new Date();
   @Input() existingCrDetails: any;
   @Input() tranType: any;
+  public actionLabel: string = 'Save';
   public accountListSubjectNotifier = new Subject<any>();
   public accountListSubject: Subscription;
+  public originalExistingData: any;
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
 
@@ -31,6 +33,14 @@ export class JournalTransactionComponent {
       if (this.existingCrDetails.Guid != null) {
         this.creditGuid = this.options.find((c: any) => c.Guid === this.existingCrDetails.CreditGuid).Guid;
         this.debitGuid = this.options.find((c: any) => c.Guid === this.existingCrDetails.DebitGuid).Guid;
+
+        //store delete data 
+        const deleteData = {
+          date: moment(this.date).format('YYYY-MM-DD'),
+          debitGuid: this.debitGuid,
+          creditGuid: this.creditGuid
+        }
+        this.originalExistingData = JSON.stringify(deleteData);
       }
     });
   }
@@ -43,6 +53,7 @@ export class JournalTransactionComponent {
       this.date = this.commonService.getDatePickerDate(this.existingCrDetails.TranDate);
       this.amount = this.existingCrDetails.Amount;
       this.remark = this.existingCrDetails.Remark;
+      this.actionLabel = 'Update';
     }
   }
   fetchAccountList() {
@@ -66,11 +77,63 @@ export class JournalTransactionComponent {
       }
     })
   }
+  deleteTran(isUpdate: boolean = false) {
+    this.spinner.show();
+    const deleteData = JSON.parse(this.originalExistingData);
+    let params = {
+      Amount: "0",
+      SenderName: "",
+      SenderMobileNo: "",
+      SenderCharges: "0",
+      ReceiverName: "",
+      ReceiverMobileNo: "",
+      ReceiverCharges: "0",
+      Remark: "",
+      NoteNo: "",
+      LoginId: "",
+      SenderCity: "",
+      ReceiverCity: "",
+      TranDate: deleteData.date,
+      DebitGuid: deleteData.debitGuid,
+      CreditGuid: deleteData.creditGuid,
+      AdminGuid: this.loggedInUser.AdminGuid,
+      TranGuid: this.existingCrDetails.Guid,
+      Token: this.loggedInUser.Token,
+      DeviceId: "83e9568fa4df9fc1"
+    }
+    this.crudService.postByUrl('/DeleteJournalData', params).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res.includes('Successful')) {
 
-  save() {
+          if (isUpdate) {
+            this.submitTran();
+          } else {
+            this.commonService.emitSuccessErrorEventEmitter({ success: true });
+            this.router.navigate(['/dashboard/ledger']);
+          }
+        }
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
+      }
+    });
+  }
+  save(isUpdate: boolean = false) {
     if (this.date == null || this.amount == null || this.debitGuid == null || this.creditGuid == null || this.amount < 0 || this.amount == null) {
       return;
     }
+    if (isUpdate) {
+      this.deleteTran(isUpdate);
+    } else {
+      this.submitTran();
+    }
+    
+  }
+
+  submitTran() {
+    this.spinner.show();
     const params = {
       AdminGuid: this.loggedInUser.AdminGuid,
       Amount: "" + this.amount.toFixed(2),
