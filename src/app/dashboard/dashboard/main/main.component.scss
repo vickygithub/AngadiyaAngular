@@ -2,8 +2,13 @@
     gap: 5px;
 
     .menu-card {
-        flex-basis: 30%;
+        flex-basis: 46%;
         align-self: stretch;
         cursor: pointer;
     }
+
+    .flex-basis-full {
+        flex-basis: calc(92% + 5px);
+    }
 }
+

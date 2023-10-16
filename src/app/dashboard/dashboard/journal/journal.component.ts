@@ -23,9 +23,6 @@ export class JournalComponent {
       if (this.existingCrDetails.TransitionType.toLowerCase() === 'cr') {
         this.selectedIndex = 1;
       }
-      if (this.existingCrDetails.TransitionType.toLowerCase() === 'jr') {
-        this.selectedIndex = 2;
-      }
     }
   }
   back() {

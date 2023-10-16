@@ -130,7 +130,7 @@ export class ReportComponent {
         this.router.navigate(['/dashboard/journal'], { state: row });
         break;
       case "jr":
-        this.router.navigate(['/dashboard/journal'], { state: row });
+        this.router.navigate(['/dashboard/journaltransaction'], { state: row });
         break;
       case "receive":
         this.router.navigate(['/dashboard/angadiya'], { state: row });

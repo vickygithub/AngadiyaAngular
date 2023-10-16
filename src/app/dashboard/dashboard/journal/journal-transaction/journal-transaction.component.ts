@@ -20,15 +20,14 @@ export class JournalTransactionComponent {
   public creditGuid: any;
   public options: any = [];
   public maxDate: any = new Date();
-  @Input() existingCrDetails: any;
-  @Input() tranType: any;
+  public existingCrDetails: any;
   public actionLabel: string = 'Save';
   public accountListSubjectNotifier = new Subject<any>();
   public accountListSubject: Subscription;
   public originalExistingData: any;
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
-
+    this.existingCrDetails = history.state;
     this.accountListSubject = this.accountListSubjectNotifier.subscribe((res: any) => {
       if (this.existingCrDetails.Guid != null) {
         this.creditGuid = this.options.find((c: any) => c.Guid === this.existingCrDetails.CreditGuid).Guid;
@@ -46,6 +45,9 @@ export class JournalTransactionComponent {
   }
   ngOnDestory() {
     this.accountListSubjectNotifier.unsubscribe();
+  }
+  back() {
+    this.router.navigate(['/dashboard/main']);
   }
   ngOnInit() {
     this.fetchAccountList();

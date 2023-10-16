@@ -1,5 +1,12 @@
 <div class="pt-4 pb-4">
-    <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+    <div class="d-flex align-items-center">
+        <div class="col-4">
+            <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+        </div>
+        <div class="col-4 text-center">
+            <h2>{{type === 'closing' ? 'Trial Balance' : 'Opening Trial Balance'}}</h2>
+        </div>
+    </div>
     <mat-tab-group>
         <mat-tab label="Receivable">
             <div class="d-flex flex-column mb-2 gap-3">
@@ -9,7 +16,7 @@
                     <mat-card-content>
                         <div class="d-flex justify-content-between">
                             <span>{{obj.Name}}</span>
-                            <span>{{type === 'closing' ? obj.ClosingBalance : obj.OpeningBalance | number:'1.2-2'}}</span>
+                            <span>{{(type === 'closing' ? obj.ClosingBalance : obj.OpeningBalance) | number:'1.2-2'}}</span>
                         </div>
                     </mat-card-content>
                 </mat-card>
@@ -35,7 +42,7 @@
                     <mat-card-content>
                         <div class="d-flex justify-content-between">
                             <span>{{obj.Name}}</span>
-                            <span>{{type === 'closing' ? obj.ClosingBalance : obj.OpeningBalance | number:'1.2-2'}}</span>
+                            <span>{{(type === 'closing' ? obj.ClosingBalance : obj.OpeningBalance) | number:'1.2-2'}}</span>
                         </div>
                     </mat-card-content>
                 </mat-card>
