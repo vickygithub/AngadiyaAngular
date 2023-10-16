@@ -13,7 +13,7 @@ export class UpdateService {
 
   }
   public informUser(): void {
-    this.swUpdate.available.subscribe(event => this.commonService.emitNewAppVersionAvailableEventEmitter());
+    this.swUpdate.versionUpdates.subscribe(event => this.commonService.emitNewAppVersionAvailableEventEmitter());
   }
   
 }
