@@ -22,9 +22,7 @@ export class AppComponent {
       const snack = this.snackbar.open('Update Available', 'Reload');
       snack
         .onAction()
-        .subscribe(() => {
-          this.swUpdate.activateUpdate().then(() => document.location.reload());
-        });
+        .subscribe(() => window.location.reload());
 
     });
     this.commonService.getSuccessErrorEventEmitter().subscribe((res: any) => {
