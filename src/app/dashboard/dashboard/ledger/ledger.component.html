@@ -7,6 +7,11 @@
         <div class="col-4 text-center">
             <h2>Ledger</h2>
         </div>
+        <div class="col-4 text-end">
+            <span>
+                <mat-icon class="amount-matched" *ngIf="totalClosingBalance === 0">check</mat-icon>
+            </span>
+        </div>
     </div>
     
 

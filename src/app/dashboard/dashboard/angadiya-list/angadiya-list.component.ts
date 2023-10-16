@@ -84,6 +84,19 @@ export class AngadiyaListComponent {
       }
     })
   }
+  goToComponent(row: any) {
+    row.fromAngadiyaList = true;
+    switch (row.TransitionType.toLowerCase()) {
+      case "send":
+        this.router.navigate(['/dashboard/angadiya'], { state: row });
+        break;
+      case "receive":
+        this.router.navigate(['/dashboard/angadiya'], { state: row });
+        break;
+      default:
+        break;
+    }
+  }
   filterList(type: string) {
     switch (type.toLowerCase()) {
       case 'send':

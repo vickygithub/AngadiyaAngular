@@ -14,6 +14,7 @@ export class LedgerComponent {
   public accounts: any = [];
   public loggedInUser: any;
   public searchText: any;
+  public totalClosingBalance: any = 0;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) { 
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -43,6 +44,12 @@ export class LedgerComponent {
           this.commonService.emitSuccessErrorEventEmitter({message: res, success: false});
           return;
         }
+        this.totalClosingBalance = res.reduce((acc: any, curr: any) => {
+          return acc + curr.ClosingBalance;
+        }, 0)
+        res.forEach((r: any) => {
+
+        })
         res.sort((a: any, b: any) => {
           // Use the localeCompare method to perform a case-insensitive string comparison
           return a.Name.localeCompare(b.Name);

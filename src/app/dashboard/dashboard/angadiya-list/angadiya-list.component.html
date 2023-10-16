@@ -17,7 +17,7 @@
                     <mat-card class="w-100" *ngFor="let obj of filteredSendList">
                         
                             <mat-card-content>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between" (click)="goToComponent(obj)">
                                     <span>To - {{obj.displayName}}</span>
                                     <span>{{obj.Amount | number:'1.2-2'}}</span>
                                 </div>
@@ -44,7 +44,7 @@
                     <mat-card class="w-100" *ngFor="let obj of filteredReceiveList">
                         
                             <mat-card-content>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between" (click)="goToComponent(obj)">
                                     <span>By - {{obj.displayName}}</span>
                                     <span>{{obj.Amount | number:'1.2-2'}}</span>
                                 </div>

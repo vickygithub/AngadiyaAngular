@@ -39,7 +39,11 @@ export class SendComponent {
 
     this.citySubject = this.citySubjectNotifier.subscribe((res: any) => {
       if (this.existingSendDetails.Guid != null) {
-        this.receiverCity = this.cities.find((c: any) => c.Name.toLowerCase().replace(/\s/g, '') === this.existingSendDetails.ReceiverCity.toLowerCase().replace(/\s/g, '')).Guid;
+        if (this.existingSendDetails.fromAngadiyaList === true) {
+          this.receiverCity = this.existingSendDetails.ReceiverCity;
+        } else {
+          this.receiverCity = this.cities.find((c: any) => c.Name.toLowerCase().replace(/\s/g, '') === this.existingSendDetails.ReceiverCity.toLowerCase().replace(/\s/g, '')).Guid;
+        }
       }
     });
 
