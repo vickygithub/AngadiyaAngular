@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/services/common.service';
@@ -16,6 +16,7 @@ export class TrialBalanceComponent {
   public balanceMatched: any = false;
   public totalReceivable: any;
   public totalPayable: any;
+  @Input() type: any = 'closing';
   constructor(private router: Router, private crudService: CrudService, private spinner: NgxSpinnerService, private commonService: CommonService) { }
 
   back() {
@@ -35,15 +36,29 @@ export class TrialBalanceComponent {
       next: (res: any) => {
         this.spinner.hide();
         this.accountList = res;
-        this.filteredReceivable = res.filter((r: any) => r.ClosingBalance > 0);
-        this.filteredPayable = res.filter((r: any) => r.ClosingBalance < 0);
 
-        this.totalReceivable = this.filteredReceivable.reduce((acc: any, curr: any) => {
-          return acc + parseFloat(curr.ClosingBalance);
-        }, 0);
-        this.totalPayable = this.filteredPayable.reduce((acc: any, curr: any) => {
-          return acc + parseFloat(curr.ClosingBalance);
-        }, 0);
+        if (this.type === 'closing') {
+          this.filteredReceivable = res.filter((r: any) => r.ClosingBalance > 0);
+          this.filteredPayable = res.filter((r: any) => r.ClosingBalance < 0);
+  
+          this.totalReceivable = this.filteredReceivable.reduce((acc: any, curr: any) => {
+            return acc + parseFloat(curr.ClosingBalance);
+          }, 0);
+          this.totalPayable = this.filteredPayable.reduce((acc: any, curr: any) => {
+            return acc + parseFloat(curr.ClosingBalance);
+          }, 0);
+        } else {
+          this.filteredReceivable = res.filter((r: any) => r.OpeningBalance > 0);
+          this.filteredPayable = res.filter((r: any) => r.OpeningBalance < 0);
+  
+          this.totalReceivable = this.filteredReceivable.reduce((acc: any, curr: any) => {
+            return acc + parseFloat(curr.OpeningBalance);
+          }, 0);
+          this.totalPayable = this.filteredPayable.reduce((acc: any, curr: any) => {
+            return acc + parseFloat(curr.OpeningBalance);
+          }, 0);
+        }
+        
 
         this.balanceMatched = Math.abs(this.totalPayable) === Math.abs(this.totalReceivable); 
       },

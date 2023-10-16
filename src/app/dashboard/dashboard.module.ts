@@ -41,6 +41,7 @@ import { TrialBalanceComponent } from './dashboard/trial-balance/trial-balance.c
 import { ClosingBalanceSummaryComponent } from './dashboard/ledger/report/closing-balance-summary/closing-balance-summary.component';
 import { JournalTransactionComponent } from './dashboard/journal/journal-transaction/journal-transaction.component';
 import { AngadiyaListComponent } from './dashboard/angadiya-list/angadiya-list.component';
+import { OpeningTrialBalanceComponent } from './dashboard/opening-trial-balance/opening-trial-balance.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -73,7 +74,8 @@ export const MY_FORMATS = {
     TrialBalanceComponent,
     ClosingBalanceSummaryComponent,
     JournalTransactionComponent,
-    AngadiyaListComponent
+    AngadiyaListComponent,
+    OpeningTrialBalanceComponent
   ],
   imports: [
     CommonModule,
