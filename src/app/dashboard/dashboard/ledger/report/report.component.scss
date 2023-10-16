@@ -8,6 +8,9 @@
             &:last-of-type {
                 text-align: right; 
             }
+            &:nth-child(2) {
+                text-align: center;
+            }
         }
     }
     .bg-red {

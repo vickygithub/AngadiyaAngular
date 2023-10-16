@@ -72,7 +72,6 @@ export class AngadiyaListComponent {
           }
 
         })
-        console.log(this.transactions)
         this.sendList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'send');
         this.filteredSendList = [...this.sendList];
         this.receiveList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'receive');
