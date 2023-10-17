@@ -75,6 +75,11 @@ export class AngadiyaListComponent {
         })
         this.sendList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'send');
         this.filteredSendList = [...this.sendList];
+
+        this.filteredSendList = this.groupAndSortData(this.sendList);
+
+        
+
         this.receiveList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'receive');
         this.filteredReceiveList = [...this.receiveList];
       },
@@ -83,6 +88,25 @@ export class AngadiyaListComponent {
         this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
+  }
+  groupAndSortData(data: any) {
+    // Step 1: Group the data by CreditGuid
+    const groupedData = data.reduce((acc: any, current: any) => {
+      const key = current.CreditGuid;
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(current);
+      return acc;
+    }, {});
+
+    // Step 2: Sort the grouped data by SendTokenNo
+    const sortedData = Object.values(groupedData).map((group: any) =>
+      group.sort((a: any, b: any) => a.SendTokenNo - b.SendTokenNo)
+    );
+
+    // Step 3: Flatten the sorted data back to an array
+    return sortedData.flat();
   }
   goToComponent(row: any) {
     row.fromAngadiyaList = true;
@@ -100,10 +124,10 @@ export class AngadiyaListComponent {
   filterList(type: string) {
     switch (type.toLowerCase()) {
       case 'send':
-        this.filteredSendList = this.sendList.filter((s: any) => s.displayName.includes(this.searchText));
+        this.filteredSendList = this.sendList.filter((s: any) => s.displayName.toLowerCase().includes(this.searchText.toLowerCase()));
         break;
       case 'receive':
-        this.filteredReceiveList = this.receiveList.filter((s: any) => s.displayName.includes(this.searchText));
+        this.filteredReceiveList = this.receiveList.filter((s: any) => s.displayName.toLowerCase().includes(this.searchText.toLowerCase()));
         break;
       default:
         break;

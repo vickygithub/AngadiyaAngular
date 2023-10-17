@@ -44,11 +44,9 @@ export class ReportComponent {
       next: (res: any) => {
         this.spinner.hide();
 
-
+        this.sendToken = res.filter((r: any) => r.TransitionType.toLowerCase() === 'send').length;
         res.forEach((r: any) => {
-          if (r.TransitionType.toLowerCase() === 'send') {
-            this.sendToken += Number(r.SendTokenNo);
-          }
+          
           if (r.TransitionType.toLowerCase() === 'receive') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
               r['displayParticular'] = `${r.ReceiverName1 || r.ReceiverName}`;
