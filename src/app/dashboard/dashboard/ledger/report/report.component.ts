@@ -16,8 +16,8 @@ export class ReportComponent {
   public report: any;
   public date: any = new Date();
   public balances: any = [];
-  // public displayedColumns = ['particular', 'type', 'tno', 'amount'];
-  public displayedColumns = ['particular', 'type', 'amount'];
+  public displayedColumns = ['particular', 'type', 'tno', 'amount'];
+
   public sendToken: any = 0;
   public totalAmount: any = 0;
   public amountMatched: any = true;
