@@ -5,8 +5,6 @@ import { UpdateService } from './services/update.service';
 import { CommonService } from './services/common.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +15,8 @@ export class AppComponent {
   title = 'angadiya';
   isSuccess: any = false;
   private numberOfSeconds: number = 60;
-  constructor(private _idle: Idle, private router: Router, private sw: UpdateService, private commonService: CommonService, public dialog: MatDialog, private snackbar: MatSnackBar, private swUpdate: SwUpdate) {
-    this.commonService.getNewAppVersionAvailableEventEmitter().subscribe(() => {
-      const snack = this.snackbar.open('Update Available', 'Reload');
-      snack
-        .onAction()
-        .subscribe(() => window.location.reload());
-
-    });
+  constructor(private _idle: Idle, private router: Router, private sw: UpdateService, private commonService: CommonService, public dialog: MatDialog) {
+    this.commonService.getNewAppVersionAvailableEventEmitter().subscribe(() => this.sw.promptUser());
     this.commonService.getSuccessErrorEventEmitter().subscribe((res: any) => {
       this.isSuccess = res.success;
       if (!res.success) {
