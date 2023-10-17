@@ -16,14 +16,17 @@ export class UpdateService {
     interval(1 * 60 * 1000).subscribe(() => {
       console.log("checking for update")
       this.swUpdate.checkForUpdate()
-      .then(() => {
+      .then((res: any) => {
+        console.log("checkForUpdate response", res);
         this.informUser();
+      }, (err) => {
+        console.log("checkForUpdate error", err);
       })
     });
   }
   public informUser(): void {
-    this.swUpdate.available.subscribe(event => {
-      console.log("is update available");
+    this.swUpdate.versionUpdates.subscribe(event => {
+      console.log("is update available", event);
       this.commonService.emitNewAppVersionAvailableEventEmitter()
     });
   }
