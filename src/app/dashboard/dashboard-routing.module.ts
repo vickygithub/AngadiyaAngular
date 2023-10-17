@@ -17,6 +17,7 @@ import { TrialBalanceComponent } from './dashboard/trial-balance/trial-balance.c
 import { AngadiyaListComponent } from './dashboard/angadiya-list/angadiya-list.component';
 import { OpeningTrialBalanceComponent } from './dashboard/opening-trial-balance/opening-trial-balance.component';
 import { JournalTransactionComponent } from './dashboard/journal/journal-transaction/journal-transaction.component';
+import { CashTransactionListComponent } from './dashboard/cash-transaction-list/cash-transaction-list.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
       { path: 'ledger/report', component: ReportComponent },
       { path: 'trialbalance', component: TrialBalanceComponent },
       { path: 'openingtrialbalance', component: OpeningTrialBalanceComponent },
-      { path: 'angadiyalist', component: AngadiyaListComponent }
+      { path: 'angadiyalist', component: AngadiyaListComponent },
+      { path: 'cashtransactionlist', component: CashTransactionListComponent }
     ]
   }
 ];

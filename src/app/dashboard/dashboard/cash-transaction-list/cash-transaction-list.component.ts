@@ -5,19 +5,19 @@ import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
 
 @Component({
-  selector: 'app-angadiya-list',
-  templateUrl: './angadiya-list.component.html',
-  styleUrls: ['./angadiya-list.component.scss']
+  selector: 'app-cash-transaction-list',
+  templateUrl: './cash-transaction-list.component.html',
+  styleUrls: ['./cash-transaction-list.component.scss']
 })
-export class AngadiyaListComponent {
+export class CashTransactionListComponent {
   public loggedInUser: any;
   public transactions: any = [];
   public accountList: any = [];
   public searchText: any;
-  public sendList: any = [];
-  public receiveList: any = [];
-  public filteredSendList: any = [];
-  public filteredReceiveList: any = [];
+  public paymentList: any = [];
+  public receiptLust: any = [];
+  public filteredPaymentList: any = [];
+  public filteredReceiptList: any = [];
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -50,7 +50,7 @@ export class AngadiyaListComponent {
       DeviceId: "83e9568fa4df9fc1",
       Token: this.loggedInUser.Token,
       LoginId: this.loggedInUser.Guid,
-      TransactionType: 'angadiya'
+      TransactionType: 'cash'
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -60,12 +60,12 @@ export class AngadiyaListComponent {
         }
         this.transactions = [...res];
         this.transactions.forEach((t: any) => {
-          if (t.TransitionType.toLowerCase() === 'send') {
+          if (t.TransitionType.toLowerCase() === 'cr') {
             const account = this.accountList.find((a: any) => a.Guid === t.CreditGuid);
             if (account) {
               t.displayName = account.Name;
             }
-          } else if (t.TransitionType.toLowerCase() === 'receive') {
+          } else if (t.TransitionType.toLowerCase() === 'cp') {
             const account = this.accountList.find((a: any) => a.Guid === t.DebitGuid);
             if (account) {
               t.displayName = account.Name;
@@ -73,10 +73,10 @@ export class AngadiyaListComponent {
           }
 
         })
-        this.sendList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'send');
-        this.filteredSendList = [...this.sendList];
-        this.receiveList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'receive');
-        this.filteredReceiveList = [...this.receiveList];
+        this.paymentList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'cp');
+        this.filteredPaymentList = [...this.paymentList];
+        this.receiptLust = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'cr');
+        this.filteredReceiptList = [...this.receiptLust];
       },
       error: (err) => {
         this.spinner.hide();
@@ -85,25 +85,15 @@ export class AngadiyaListComponent {
     })
   }
   goToComponent(row: any) {
-    row.fromAngadiyaList = true;
-    switch (row.TransitionType.toLowerCase()) {
-      case "send":
-        this.router.navigate(['/dashboard/angadiya'], { state: row });
-        break;
-      case "receive":
-        this.router.navigate(['/dashboard/angadiya'], { state: row });
-        break;
-      default:
-        break;
-    }
+    this.router.navigate(['/dashboard/cashtransaction'], { state: row });
   }
   filterList(type: string) {
     switch (type.toLowerCase()) {
-      case 'send':
-        this.filteredSendList = this.sendList.filter((s: any) => s.displayName.includes(this.searchText));
+      case 'cp':
+        this.filteredPaymentList = this.paymentList.filter((s: any) => s.displayName.includes(this.searchText));
         break;
-      case 'receive':
-        this.filteredReceiveList = this.receiveList.filter((s: any) => s.displayName.includes(this.searchText));
+      case 'cr':
+        this.filteredReceiptList = this.receiptLust.filter((s: any) => s.displayName.includes(this.searchText));
         break;
       default:
         break;
