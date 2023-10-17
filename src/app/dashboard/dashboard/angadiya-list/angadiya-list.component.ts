@@ -19,6 +19,7 @@ export class AngadiyaListComponent {
   public filteredSendList: any = [];
   public filteredReceiveList: any = [];
   public searchGuid: any = null;
+  public totalBalance: any = 0;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -60,6 +61,7 @@ export class AngadiyaListComponent {
           return;
         }
         this.transactions = [...res];
+      
         this.transactions.forEach((t: any) => {
           if (t.TransitionType.toLowerCase() === 'send') {
             const account = this.accountList.find((a: any) => a.Guid === t.CreditGuid);
@@ -76,6 +78,7 @@ export class AngadiyaListComponent {
         })
         this.sendList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'send');
         this.filteredSendList = [...this.sendList];
+        
 
         this.filteredSendList = this.groupAndSortData(this.sendList);
 
@@ -127,20 +130,34 @@ export class AngadiyaListComponent {
       case 'send':
         if (this.searchGuid == null) {
           this.filteredSendList = this.groupAndSortData(this.sendList); 
+          
         } else {
+
           this.filteredSendList = this.groupAndSortData(this.sendList).filter((s: any) => s.CreditGuid === this.searchGuid);
+          this.totalBalance = this.filteredSendList.reduce((acc: any, curr: any) => {
+            return acc + parseFloat(curr.Amount);
+          }, 0);
         }
         break;
       case 'receive':
         if (this.searchGuid == null) {
           this.filteredReceiveList = this.receiveList; 
+         
         } else {
           this.filteredReceiveList = this.receiveList.filter((s: any) => s.DebitGuid === this.searchGuid);
+          this.totalBalance = this.filteredReceiveList.reduce((acc: any, curr: any) => {
+            return acc + parseFloat(curr.Amount);
+          }, 0);
         }
         break;
       default:
         break;
     }
+  }
+  tabChange(event: any) {
+    this.searchGuid = null;
+    this.filteredSendList = this.groupAndSortData(this.sendList); 
+    this.filteredReceiveList = this.receiveList;
   }
   ngOnInit() {
     this.fetchAccountList();

@@ -7,7 +7,7 @@
             <h2 class="m-0">Angadiya List</h2>
         </div>
     </div>
-    <mat-tab-group class="journal-mat-tab-group">
+    <mat-tab-group class="journal-mat-tab-group" (selectedTabChange)="tabChange($event)">
         <mat-tab>
             <ng-template mat-tab-label>
                 Sent List
@@ -15,11 +15,7 @@
             <ng-template matTabContent>
                 <div class="d-flex flex-column mb-2 gap-3">
                     <div class="col-xs-12 col-sm-6 col-lg-4">
-                        <!-- <mat-form-field class="w-100">
-                            <mat-icon matPrefix>search</mat-icon>
-                            <input matInput type="search" placeholder="All" [(ngModel)]="searchText"
-                                (keyup)="filterList('send')">
-                        </mat-form-field> -->
+                        
                         <mat-form-field class="w-100">
                             <mat-label>-- All --</mat-label>
                             <mat-select [(ngModel)]="searchGuid" (selectionChange)="filterList('send')">
@@ -55,11 +51,7 @@
             <ng-template matTabContent>
                 <div class="d-flex flex-column mb-2 gap-3">
                     <div class="col-xs-12 col-sm-6 col-lg-4">
-                        <!-- <mat-form-field class="w-100">
-                            <mat-icon matPrefix>search</mat-icon>
-                            <input matInput type="search" placeholder="Search" [(ngModel)]="searchText"
-                                (keyup)="filterList('receive')">
-                        </mat-form-field> -->
+                        
                         <mat-form-field class="w-100">
                             <mat-label>-- All --</mat-label>
                             <mat-select [(ngModel)]="searchGuid" (selectionChange)="filterList('receive')">
@@ -88,4 +80,15 @@
         </mat-tab>
     </mat-tab-group>
 </div>
-
+<div class="bottom-sticky" *ngIf="searchGuid != null">
+    <mat-card class="w-100">
+                        
+        <mat-card-content>
+            <div class="d-flex justify-content-end">
+                <strong>{{totalBalance | number:'1.2-2'}}</strong>
+            </div>
+        </mat-card-content>
+    
+    
+</mat-card>
+</div>
