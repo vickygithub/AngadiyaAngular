@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { SwUpdate } from '@angular/service-worker';
-import { interval } from 'rxjs';
+import { ApplicationRef, Injectable } from '@angular/core';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import { concat, filter, first, interval } from 'rxjs';
 import { CommonService } from './common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
@@ -8,32 +8,43 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UpdateService {
 
-  constructor(private swUpdate: SwUpdate, private commonService: CommonService, private snackbar: MatSnackBar) {
+  constructor(private swUpdate: SwUpdate, private commonService: CommonService, private snackbar: MatSnackBar, private appRef: ApplicationRef) {
     this.checkUpdates();
+
   }
   private checkUpdates() {
-    interval(1 * 60 * 1000).subscribe(() => {
-      this.swUpdate.checkForUpdate()
-      .then((res: any) => {
-        this.informUser();
-      }, (err) => {
-      })
+    // Allow the app to stabilize first, before starting
+    // polling for updates with `interval()`.
+    const appIsStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
+    const everyMinute$ = interval(1 * 60 * 1000);
+    const everyMinuteOnceAppIsStable$ = concat(appIsStable$, everyMinute$);
+
+    everyMinuteOnceAppIsStable$.subscribe(async () => {
+      try {
+        const updateFound = await this.swUpdate.checkForUpdate();
+        console.log(updateFound ? 'A new version is available.' : 'Already on the latest version.');
+        if (updateFound) {
+          this.informUser();
+        }
+      } catch (err) {
+        console.error('Failed to check for updates:', err);
+      }
     });
   }
   public informUser(): void {
-    this.swUpdate.versionUpdates.subscribe(event => {
-      if (event.type === "VERSION_READY") {
+    this.swUpdate.versionUpdates
+      .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
+      .subscribe(evt => {
         console.log("Update available");
-        this.commonService.emitNewAppVersionAvailableEventEmitter()
-      }
-    });
+        this.commonService.emitNewAppVersionAvailableEventEmitter();
+      });
   }
   public promptUser(): void {
     const snack = this.snackbar.open('Update Available', 'Reload');
     snack
       .onAction()
       .subscribe(() => {
-        this.swUpdate.activateUpdate().then(() => window.location.reload());
+        window.location.reload();
       });
 
   }
