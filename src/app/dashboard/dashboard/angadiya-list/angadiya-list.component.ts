@@ -18,6 +18,7 @@ export class AngadiyaListComponent {
   public receiveList: any = [];
   public filteredSendList: any = [];
   public filteredReceiveList: any = [];
+  public searchGuid: any = null;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -124,10 +125,18 @@ export class AngadiyaListComponent {
   filterList(type: string) {
     switch (type.toLowerCase()) {
       case 'send':
-        this.filteredSendList = this.sendList.filter((s: any) => s.displayName.toLowerCase().includes(this.searchText.toLowerCase()));
+        if (this.searchGuid == null) {
+          this.filteredSendList = this.groupAndSortData(this.sendList); 
+        } else {
+          this.filteredSendList = this.groupAndSortData(this.sendList).filter((s: any) => s.CreditGuid === this.searchGuid);
+        }
         break;
       case 'receive':
-        this.filteredReceiveList = this.receiveList.filter((s: any) => s.displayName.toLowerCase().includes(this.searchText.toLowerCase()));
+        if (this.searchGuid == null) {
+          this.filteredReceiveList = this.receiveList; 
+        } else {
+          this.filteredReceiveList = this.receiveList.filter((s: any) => s.DebitGuid === this.searchGuid);
+        }
         break;
       default:
         break;

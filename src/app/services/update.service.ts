@@ -9,14 +9,26 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UpdateService {
 
   constructor(private swUpdate: SwUpdate, private commonService: CommonService, private snackbar: MatSnackBar) {
-    interval(1 * 60 * 1000).subscribe(() => swUpdate.checkForUpdate()
-      .then(() => this.informUser()));
-
+    this.checkUpdates();
+  }
+  private checkUpdates() {
+    console.log("interval will start");
+    interval(1 * 60 * 1000).subscribe(() => {
+      console.log("checking for update")
+      this.swUpdate.checkForUpdate()
+      .then(() => {
+        this.informUser();
+      })
+    });
   }
   public informUser(): void {
-    this.swUpdate.available.subscribe(event => this.commonService.emitNewAppVersionAvailableEventEmitter());
+    this.swUpdate.available.subscribe(event => {
+      console.log("is update available");
+      this.commonService.emitNewAppVersionAvailableEventEmitter()
+    });
   }
   public promptUser(): void {
+    console.log("snackbar coming")
     const snack = this.snackbar.open('Update Available', 'Reload');
     snack
       .onAction()
