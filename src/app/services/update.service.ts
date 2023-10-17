@@ -23,6 +23,7 @@ export class UpdateService {
   public informUser(): void {
     this.swUpdate.versionUpdates.subscribe(event => {
       if (event.type === "VERSION_READY") {
+        console.log("Update available");
         this.commonService.emitNewAppVersionAvailableEventEmitter()
       }
     });
