@@ -12,26 +12,22 @@ export class UpdateService {
     this.checkUpdates();
   }
   private checkUpdates() {
-    console.log("interval will start");
     interval(1 * 60 * 1000).subscribe(() => {
-      console.log("checking for update")
       this.swUpdate.checkForUpdate()
       .then((res: any) => {
-        console.log("checkForUpdate response", res);
         this.informUser();
       }, (err) => {
-        console.log("checkForUpdate error", err);
       })
     });
   }
   public informUser(): void {
     this.swUpdate.versionUpdates.subscribe(event => {
-      console.log("is update available", event);
-      this.commonService.emitNewAppVersionAvailableEventEmitter()
+      if (event.type === "VERSION_READY") {
+        this.commonService.emitNewAppVersionAvailableEventEmitter()
+      }
     });
   }
   public promptUser(): void {
-    console.log("snackbar coming")
     const snack = this.snackbar.open('Update Available', 'Reload');
     snack
       .onAction()
