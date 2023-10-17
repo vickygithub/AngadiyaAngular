@@ -43,6 +43,7 @@ import { JournalTransactionComponent } from './dashboard/journal/journal-transac
 import { AngadiyaListComponent } from './dashboard/angadiya-list/angadiya-list.component';
 import { OpeningTrialBalanceComponent } from './dashboard/opening-trial-balance/opening-trial-balance.component';
 import { CashTransactionListComponent } from './dashboard/cash-transaction-list/cash-transaction-list.component';
+import { JournalListComponent } from './dashboard/journal-list/journal-list.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -77,7 +78,8 @@ export const MY_FORMATS = {
     JournalTransactionComponent,
     AngadiyaListComponent,
     OpeningTrialBalanceComponent,
-    CashTransactionListComponent
+    CashTransactionListComponent,
+    JournalListComponent
   ],
   imports: [
     CommonModule,

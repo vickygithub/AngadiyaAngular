@@ -1,0 +1,38 @@
+<div class="pt-4 pb-4">
+    <div class="pt-3 top-sticky">
+        <div class="d-flex align-items-center">
+            <div class="col-4">
+                <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+            </div>
+            <div class="col-4 text-center">
+                <h2 class="m-0">Journal List</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-lg-4">
+                <mat-form-field class="w-100">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input matInput type="search" placeholder="Search" [(ngModel)]="searchText" (keyup)="filterList()">
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <mat-card class="w-100" *ngFor="let obj of filteredTranList">
+
+            <mat-card-content>
+                <div class="d-flex justify-content-between align-items-center" (click)="goToComponent(obj)">
+                    
+                    <span>{{obj.debitName}}</span>
+                    <span>{{obj.creditName}}</span>
+                    <span>{{obj.Amount | number:'1.2-2'}}</span>
+                </div>
+            </mat-card-content>
+
+
+        </mat-card>
+
+    </div>
+</div>
