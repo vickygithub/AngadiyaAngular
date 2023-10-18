@@ -23,12 +23,15 @@ export class CreateComponent {
   save() {
     
     if (this.name == null || this.name == "" || this.type == null) {
+      this.commonService.emitSuccessErrorEventEmitter({message: 'Enter Name', success: false});
       return;
     }
     if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isMobileValid(this.mobile) && (this.city == '' || this.city == null)) {
+      this.commonService.emitSuccessErrorEventEmitter({message: 'Mobile or City Invalid', success: false});
       return;
     }
     if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isCityNameValid(this.city)) {
+      this.commonService.emitSuccessErrorEventEmitter({message: 'City Invalid', success: false});
       return;
     }
    
