@@ -12,10 +12,12 @@ export class AngadiyaComponent {
   public existingSendDetails: any;
   public selectedIndex: any = 0;
   public cityNameForPdf: any;
-  constructor(private router: Router) { }
-
-  ngOnInit() {
+  constructor(private router: Router) { 
     this.existingSendDetails = history.state;
+  }
+  
+  ngOnInit() {
+    
     if (this.existingSendDetails.Guid != null) {
       if (this.existingSendDetails.TransitionType.toLowerCase() === 'send') {
         this.selectedIndex = 0;
