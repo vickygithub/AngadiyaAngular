@@ -1,7 +1,9 @@
 <div class="pt-4 pb-4">
 
-
-    <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+    <div class="d-flex align-items-center justify-content-between">
+        <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+        <button mat-raised-button color="primary" (click)="generatePdf()">Pdf</button>
+    </div>
     <mat-tab-group [(selectedIndex)]="selectedIndex">
         <mat-tab>
             <ng-template mat-tab-label>
@@ -25,15 +27,20 @@
                         </ng-container>
                         <ng-container matColumnDef="type">
                             <th mat-header-cell *matHeaderCellDef> Type </th>
-                            <td mat-cell *matCellDef="let element"> {{element.TransitionType.toLowerCase() == 'send' ? 'S' : element.TransitionType.toLowerCase() == 'receive' ? 'R' : element.TransitionType}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.TransitionType.toLowerCase() == 'send' ?
+                                'S' :
+                                element.TransitionType.toLowerCase() == 'receive' ? 'R' : element.TransitionType}} </td>
                             <td mat-footer-cell *matFooterCellDef>
-                                <span class="amount-matched" *ngIf="amountMatched">{{balances[0]?.ClosingBalance.toFixed(2)}}</span>
-                                <span class="amount-mismatched" *ngIf="!amountMatched">{{balances[0]?.ClosingBalance.toFixed(2)}}</span>
+                                <span class="amount-matched"
+                                    *ngIf="amountMatched">{{balances[0]?.ClosingBalance.toFixed(2)}}</span>
+                                <span class="amount-mismatched"
+                                    *ngIf="!amountMatched">{{balances[0]?.ClosingBalance.toFixed(2)}}</span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="tno">
                             <th mat-header-cell *matHeaderCellDef> T No. </th>
-                            <td mat-cell *matCellDef="let element"> {{element.TransitionType.toLowerCase() == 'send' ? element.SendTokenNo : ''}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.TransitionType.toLowerCase() == 'send' ?
+                                element.SendTokenNo : ''}} </td>
                             <td mat-footer-cell *matFooterCellDef> <strong>{{sendToken}}</strong> </td>
                         </ng-container>
                         <ng-container matColumnDef="amount">
@@ -41,9 +48,11 @@
                             <td mat-cell *matCellDef="let element"> {{element.displayAmount}} </td>
                             <td mat-footer-cell *matFooterCellDef> <strong>{{totalAmount.toFixed(2)}}</strong> </td>
                         </ng-container>
-            
+
                         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'bg-red': row.bgRed === true, 'bg-green': row.bgRed === false}" (click)="goToSendComponent(row)"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                            [ngClass]="{'bg-red': row.bgRed === true, 'bg-green': row.bgRed === false}"
+                            (click)="goToSendComponent(row)"></tr>
                         <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
                     </table>
                 </div>
@@ -54,9 +63,10 @@
                 CLOSING SUMMARY
             </ng-template>
             <ng-template matTabContent>
-                <app-closing-balance-summary [selectedAcount]="selectedAcount" (goToReport)="fetchDetails($event)"></app-closing-balance-summary>
+                <app-closing-balance-summary [selectedAcount]="selectedAcount"
+                    (goToReport)="fetchDetails($event)"></app-closing-balance-summary>
             </ng-template>
         </mat-tab>
     </mat-tab-group>
-    
+
 </div>

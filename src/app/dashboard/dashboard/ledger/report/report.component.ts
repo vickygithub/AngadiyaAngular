@@ -5,6 +5,10 @@ import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
 import * as moment from 'moment';
 
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -29,7 +33,93 @@ export class ReportComponent {
   back() {
     this.router.navigate(['/dashboard/ledger']);
   }
-
+  getPdfBodyRows() {
+    let rows: any = [];
+    rows.push(
+      [
+        { text: 'Particular', style: 'tableHeader' },
+        { text: 'Type', style: 'tableHeader' },
+        { text: 'T No.', style: 'tableHeader', alignment: 'center' },
+        { text: 'Amount', style: 'tableHeader', alignment: 'right' }
+      ]
+    )
+    this.report.forEach((r: any, index: any) => {
+      let row = [
+        {
+          text: r.displayParticular,
+          fillColor: index == 0 ? '' : r.bgRed ? '#d8b0b0' : !r.bgRed ? '#c5e1c7' : ''
+        },
+        {
+          text: r.TransitionType.toLowerCase() == 'send' ? 'S' : r.TransitionType.toLowerCase() == 'receive' ? 'R' : r.TransitionType,
+          fillColor: index == 0 ? '' : r.bgRed ? '#d8b0b0' : !r.bgRed ? '#c5e1c7' : ''
+        },
+        {
+          text: r.TransitionType.toLowerCase() == 'send' ? r.SendTokenNo : '',
+          alignment: 'center',
+          fillColor: index == 0 ? '' : r.bgRed ? '#d8b0b0' : !r.bgRed ? '#c5e1c7' : ''
+        },
+        {
+          text: r.displayAmount,
+          alignment: 'right',
+          fillColor: index == 0 ? '' : r.bgRed ? '#d8b0b0' : !r.bgRed ? '#c5e1c7' : ''
+        }
+      ]
+      rows.push(
+        row
+      )
+    });
+    rows.push([{ text: 'Total', style: 'tableHeader' }, { text: this.balances[0]?.ClosingBalance.toFixed(2), style: 'tableHeader', color: this.amountMatched ? 'green' : 'red' },{ text: this.sendToken, style: 'tableHeader', alignment: 'center' }, { text: this.totalAmount.toFixed(2), style: 'tableHeader', alignment: "right" }])
+    return rows;
+  }
+  getPdfBody() {
+    
+  }
+  generatePdf() {
+    let documentDefinition: any = {
+      content: [
+        {text: 'Ledger', style: 'header', alignment: "center"},
+        {
+          style: 'tableExample',
+          table: {
+            headerRows: 1,
+            widths: [200, 100, '*', '150'],
+            body: [
+              [{ text: this.selectedAcount.Name, style: 'tableHeader' }, { text: '', style: 'tableHeader' },{ text: '', style: 'tableHeader' }, { text: moment(this.date).format('DD-MM-YYYY'), style: 'tableHeader', alignment: "right" }]
+            ]
+          },
+          layout: 'noBorders'
+        },
+        {
+          style: 'tableExample',
+          table: {
+            widths: [200, 100, '*', 150],
+            body: this.getPdfBodyRows()
+          }
+        }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableExample: {
+          margin: [0, 5, 0, 5]
+        },
+        tableHeader: {
+          bold: true,
+          fontSize: 13,
+          color: 'black'
+        }
+      }
+    };
+    pdfMake.createPdf(documentDefinition).download();
+  }
   fetchReport(closingBalanceDate: any = null) {
     this.spinner.show();
     this.crudService.postByUrl('/LedgerReport', {
@@ -46,7 +136,7 @@ export class ReportComponent {
 
         this.sendToken = res.filter((r: any) => r.TransitionType.toLowerCase() === 'send').length;
         res.forEach((r: any) => {
-          
+
           if (r.TransitionType.toLowerCase() === 'receive') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
               r['displayParticular'] = `${r.ReceiverName1 || r.ReceiverName}`;
@@ -108,7 +198,7 @@ export class ReportComponent {
           this.date = this.commonService.getDatePickerDate(closingBalanceDate);
           this.selectedIndex = 0;
         }
-        
+
       },
       error: (err) => {
         this.spinner.hide();
