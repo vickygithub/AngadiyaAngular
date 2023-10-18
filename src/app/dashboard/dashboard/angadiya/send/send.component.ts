@@ -32,6 +32,7 @@ export class SendComponent {
   public maxDate: any = new Date();
  
   @Output() goToMainDashboard = new EventEmitter<any>();
+  @Output() getCityNameForPdf = new EventEmitter<any>();
   @Input() existingSendDetails: any;
   public citySubjectNotifier = new Subject<any>();
   public citySubject: Subscription;
@@ -39,11 +40,15 @@ export class SendComponent {
 
     this.citySubject = this.citySubjectNotifier.subscribe((res: any) => {
       if (this.existingSendDetails.Guid != null) {
+        let cityNameForPdf: any;
         if (this.existingSendDetails.fromAngadiyaList === true) {
           this.receiverCity = this.existingSendDetails.ReceiverCity;
+          cityNameForPdf = this.cities.find((c: any) => c.Guid === this.existingSendDetails.ReceiverCity).Name;
         } else {
           this.receiverCity = this.cities.find((c: any) => c.Name.toLowerCase().replace(/\s/g, '') === this.existingSendDetails.ReceiverCity.toLowerCase().replace(/\s/g, '')).Guid;
         }
+        this.getCityNameForPdf.emit(cityNameForPdf);
+        
       }
     });
 
@@ -120,7 +125,7 @@ export class SendComponent {
       this.noteNo = this.existingSendDetails.NoteNo;
       this.debitGuid = this.existingSendDetails.DebitGuid;
       this.senderName = this.existingSendDetails.SennderName;
-      this.senderMobileNo = this.existingSendDetails.senderMobileNo;
+      this.senderMobileNo = this.existingSendDetails.SenderMobileNo == "null" ? "" : this.existingSendDetails.SenderMobileNo;
       this.senderCharges = this.existingSendDetails.SendCharges.toFixed(2);
       this.remark = this.existingSendDetails.Remark;
 

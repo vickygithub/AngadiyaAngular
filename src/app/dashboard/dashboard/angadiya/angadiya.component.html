@@ -6,6 +6,9 @@
         <div class="col-4 text-center">
             <h2 class="m-0">Angadiya</h2>
         </div>
+        <div class="col-4 text-end" *ngIf="existingSendDetails.Guid != null && selectedIndex === 0">
+            <button mat-raised-button color="primary" (click)="generatePdf()">Pdf</button>
+        </div>
     </div>
     <mat-tab-group class="journal-mat-tab-group" [selectedIndex]="selectedIndex">
         <mat-tab>
@@ -13,7 +16,7 @@
                 Send
             </ng-template>
             <ng-template matTabContent>
-                <app-send (goToMainDashboard)="back()" [existingSendDetails]="existingSendDetails"></app-send>
+                <app-send (goToMainDashboard)="back()" [existingSendDetails]="existingSendDetails" (getCityNameForPdf)="getCityNameForPdf($event)"></app-send>
             </ng-template>
         </mat-tab>
         <mat-tab>
