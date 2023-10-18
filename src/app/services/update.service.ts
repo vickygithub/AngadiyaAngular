@@ -10,7 +10,13 @@ export class UpdateService {
 
   constructor(private swUpdate: SwUpdate, private commonService: CommonService, private snackbar: MatSnackBar, private appRef: ApplicationRef) {
     this.checkUpdates();
-
+    swUpdate.unrecoverable.subscribe(event => {
+      confirm(
+        'An error occurred that we cannot recover from:\n' +
+        event.reason +
+        '\n\nPlease reload the page.'
+      );
+    });
   }
   private checkUpdates() {
     // Allow the app to stabilize first, before starting
@@ -25,6 +31,9 @@ export class UpdateService {
         console.log(updateFound ? 'A new version is available.' : 'Already on the latest version.');
         if (updateFound) {
           this.informUser();
+          if (confirm("Update Available, Press OK!")) {
+            window.location.reload();
+          }
         }
       } catch (err) {
         console.error('Failed to check for updates:', err);

@@ -29,6 +29,9 @@ export class MainComponent {
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
+        if (res == null) {
+          this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        }
         res.forEach((r: any) => {
           r.Icons = r.Icon.split(",");
         })

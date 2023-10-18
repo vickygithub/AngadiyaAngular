@@ -54,6 +54,7 @@ export class LoginComponent {
       },
       error: (err) => { 
         this.spinner.hide();
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error! Please try again.', success: false});
       }
     })
   }
