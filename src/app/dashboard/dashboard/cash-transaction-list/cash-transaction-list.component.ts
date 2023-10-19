@@ -36,7 +36,6 @@ export class CashTransactionListComponent {
         this.spinner.hide();
         this.accountList = res;
 
-        this.fetchTransactions();
       },
       error: (err) => {
         this.spinner.hide();
@@ -44,61 +43,7 @@ export class CashTransactionListComponent {
       }
     })
   }
-  fetchTransactions() {
-    this.spinner.show();
-    this.crudService.postByUrl('/TransactionList', {
-      DeviceId: "83e9568fa4df9fc1",
-      Token: this.loggedInUser.Token,
-      LoginId: this.loggedInUser.Guid,
-      TransactionType: 'cash'
-    }).subscribe({
-      next: (res: any) => {
-        this.spinner.hide();
-        if (res.includes('Invalid')) {
-          this.commonService.emitSuccessErrorEventEmitter({ message: res, success: false });
-          return;
-        }
-        this.transactions = [...res];
-        this.transactions.forEach((t: any) => {
-          if (t.TransitionType.toLowerCase() === 'cr') {
-            const account = this.accountList.find((a: any) => a.Guid === t.CreditGuid);
-            if (account) {
-              t.displayName = account.Name;
-            }
-          } else if (t.TransitionType.toLowerCase() === 'cp') {
-            const account = this.accountList.find((a: any) => a.Guid === t.DebitGuid);
-            if (account) {
-              t.displayName = account.Name;
-            }
-          }
-
-        })
-        this.paymentList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'cp');
-        this.filteredPaymentList = [...this.paymentList];
-        this.receiptLust = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'cr');
-        this.filteredReceiptList = [...this.receiptLust];
-      },
-      error: (err) => {
-        this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
-      }
-    })
-  }
-  goToComponent(row: any) {
-    this.router.navigate(['/dashboard/cashtransaction'], { state: row });
-  }
-  filterList(type: string) {
-    switch (type.toLowerCase()) {
-      case 'cp':
-        this.filteredPaymentList = this.paymentList.filter((s: any) => s.displayName.includes(this.searchText));
-        break;
-      case 'cr':
-        this.filteredReceiptList = this.receiptLust.filter((s: any) => s.displayName.includes(this.searchText));
-        break;
-      default:
-        break;
-    }
-  }
+  
   ngOnInit() {
     this.fetchAccountList();
   }

@@ -46,12 +46,6 @@ export class AngadiyaListComponent {
     })
   }
   
-  
-  tabChange(event: any) {
-    this.searchGuid = null;
-    // this.filteredSendList = this.groupAndSortData(this.sendList); 
-    // this.filteredReceiveList = this.receiveList;
-  }
   ngOnInit() {
     this.fetchAccountList();
   }

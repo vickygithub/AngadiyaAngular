@@ -39,11 +39,14 @@ export class AngadiyaComponent {
             headerRows: 1,
             widths: [150, 100],
             body: [
+              [{ text: 'Token No:', style: 'subheader' }, { text: this.existingSendDetails.SendTokenNo, alignment: 'right', margin: [0, 10, 0, 5] }],
+              [{text: '\n'}, {text: '', margin: [0, 10, 0, 5] }],
               [{ text: 'Charge: ', style: 'subheader' }, { text: this.existingSendDetails.ReceiveCharges.toFixed(2), alignment: 'right', margin: [0, 10, 0, 5] }],
               [{ text: 'Amount: ', style: 'subheader' }, { text: this.existingSendDetails.Amount.toFixed(2), alignment: 'right', margin: [0, 10, 0, 5] }],
               [{ text: 'Receiver Name: ', style: 'subheader' }, { text: (this.existingSendDetails.ReceiverName1 || this.existingSendDetails.ReceiverName), alignment: 'right', margin: [0, 10, 0, 5] }],
               [{ text: 'Receiver Mobile: ', style: 'subheader' }, { text: this.existingSendDetails.ReceiverMobileNo, alignment: 'right', margin: [0, 10, 0, 5] }],
-              [{ text: 'City: ', style: 'subheader', border: [false, false, false, true] }, { text: this.cityNameForPdf, alignment: 'right', margin: [0, 10, 0, 5], border: [false, false, false, true] }]
+              [{ text: 'City: ', style: 'subheader' }, { text: this.cityNameForPdf, alignment: 'right', margin: [0, 10, 0, 5] }],
+              [{ text: 'Note No: ', style: 'subheader', border: [false, false, false, true] }, { text: this.existingSendDetails.NoteNo, alignment: 'right', margin: [0, 10, 0, 5], border: [false, false, false, true] }]
             ]
           },
           layout: {
@@ -59,7 +62,9 @@ export class AngadiyaComponent {
             body: [
               [{ text: 'Sender Name:', style: 'subheader' }, { text: (this.existingSendDetails.SennderName || ''), alignment: 'right', margin: [0, 10, 0, 5] }],
               [{ text: 'Sender Mobile:', style: 'subheader' }, { text: (this.existingSendDetails.SenderMobileNo == "null" ? "" : this.existingSendDetails.SenderMobileNo), alignment: 'right', margin: [0, 10, 0, 5] }],
-              [{ text: 'Token No:', style: 'subheader' }, { text: this.existingSendDetails.SendTokenNo, alignment: 'right', margin: [0, 10, 0, 5] }],
+              [{ text: 'Remark:', style: 'subheader' }, { text: this.existingSendDetails.Remark, alignment: 'right', margin: [0, 10, 0, 5] }],
+              [{text: '\n'}, {text: '', margin: [0, 10, 0, 5] }],
+              [{text: 'Sender Branch:', style: 'subheader' }, {text: '', margin: [0, 10, 0, 5] }]
 
             ]
           },
