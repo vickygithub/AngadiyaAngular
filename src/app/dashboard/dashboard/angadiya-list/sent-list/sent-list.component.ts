@@ -40,6 +40,7 @@ export class SentListComponent {
           const account = this.accountList.find((a: any) => a.Guid === t.CreditGuid);
             if (account) {
               t.displayName = account.Name;
+              t.selfName = account.SelfName;
             }
         })
         this.transactions = [...res];

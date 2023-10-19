@@ -17,10 +17,16 @@
     <mat-card class="w-100" *ngFor="let obj of filteredSendList">
         
             <mat-card-content>
-                <div class="d-flex justify-content-between" (click)="goToComponent(obj)">
-                    <span>To - {{obj.displayName}}</span>
-                    <span>{{obj.SendTokenNo}}</span>
-                    <span>{{obj.Amount | number:'1.2-2'}}</span>
+                <div class="row align-items-center" (click)="goToComponent(obj)">
+                    <div class="col-4">
+                        <span>To - {{obj.displayName}}</span>
+                    </div>
+                    <div class="col-4 text-center">
+                        <span>{{obj.SendTokenNo}}</span>
+                    </div>
+                    <div class="col-4 text-end">
+                        <span>{{obj.Amount | number:'1.2-2'}}</span>
+                    </div>
                 </div>
             </mat-card-content>
         

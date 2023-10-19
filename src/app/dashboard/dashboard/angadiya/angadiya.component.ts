@@ -64,7 +64,7 @@ export class AngadiyaComponent {
               [{ text: 'Sender Mobile:', style: 'subheader' }, { text: (this.existingSendDetails.SenderMobileNo == "null" ? "" : this.existingSendDetails.SenderMobileNo), alignment: 'right', margin: [0, 10, 0, 5] }],
               [{ text: 'Remark:', style: 'subheader' }, { text: this.existingSendDetails.Remark, alignment: 'right', margin: [0, 10, 0, 5] }],
               [{text: '\n'}, {text: '', margin: [0, 10, 0, 5] }],
-              [{text: 'Sender Branch:', style: 'subheader' }, {text: '', margin: [0, 10, 0, 5] }]
+              [{text: 'Sender Branch:', style: 'subheader' }, {text: this.existingSendDetails.selfName, alignment: 'right', margin: [0, 10, 0, 5] }]
 
             ]
           },

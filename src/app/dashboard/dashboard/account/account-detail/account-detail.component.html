@@ -7,30 +7,36 @@
                     <input matInput placeholder="Name" [(ngModel)]="existingAccountMaster.Name">
                 </mat-form-field>
             </div>
-            <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="existingAccountMaster.Type.toLowerCase()==='client' || existingAccountMaster.Type.toLowerCase()==='angadiya'">
                 <mat-form-field class="w-100">
                     <mat-label>Opening Balance</mat-label>
                     <input matInput type="number" placeholder="OpeningBalance"
-                        [(ngModel)]="existingAccountMaster.OpeningBalance" [disabled]="existingAccountMaster.Type.toLowerCase()==='commission' || existingAccountMaster.Type.toLowerCase()==='expenses' || existingAccountMaster.Type.toLowerCase()==='income'">
+                        [(ngModel)]="existingAccountMaster.OpeningBalance">
                 </mat-form-field>
             </div>
-            <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="existingAccountMaster.Type.toLowerCase()==='client' || existingAccountMaster.Type.toLowerCase()==='angadiya'">
                 <mat-form-field class="w-100">
                     <mat-label>MobileNo</mat-label>
-                    <input appLimitMobileNumber matInput type="number" pattern="^[0-9]{10}$" placeholder="MobileNo" [(ngModel)]="existingAccountMaster.MobileNo" [disabled]="existingAccountMaster.Type.toLowerCase()==='commission' || existingAccountMaster.Type.toLowerCase()==='expenses' || existingAccountMaster.Type.toLowerCase()==='income'">
+                    <input appLimitMobileNumber matInput type="number" pattern="^[0-9]{10}$" placeholder="MobileNo" [(ngModel)]="existingAccountMaster.MobileNo">
                     <mat-hint [ngClass]="{'mat-mdc-form-field-error': existingAccountMaster.MobileNo < 0}" *ngIf="existingAccountMaster.MobileNo < 0">
                         Invalid Mobile
                     </mat-hint>
                 </mat-form-field>
             </div>
-            <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="existingAccountMaster.Type.toLowerCase()==='client' || existingAccountMaster.Type.toLowerCase()==='angadiya'">
                 <mat-form-field class="w-100">
                     <mat-label>City</mat-label>
                     <input matInput placeholder="City" [(ngModel)]="existingAccountMaster.City"
                     pattern="[a-zA-Z]+">
                 </mat-form-field>
             </div>
-            <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="existingAccountMaster.Type.toLowerCase()==='angadiya'">
+                <mat-form-field class="w-100">
+                    <mat-label>Self Name with this Angadiya</mat-label>
+                    <input matInput placeholder="Name" [(ngModel)]="existingAccountMaster.SelfName">
+                </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="existingAccountMaster.Type.toLowerCase()==='angadiya'">
                 <div class="w-100 d-flex justify-content-between align-items-center">
                     <mat-radio-group [(ngModel)]="existingAccountMaster.Active">
                         <mat-radio-button value="TRUE">Active</mat-radio-button>

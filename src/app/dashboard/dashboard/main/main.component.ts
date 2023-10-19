@@ -29,8 +29,8 @@ export class MainComponent {
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        if (res == null) {
-          this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        if (res == null || (typeof res === 'string' && res.toLowerCase().includes("invalid"))) {
+          this.commonService.emitSuccessErrorEventEmitter({message: 'Please refresh the page', success: false});
         }
         res.forEach((r: any) => {
           r.Icons = r.Icon.split(",");

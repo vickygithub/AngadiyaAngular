@@ -16,6 +16,7 @@ export class CreateComponent {
   public type: any = "Angadiya";
   public loggedInUser: any;
   public city: any;
+  public selfName: any;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private router: Router, private commonService: CommonService) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -34,6 +35,10 @@ export class CreateComponent {
       this.commonService.emitSuccessErrorEventEmitter({message: 'City Invalid', success: false});
       return;
     }
+    if (this.type.toLowerCase() === 'angadiya' && (this.selfName == null || this.selfName == '')) {
+      this.commonService.emitSuccessErrorEventEmitter({message: 'Enter all (*) details', success: false});
+      return;
+    }
    
     this.spinner.show();
     const params = {
@@ -48,7 +53,8 @@ export class CreateComponent {
       DeviceId: '83e9568fa4df9fc1',
       Active: "",
       Guid: "",
-      City: this.city == null || this.city == '' ? this.loggedInUser.City : this.city
+      City: this.city == null || this.city == '' ? this.loggedInUser.City : this.city,
+      SelfName: this.selfName || ''
     }
     this.crudService.postByUrl('/AccountCreate', params).subscribe({
       next: (res: any) => {

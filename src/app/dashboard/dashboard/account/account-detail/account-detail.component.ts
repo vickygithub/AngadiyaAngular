@@ -11,7 +11,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class AccountDetailComponent {
   public existingAccountMaster: any;
-  constructor(private router: Router, private crudService: CrudService, private spinner: NgxSpinnerService, private commonService: CommonService){}
+  constructor(private router: Router, private crudService: CrudService, private spinner: NgxSpinnerService, private commonService: CommonService) { }
 
   ngOnInit() {
     this.existingAccountMaster = history.state;
@@ -19,11 +19,15 @@ export class AccountDetailComponent {
 
   update() {
     if (!this.commonService.isMobileValid(this.existingAccountMaster.MobileNo)) {
-      this.commonService.emitSuccessErrorEventEmitter({message: 'Invalid Mobile No.', success: false});
+      this.commonService.emitSuccessErrorEventEmitter({ message: 'Invalid Mobile No.', success: false });
       return;
     }
     if (!this.commonService.isCityNameValid(this.existingAccountMaster.City)) {
-      this.commonService.emitSuccessErrorEventEmitter({message: 'Invalid City.', success: false});
+      this.commonService.emitSuccessErrorEventEmitter({ message: 'Invalid City.', success: false });
+      return;
+    }
+    if (this.existingAccountMaster.Type.toLowerCase() === 'angadiya' && (this.existingAccountMaster.SelfName == null || this.existingAccountMaster.SelfName == '')) {
+      this.commonService.emitSuccessErrorEventEmitter({ message: 'Invalid Self name.', success: false });
       return;
     }
     this.spinner.show();
@@ -40,18 +44,19 @@ export class AccountDetailComponent {
       SuperAdminGuid: this.existingAccountMaster.SupperAdminGuid,
       Active: "TRUE",
       Guid: this.existingAccountMaster.Guid,
-      City: this.existingAccountMaster.City
-}).subscribe({
+      City: this.existingAccountMaster.City,
+      SelfName: this.existingAccountMaster.SelfName || ''
+    }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if ((typeof res) == "string") {
-          this.commonService.emitSuccessErrorEventEmitter({success: true});
+          this.commonService.emitSuccessErrorEventEmitter({ success: true });
         }
         this.back();
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
   }
