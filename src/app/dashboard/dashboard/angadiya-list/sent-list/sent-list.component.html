@@ -1,0 +1,29 @@
+<div class="d-flex flex-column mb-2 gap-3">
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        
+        <mat-form-field class="w-100">
+            <mat-label>-- All --</mat-label>
+            <mat-select [(ngModel)]="searchGuid" (selectionChange)="filterList()">
+                <mat-option>-- All --</mat-option>
+                <ng-container *ngFor="let account of accountList">
+                    <mat-option *ngIf="account.Type.toLowerCase() === 'angadiya'" [value]="account.Guid">
+                        {{account.Name}}
+                    </mat-option>
+                </ng-container>
+
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-card class="w-100" *ngFor="let obj of filteredSendList">
+        
+            <mat-card-content>
+                <div class="d-flex justify-content-between" (click)="goToComponent(obj)">
+                    <span>To - {{obj.displayName}}</span>
+                    <span>{{obj.SendTokenNo}}</span>
+                    <span>{{obj.Amount | number:'1.2-2'}}</span>
+                </div>
+            </mat-card-content>
+        
+        
+    </mat-card>
+</div>
