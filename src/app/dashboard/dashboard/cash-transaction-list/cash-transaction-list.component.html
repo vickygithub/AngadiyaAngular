@@ -18,7 +18,7 @@
                         <mat-form-field class="w-100">
                             <mat-icon matPrefix>search</mat-icon>
                             <input matInput type="search" placeholder="Search" [(ngModel)]="searchText"
-                                (keyup)="filterList('send')">
+                                (keyup)="filterList('cp')">
                         </mat-form-field>
                     </div>
                     <mat-card class="w-100" *ngFor="let obj of filteredPaymentList">
@@ -45,7 +45,7 @@
                         <mat-form-field class="w-100">
                             <mat-icon matPrefix>search</mat-icon>
                             <input matInput type="search" placeholder="Search" [(ngModel)]="searchText"
-                                (keyup)="filterList('receive')">
+                                (keyup)="filterList('cr')">
                         </mat-form-field>
                     </div>
                     <mat-card class="w-100" *ngFor="let obj of filteredReceiptList">
