@@ -210,11 +210,14 @@ export class SendComponent {
   }
 
   save(isUpdate: boolean = false) {
-    if (this.amount == null || this.date == null || this.creditGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.debitGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo) || (this.senderMobileNo != null && !this.commonService.isMobileValid(this.senderMobileNo))) {
+    if (this.amount == null || this.date == null || this.creditGuid == null || this.receiverCity == null || this.receiverName == null || this.receiverName == '' || this.debitGuid == null || !this.commonService.isMobileValid(this.receiverMobileNo)) {
       this.commonService.emitSuccessErrorEventEmitter({ message: 'Enter all (*) details', success: false });
       return;
     }
-    
+    if (this.senderMobileNo != null && this.senderMobileNo != '' && !this.commonService.isMobileValid(this.senderMobileNo)) {
+      this.commonService.emitSuccessErrorEventEmitter({ message: 'Invalid Sender Mobile', success: false });
+      return;
+    }
     if (isUpdate) {
       this.deleteTran(isUpdate);
     } else {

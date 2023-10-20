@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
@@ -28,7 +29,8 @@ export class ReceiptListComponent {
       Token: this.loggedInUser.Token,
       LoginId: this.loggedInUser.Guid,
       TransactionType: 'cash',
-      TransitionType: 'CR'
+      TransitionType: 'CR',
+      TranDate: moment(new Date()).format('YYYY-MM-DD')
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();

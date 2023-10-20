@@ -1,7 +1,7 @@
 <div class="d-flex flex-column mb-2 gap-3">
-    <div class="col-xs-12 col-sm-6 col-lg-4">
+    <div class="d-flex align-items-center justify-content-between list-action-row">
         
-        <mat-form-field class="w-100">
+        <mat-form-field>
             <mat-label>-- All --</mat-label>
             <mat-select [(ngModel)]="searchGuid" (selectionChange)="filterList()">
                 <mat-option>-- All --</mat-option>
@@ -13,7 +13,13 @@
 
             </mat-select>
         </mat-form-field>
+        <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="fetchTransactions()">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
     </div>
+    
     <mat-card class="w-100" *ngFor="let obj of filteredSendList">
         
             <mat-card-content>

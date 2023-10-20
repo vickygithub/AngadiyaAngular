@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-journal-list',
@@ -47,7 +48,9 @@ export class JournalListComponent {
       DeviceId: "83e9568fa4df9fc1",
       Token: this.loggedInUser.Token,
       LoginId: this.loggedInUser.Guid,
-      TransactionType: 'jr'
+      TransactionType: 'jr',
+      TransitionType: 'JR',
+      TranDate: moment(new Date()).format('YYYY-MM-DD')
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();

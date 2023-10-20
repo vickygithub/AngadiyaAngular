@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sent-list',
@@ -28,7 +29,8 @@ export class SentListComponent {
       Token: this.loggedInUser.Token,
       LoginId: this.loggedInUser.Guid,
       TransactionType: 'angadiya',
-      TransitionType: 'SEND'
+      TransitionType: 'SEND',
+      TranDate: moment(this.date).format('YYYY-MM-DD')
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
