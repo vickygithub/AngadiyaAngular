@@ -15,7 +15,7 @@ export class PaymentListComponent {
   public transactions: any = [];
   public searchText: any;
   public paymentList: any = [];
-  
+  public date: any = new Date();
   public filteredPaymentList: any = [];
   @Input() accountList: any = [];
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
@@ -30,7 +30,7 @@ export class PaymentListComponent {
       LoginId: this.loggedInUser.Guid,
       TransactionType: 'cash',
       TransitionType: 'CP',
-      TranDate: moment(new Date()).format('YYYY-MM-DD')
+      TranDate: moment(this.date).format('YYYY-MM-DD')
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();

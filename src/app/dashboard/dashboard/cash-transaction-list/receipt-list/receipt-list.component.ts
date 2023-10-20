@@ -16,6 +16,7 @@ export class ReceiptListComponent {
   public searchText: any;
   public receiptLust: any = [];
   public filteredReceiptList: any = [];
+  public date: any = new Date();
   @Input() accountList: any = [];
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
@@ -30,7 +31,7 @@ export class ReceiptListComponent {
       LoginId: this.loggedInUser.Guid,
       TransactionType: 'cash',
       TransitionType: 'CR',
-      TranDate: moment(new Date()).format('YYYY-MM-DD')
+      TranDate: moment(this.date).format('YYYY-MM-DD')
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();

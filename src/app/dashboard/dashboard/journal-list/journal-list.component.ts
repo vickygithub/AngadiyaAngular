@@ -16,6 +16,8 @@ export class JournalListComponent {
   public accountList: any = [];
   public searchText: any;
   public filteredTranList: any = [];
+  public date: any = new Date();
+
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -50,7 +52,7 @@ export class JournalListComponent {
       LoginId: this.loggedInUser.Guid,
       TransactionType: 'jr',
       TransitionType: 'JR',
-      TranDate: moment(new Date()).format('YYYY-MM-DD')
+      TranDate: moment(this.date).format('YYYY-MM-DD')
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();

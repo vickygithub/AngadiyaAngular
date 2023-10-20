@@ -4,3 +4,8 @@
     z-index: 99;
     background-color: #fff;
 }
+@media (max-width: 300px) {
+    .list-action-row {
+        flex-wrap: wrap;
+    }
+}
