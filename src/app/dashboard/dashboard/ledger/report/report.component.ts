@@ -144,7 +144,7 @@ export class ReportComponent {
               r['displayParticular'] = `${r.SennderName}`;
             }
           }
-          if (r.TransitionType.toLowerCase() === 'jr') {
+          if (r.TransitionType.toLowerCase() === 'jr' || r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
               r['displayParticular'] = `To- ${r.ReceiverName}`;
             } else {
@@ -154,9 +154,10 @@ export class ReportComponent {
           if (r.TransitionType.toLowerCase() === 'send') {
             r['displayParticular'] = `To- ${r.ReceiverCity == 'NA' ? '' : r.ReceiverCity}`;
           }
-          if (r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr') {
-            r['displayParticular'] = 'By- Cash';
-          }
+          
+          // if (r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr') {
+          //   r['displayParticular'] = 'By- Cash';
+          // }
           if (this.selectedAcount.Type.toLowerCase() == 'commission') {
             r['bgRed'] = null;
             if (r.COMMAMOUNT > 0) {
@@ -212,10 +213,10 @@ export class ReportComponent {
         this.router.navigate(['/dashboard/angadiya'], { state: row });
         break;
       case "cr":
-        this.router.navigate(['/dashboard/journal'], { state: row });
+        this.router.navigate(['/dashboard/cashtransaction'], { state: row });
         break;
       case "cp":
-        this.router.navigate(['/dashboard/journal'], { state: row });
+        this.router.navigate(['/dashboard/cashtransaction'], { state: row });
         break;
       case "jr":
         this.router.navigate(['/dashboard/journaltransaction'], { state: row });

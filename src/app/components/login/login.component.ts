@@ -37,7 +37,7 @@ export class LoginComponent {
       password: this.userDetails.password
     }).subscribe({
       next: (res: any) => {
-        
+        this.spinner.hide();
         if (res.includes("INVALID") || res.includes("MISSMATCH")) {
           this.commonService.emitSuccessErrorEventEmitter({message: res, success: false});
           return;
@@ -51,7 +51,7 @@ export class LoginComponent {
           return;
         }
         this.router.navigate(['/dashboard']);
-        this.spinner.hide();
+        
       },
       error: (err) => { 
         this.spinner.hide();

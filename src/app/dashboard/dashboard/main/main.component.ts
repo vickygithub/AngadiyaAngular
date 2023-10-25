@@ -16,10 +16,15 @@ enum UserRoleEnum {
 export class MainComponent {
   public loggedInUser: any;
   public menus: any = [];
-
+  public filteredUsers: any = [];
+  public users: any = [];
+  public searchText: any = '';
   constructor(private crudService: CrudService, private router: Router, private spinner: NgxSpinnerService, private commonService: CommonService) {
+    this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
-
+  filterList() {
+    this.filteredUsers = this.users.filter((s: any) => s.MobileNo.includes(this.searchText));
+  }
   fetchMenus() {
     this.spinner.show();
     this.crudService.postByUrl('/UserMenuList', {
@@ -49,8 +54,34 @@ export class MainComponent {
   }
 
   ngOnInit() {
-    this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
-
     this.fetchMenus();
+    // if (this.loggedInUser.ProjectType !== 1) {
+      //   this.fetchMenus();
+    // }
+    // if (this.loggedInUser.ProjectType === 1) {
+    //   this.fetchAdmins();
+    // }
+  }
+
+  fetchAdmins() {
+    this.spinner.show();
+    this.crudService.postByUrl('/AdminList', {
+      Token: this.loggedInUser.Token,
+      DeviceId: "83e9568fa4df9fc1",
+      LoginId: this.loggedInUser.Guid
+    }).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res == null || (typeof res === 'string' && res.toLowerCase().includes("invalid"))) {
+          this.commonService.emitSuccessErrorEventEmitter({message: 'Please refresh the page', success: false});
+        }
+        this.users = [...res];
+        this.filteredUsers = [...res];
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+      }
+    })
   }
 }

@@ -6,7 +6,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { Router } from '@angular/router';
 enum ProjectTypeEnum {
   angadiya = 2,
-  account = 3
+  account = 3,
+  pnl = 4
 }
 
 @Component({
