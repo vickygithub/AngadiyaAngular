@@ -62,7 +62,7 @@ export class ProfitListComponent {
       this.filteredProfitList = this.transactions; 
      
     } else {
-      this.filteredProfitList = this.transactions.filter((s: any) => s.DebitGuid === this.searchGuid);
+      this.filteredProfitList = this.transactions.filter((s: any) => s.CreditGuid === this.searchGuid);
     }
     
   }
