@@ -8,17 +8,17 @@ import { Router } from '@angular/router';
 })
 export class HisaabComponent {
   public selectedIndex: any = 0;
-  public existingCrDetails: any;
+  public existingHisaabDetails: any;
   constructor(private router: Router) {
 
   }
   ngOnInit() {
-    this.existingCrDetails = history.state;
-    if (this.existingCrDetails.Guid != null) {
-      if (this.existingCrDetails.TransitionType.toLowerCase() === 'loss') {
+    this.existingHisaabDetails = history.state;
+    if (this.existingHisaabDetails.Guid != null) {
+      if (this.existingHisaabDetails.TransitionType.toLowerCase() === 'loss') {
         this.selectedIndex = 0;
       }
-      if (this.existingCrDetails.TransitionType.toLowerCase() === 'profit') {
+      if (this.existingHisaabDetails.TransitionType.toLowerCase() === 'profit') {
         this.selectedIndex = 1;
       }
     }

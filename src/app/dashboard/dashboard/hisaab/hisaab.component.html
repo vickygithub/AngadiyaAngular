@@ -8,20 +8,20 @@
         </div>
     </div>
     <mat-tab-group class="journal-mat-tab-group" [selectedIndex]="selectedIndex">
-        <mat-tab>
+        <mat-tab [disabled]="existingHisaabDetails.Guid != null && existingHisaabDetails.TransitionType.toLowerCase() === 'profit'">
             <ng-template mat-tab-label>
                 LOSS
             </ng-template>
             <ng-template matTabContent>
-                <app-pnl [existingCrDetails]="existingCrDetails" [tranType]="'loss'"></app-pnl>
+                <app-pnl [existingHisaabDetails]="existingHisaabDetails" [tranType]="'loss'"></app-pnl>
             </ng-template>
         </mat-tab>
-        <mat-tab>
+        <mat-tab [disabled]="existingHisaabDetails.Guid != null && existingHisaabDetails.TransitionType.toLowerCase() === 'loss'">
             <ng-template mat-tab-label>
                 PROFIT
             </ng-template>
             <ng-template matTabContent>
-                <app-pnl [existingCrDetails]="existingCrDetails" [tranType]="'profit'"></app-pnl>
+                <app-pnl [existingHisaabDetails]="existingHisaabDetails" [tranType]="'profit'"></app-pnl>
             </ng-template>
         </mat-tab>
     </mat-tab-group>

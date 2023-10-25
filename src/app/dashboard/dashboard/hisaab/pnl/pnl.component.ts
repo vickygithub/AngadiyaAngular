@@ -19,7 +19,7 @@ export class PnlComponent {
   public remark: any;
   public loggedInUser: any;
   public maxDate: any = new Date();
-  @Input() existingCrDetails: any;
+  @Input() existingHisaabDetails: any;
   @Input() tranType: any;
   public actionLabel: any = 'Save';
   public accountListSubjectNotifier = new Subject<any>();
@@ -27,19 +27,19 @@ export class PnlComponent {
   public originalExistingData: any;
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
     this.accountListSubject = this.accountListSubjectNotifier.subscribe((res: any) => {
-      if (this.existingCrDetails.Guid != null) {
-        if (this.existingCrDetails.TransitionType.toLowerCase() === 'profit') {
-          this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.CreditGuid);
+      if (this.existingHisaabDetails.Guid != null) {
+        if (this.existingHisaabDetails.TransitionType.toLowerCase() === 'profit') {
+          this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingHisaabDetails.CreditGuid);
         } else { 
-          this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingCrDetails.DebitGuid);
+          this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingHisaabDetails.DebitGuid);
         }
 
         //store delete data 
         const senderGuid = this.options.find((o: any) => o.Type.toLowerCase() === "pnl").Guid;
         const deleteData = {
           date: moment(this.date).format('YYYY-MM-DD'),
-          debitGuid: this.existingCrDetails.TransitionType.toLowerCase() === 'profit' ? senderGuid : this.receivedFrom.Guid,
-          creditGuid: this.existingCrDetails.TransitionType.toLowerCase() === 'profit' ? this.receivedFrom.Guid : senderGuid
+          debitGuid: this.existingHisaabDetails.TransitionType.toLowerCase() === 'profit' ? senderGuid : this.receivedFrom.Guid,
+          creditGuid: this.existingHisaabDetails.TransitionType.toLowerCase() === 'profit' ? this.receivedFrom.Guid : senderGuid
         }
         this.originalExistingData = JSON.stringify(deleteData);
       }
@@ -71,7 +71,7 @@ export class PnlComponent {
       DebitGuid: deleteData.debitGuid,
       CreditGuid: deleteData.creditGuid,
       AdminGuid: this.loggedInUser.AdminGuid,
-      TranGuid: this.existingCrDetails.Guid,
+      TranGuid: this.existingHisaabDetails.Guid,
       Token: this.loggedInUser.Token,
       DeviceId: "83e9568fa4df9fc1"
     }
@@ -105,10 +105,10 @@ export class PnlComponent {
       next: (res: any) => {
         this.spinner.hide();
         this.options = res;
-        if (this.existingCrDetails.Guid != null) {
-          this.date = this.commonService.getDatePickerDate(this.existingCrDetails.TranDate);
-          this.amount = this.existingCrDetails.Amount;
-          this.remark = this.existingCrDetails.Remark;
+        if (this.existingHisaabDetails.Guid != null) {
+          this.date = this.commonService.getDatePickerDate(this.existingHisaabDetails.TranDate);
+          this.amount = this.existingHisaabDetails.Amount;
+          this.remark = this.existingHisaabDetails.Remark;
 
           this.actionLabel = "Update";
           this.accountListSubjectNotifier.next(true);
