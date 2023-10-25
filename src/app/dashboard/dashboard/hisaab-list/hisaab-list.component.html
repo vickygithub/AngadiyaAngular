@@ -4,26 +4,25 @@
             <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
         </div>
         <div class="col-4 text-center">
-            <h2 class="m-0">Angadiya List</h2>
+            <h2 class="m-0">Hisaab List</h2>
         </div>
     </div>
     <mat-tab-group class="journal-mat-tab-group">
         <mat-tab>
             <ng-template mat-tab-label>
-                Sent List
+                Loss List
             </ng-template>
             <ng-template matTabContent>
-                <app-sent-list *ngIf="accountList.length > 0" [accountList]="accountList"></app-sent-list>
+                <app-loss-list *ngIf="accountList.length > 0" [accountList]="accountList"></app-loss-list>
             </ng-template>
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>
-                Received List
+                Profit List
             </ng-template>
             <ng-template matTabContent>
-                <app-received-list *ngIf="accountList.length > 0" [accountList]="accountList"></app-received-list>
+                <app-profit-list *ngIf="accountList.length > 0" [accountList]="accountList"></app-profit-list>
             </ng-template>
         </mat-tab>
     </mat-tab-group>
 </div>
-

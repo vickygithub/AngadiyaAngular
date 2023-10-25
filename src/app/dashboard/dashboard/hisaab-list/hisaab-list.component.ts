@@ -5,15 +5,16 @@ import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
 
 @Component({
-  selector: 'app-angadiya-list',
-  templateUrl: './angadiya-list.component.html',
-  styleUrls: ['./angadiya-list.component.scss']
+  selector: 'app-hisaab-list',
+  templateUrl: './hisaab-list.component.html',
+  styleUrls: ['./hisaab-list.component.scss']
 })
-export class AngadiyaListComponent {
+export class HisaabListComponent {
   public loggedInUser: any;
   public transactions: any = [];
   public accountList: any = [];
   public searchText: any;
+  public searchGuid: any = null;
   public totalBalance: any = 0;
   public date: any = new Date();
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {

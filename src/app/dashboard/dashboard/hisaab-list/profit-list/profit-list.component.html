@@ -1,6 +1,6 @@
 <div class="d-flex flex-column mb-2 gap-3">
     <div class="d-flex align-items-center justify-content-between list-action-row">
-
+        
         <mat-form-field>
             <mat-label>-- All --</mat-label>
             <mat-select [(ngModel)]="searchGuid" (selectionChange)="filterList()">
@@ -19,36 +19,14 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
     </div>
-
-    <mat-card class="w-100" *ngFor="let obj of filteredSendList">
-
-        <mat-card-content>
-            <div class="row align-items-center" (click)="goToComponent(obj)">
-                <div class="col-4">
-                    <span>To - {{obj.displayName}}</span>
-                </div>
-                <div class="col-4 text-center">
-                    <span>{{obj.SendTokenNo}}</span>
-                </div>
-                <div class="col-4 text-end">
+    <mat-card class="w-100" *ngFor="let obj of filteredProfitList">
+        
+            <mat-card-content>
+                <div class="d-flex justify-content-between" (click)="goToComponent(obj)">
+                    <span>{{obj.displayName}}</span>
                     <span>{{obj.Amount | number:'1.2-2'}}</span>
                 </div>
-            </div>
-        </mat-card-content>
-
-
-    </mat-card>
-    <div class="bottom-sticky" *ngIf="searchGuid != null">
-        <mat-card class="w-100">
-
-            <mat-card-content>
-                <div class="d-flex justify-content-between">
-                    <strong>Total</strong>
-                    <strong>{{totalBalance | number:'1.2-2'}}</strong>
-                </div>
             </mat-card-content>
-
-
-        </mat-card>
-    </div>
+       
+    </mat-card>
 </div>

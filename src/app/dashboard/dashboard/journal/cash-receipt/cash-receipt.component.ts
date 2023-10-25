@@ -86,7 +86,7 @@ export class CashReceiptComponent {
             this.submitTran();
           } else {
             this.commonService.emitSuccessErrorEventEmitter({ success: true });
-            this.router.navigate(['/dashboard/ledger']);
+            this.router.navigate(['/dashboard/main']);
           }
         }
       },

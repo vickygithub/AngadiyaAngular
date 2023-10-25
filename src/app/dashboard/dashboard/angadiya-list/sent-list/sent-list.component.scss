@@ -4,3 +4,8 @@
         flex-wrap: wrap;
     }
 }
+.bottom-sticky {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}

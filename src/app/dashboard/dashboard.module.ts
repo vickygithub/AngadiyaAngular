@@ -48,6 +48,11 @@ import { SentListComponent } from './dashboard/angadiya-list/sent-list/sent-list
 import { ReceivedListComponent } from './dashboard/angadiya-list/received-list/received-list.component';
 import { PaymentListComponent } from './dashboard/cash-transaction-list/payment-list/payment-list.component';
 import { ReceiptListComponent } from './dashboard/cash-transaction-list/receipt-list/receipt-list.component';
+import { HisaabComponent } from './dashboard/hisaab/hisaab.component';
+import { PnlComponent } from './dashboard/hisaab/pnl/pnl.component';
+import { HisaabListComponent } from './dashboard/hisaab-list/hisaab-list.component';
+import { ProfitListComponent } from './dashboard/hisaab-list/profit-list/profit-list.component';
+import { LossListComponent } from './dashboard/hisaab-list/loss-list/loss-list.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -87,7 +92,12 @@ export const MY_FORMATS = {
     SentListComponent,
     ReceivedListComponent,
     PaymentListComponent,
-    ReceiptListComponent
+    ReceiptListComponent,
+    HisaabComponent,
+    PnlComponent,
+    HisaabListComponent,
+    ProfitListComponent,
+    LossListComponent
   ],
   imports: [
     CommonModule,
