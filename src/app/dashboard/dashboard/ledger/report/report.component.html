@@ -37,7 +37,7 @@
                                     *ngIf="!amountMatched"><mat-icon>close</mat-icon></span>
                             </td>
                         </ng-container>
-                        <ng-container matColumnDef="tno">
+                        <ng-container matColumnDef="tno" *ngIf="loggedInUser.ProjectType === 2">
                             <th mat-header-cell *matHeaderCellDef> T No. </th>
                             <td mat-cell *matCellDef="let element"> {{element.TransitionType.toLowerCase() == 'send' ?
                                 element.SendTokenNo : ''}} </td>

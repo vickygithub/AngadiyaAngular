@@ -20,7 +20,7 @@ export class ReportComponent {
   public report: any;
   public date: any = new Date();
   public balances: any = [];
-  public displayedColumns = ['particular', 'type', 'tno', 'amount'];
+  public displayedColumns: any = [];
 
   public sendToken: any = 0;
   public totalAmount: any = 0;
@@ -29,6 +29,13 @@ export class ReportComponent {
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.selectedAcount = history.state;
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
+    
+    this.displayedColumns.push('particular');
+    this.displayedColumns.push('type');
+    if (this.loggedInUser.ProjectType === 2) {
+      this.displayedColumns.push('tno')
+    }
+    this.displayedColumns.push('amount')
   }
   back() {
     this.router.navigate(['/dashboard/ledger']);
@@ -136,7 +143,7 @@ export class ReportComponent {
 
         this.sendToken = res.filter((r: any) => r.TransitionType.toLowerCase() === 'send').length;
         res.forEach((r: any) => {
-
+          
           if (r.TransitionType.toLowerCase() === 'receive') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
               r['displayParticular'] = `${r.ReceiverName1 || r.ReceiverName}`;
@@ -144,7 +151,7 @@ export class ReportComponent {
               r['displayParticular'] = `${r.SennderName}`;
             }
           }
-          if (r.TransitionType.toLowerCase() === 'jr' || r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr') {
+          if (r.TransitionType.toLowerCase() === 'jr' || r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr' || r.TransitionType.toLowerCase() === 'loss' || r.TransitionType.toLowerCase() === 'profit') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
               r['displayParticular'] = `To- ${r.ReceiverName}`;
             } else {
@@ -161,10 +168,10 @@ export class ReportComponent {
           if (this.selectedAcount.Type.toLowerCase() == 'commission') {
             r['bgRed'] = null;
             if (r.COMMAMOUNT > 0) {
-              r['displayAmount'] = `-${r.COMMAMOUNT.toFixed(2)}`
+              r['displayAmount'] = `-${r.COMMAMOUNT.toLocaleString('en-IN', {minimumFractionDigits: 2})}`
             }
             if (r.COMMAMOUNT < 0) {
-              r['displayAmount'] = `${Math.abs(r.COMMAMOUNT.toFixed(2))}`
+              r['displayAmount'] = `${Math.abs(r.COMMAMOUNT.toLocaleString('en-IN', {minimumFractionDigits: 2}))}`
             }
             if (r.COMMAMOUNT === 0) {
               r['displayAmount'] = `0.00`
@@ -172,10 +179,10 @@ export class ReportComponent {
           } else {
             if (this.selectedAcount.Guid === r.CreditGuid) {
               r['bgRed'] = true;
-              r['displayAmount'] = `-${r.CREADITAMOUNT.toFixed(2)}`
+              r['displayAmount'] = `-${r.CREADITAMOUNT.toLocaleString('en-IN', {minimumFractionDigits: 2})}`
             } else if (this.selectedAcount.Guid !== r.CreditGuid) {
               r['bgRed'] = false;
-              r['displayAmount'] = `${r.DEBITAMOUNT.toFixed(2)}`
+              r['displayAmount'] = `${r.DEBITAMOUNT.toLocaleString('en-IN', {minimumFractionDigits: 2})}`
             }
           }
 
@@ -184,7 +191,7 @@ export class ReportComponent {
           displayParticular: 'Opening',
           TransitionType: '',
           TranSerialNo: '',
-          displayAmount: this.balances[0].OpeningBalance.toFixed(2) || "0.00"
+          displayAmount: this.balances[0].OpeningBalance.toLocaleString('en-IN', {minimumFractionDigits: 2}) || "0.00"
         }
         res.unshift(ob);
         this.totalAmount = res.reduce((acc: any, curr: any) => {
