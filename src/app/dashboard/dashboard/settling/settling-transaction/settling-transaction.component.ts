@@ -185,7 +185,7 @@ export class SettlingTransactionComponent {
     }
 
     this.spinner.show();
-    this.crudService.postByUrl(`${this.tranType === 'sr' ? '/ReceiptTransaction' : '/SettlingPaymentTransaction'}`, params).subscribe({
+    this.crudService.postByUrl(`${this.tranType === 'sr' ? '/SettlingReceiptTransaction' : '/SettlingPaymentTransaction'}`, params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         this.router.navigate(['/dashboard']);
