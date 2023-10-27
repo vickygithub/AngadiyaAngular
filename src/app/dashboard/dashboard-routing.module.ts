@@ -21,6 +21,7 @@ import { CashTransactionListComponent } from './dashboard/cash-transaction-list/
 import { JournalListComponent } from './dashboard/journal-list/journal-list.component';
 import { HisaabComponent } from './dashboard/hisaab/hisaab.component';
 import { HisaabListComponent } from './dashboard/hisaab-list/hisaab-list.component';
+import { SettlingComponent } from './dashboard/settling/settling.component';
 
 const routes: Routes = [
   {
@@ -44,7 +45,8 @@ const routes: Routes = [
       { path: 'cashtransactionlist', component: CashTransactionListComponent },
       { path: 'journallist', component: JournalListComponent },
       { path: 'hisaab', component: HisaabComponent },
-      { path: 'hisaablist', component: HisaabListComponent }
+      { path: 'hisaablist', component: HisaabListComponent },
+      { path: 'settling', component: SettlingComponent }
     ]
   }
 ];

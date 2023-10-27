@@ -53,6 +53,8 @@ import { PnlComponent } from './dashboard/hisaab/pnl/pnl.component';
 import { HisaabListComponent } from './dashboard/hisaab-list/hisaab-list.component';
 import { ProfitListComponent } from './dashboard/hisaab-list/profit-list/profit-list.component';
 import { LossListComponent } from './dashboard/hisaab-list/loss-list/loss-list.component';
+import { SettlingComponent } from './dashboard/settling/settling.component';
+import { SettlingTransactionComponent } from './dashboard/settling/settling-transaction/settling-transaction.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -97,7 +99,9 @@ export const MY_FORMATS = {
     PnlComponent,
     HisaabListComponent,
     ProfitListComponent,
-    LossListComponent
+    LossListComponent,
+    SettlingComponent,
+    SettlingTransactionComponent
   ],
   imports: [
     CommonModule,

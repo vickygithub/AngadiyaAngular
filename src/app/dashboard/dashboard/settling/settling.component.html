@@ -1,0 +1,30 @@
+<div class="pt-4 pb-4">
+    <div class="d-flex align-items-center">
+        <div class="col-4">
+            <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+        </div>
+        <div class="col-4 text-center">
+            <h2 class="m-0">Settling</h2>
+        </div>
+    </div>
+    <mat-tab-group class="journal-mat-tab-group" [selectedIndex]="selectedIndex">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                SETTLING <br>
+                PAYMENT
+            </ng-template>
+            <ng-template matTabContent>
+                <app-settling-transaction [existingSettlingDetails]="existingSettlingDetails" [tranType]="'sp'"></app-settling-transaction>
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                SETTLING <br>
+                RECEIPT
+            </ng-template>
+            <ng-template matTabContent>
+                <app-settling-transaction [existingSettlingDetails]="existingSettlingDetails" [tranType]="'sr'"></app-settling-transaction>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>
