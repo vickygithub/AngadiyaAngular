@@ -167,15 +167,16 @@ export class ReportComponent {
           // }
           if (this.selectedAcount.Type.toLowerCase() == 'commission') {
             r['bgRed'] = null;
-            if (r.COMMAMOUNT > 0) {
-              r['displayAmount'] = `-${r.COMMAMOUNT.toFixed(2)}`
-            }
-            if (r.COMMAMOUNT < 0) {
-              r['displayAmount'] = `${Math.abs(r.COMMAMOUNT.toFixed(2))}`
-            }
-            if (r.COMMAMOUNT === 0) {
-              r['displayAmount'] = `0.00`
-            }
+            // if (r.COMMAMOUNT > 0) {
+            //   r['displayAmount'] = `-${r.COMMAMOUNT.toFixed(2)}`
+            // }
+            // if (r.COMMAMOUNT < 0) {
+            //   r['displayAmount'] = `${Math.abs(r.COMMAMOUNT.toFixed(2))}`
+            // }
+            // if (r.COMMAMOUNT === 0) {
+            //   r['displayAmount'] = `0.00`
+            // }
+            r['displayAmount'] = `${r.COMMAMOUNT.toFixed(2)}`
           } else {
             if (this.selectedAcount.Guid === r.CreditGuid) {
               r['bgRed'] = true;
