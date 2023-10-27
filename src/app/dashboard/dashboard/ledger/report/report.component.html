@@ -45,8 +45,8 @@
                         </ng-container>
                         <ng-container matColumnDef="amount">
                             <th mat-header-cell *matHeaderCellDef> Amount </th>
-                            <td mat-cell *matCellDef="let element"> {{element.displayAmount}} </td>
-                            <td mat-footer-cell *matFooterCellDef> <strong>{{totalAmount.toFixed(2)}}</strong> </td>
+                            <td mat-cell *matCellDef="let element"> {{element.displayAmount.toLocaleString('en-IN', {minimumFractionDigits: 2})}} </td>
+                            <td mat-footer-cell *matFooterCellDef> <strong>{{totalAmount.toLocaleString('en-IN', {minimumFractionDigits: 2})}}</strong> </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

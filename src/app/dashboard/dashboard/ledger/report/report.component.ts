@@ -168,10 +168,10 @@ export class ReportComponent {
           if (this.selectedAcount.Type.toLowerCase() == 'commission') {
             r['bgRed'] = null;
             if (r.COMMAMOUNT > 0) {
-              r['displayAmount'] = `-${r.COMMAMOUNT.toLocaleString('en-IN', {minimumFractionDigits: 2})}`
+              r['displayAmount'] = `-${r.COMMAMOUNT.toFixed(2)}`
             }
             if (r.COMMAMOUNT < 0) {
-              r['displayAmount'] = `${Math.abs(r.COMMAMOUNT.toLocaleString('en-IN', {minimumFractionDigits: 2}))}`
+              r['displayAmount'] = `${Math.abs(r.COMMAMOUNT.toFixed(2))}`
             }
             if (r.COMMAMOUNT === 0) {
               r['displayAmount'] = `0.00`
@@ -179,10 +179,10 @@ export class ReportComponent {
           } else {
             if (this.selectedAcount.Guid === r.CreditGuid) {
               r['bgRed'] = true;
-              r['displayAmount'] = `-${r.CREADITAMOUNT.toLocaleString('en-IN', {minimumFractionDigits: 2})}`
+              r['displayAmount'] = `-${r.CREADITAMOUNT.toFixed(2)}`
             } else if (this.selectedAcount.Guid !== r.CreditGuid) {
               r['bgRed'] = false;
-              r['displayAmount'] = `${r.DEBITAMOUNT.toLocaleString('en-IN', {minimumFractionDigits: 2})}`
+              r['displayAmount'] = `${r.DEBITAMOUNT.toFixed(2)}`
             }
           }
 
@@ -191,7 +191,7 @@ export class ReportComponent {
           displayParticular: 'Opening',
           TransitionType: '',
           TranSerialNo: '',
-          displayAmount: this.balances[0].OpeningBalance.toLocaleString('en-IN', {minimumFractionDigits: 2}) || "0.00"
+          displayAmount: this.balances[0].OpeningBalance.toFixed(2) || "0.00"
         }
         res.unshift(ob);
         this.totalAmount = res.reduce((acc: any, curr: any) => {
