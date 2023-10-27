@@ -3,7 +3,7 @@
         <li *ngFor="let obj of balanceList" class="d-flex pt-3 pb-3 d-flex flex-column" (click)="goToReportTab(obj)">
             <div class="d-flex justify-content-between align-items-center w-100">
                 <span>{{obj.Date}}</span>
-                <span>{{obj.ClosingBalance.toFixed(2)}}</span>
+                <span>{{obj.ClosingBalance.toLocaleString('en-IN', {minimumFractionDigits: 2})}}</span>
             </div>
             <mat-divider class="divider"></mat-divider>
         </li>

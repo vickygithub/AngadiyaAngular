@@ -186,7 +186,7 @@ export class ReportComponent {
               r['displayAmount'] = `${r.DEBITAMOUNT.toFixed(2)}`
             }
           }
-
+          r.displayAmount = Number(r.displayAmount);
         })
         const ob = {
           displayParticular: 'Opening',
