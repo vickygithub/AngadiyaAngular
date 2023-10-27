@@ -141,8 +141,6 @@ export class SettlingTransactionComponent {
 
 
   save(isUpdate: boolean = false) {
-    console.log(this.selectedAngadiya);
-    return
     if (this.date == null || this.amount == null || this.receivedFrom == null || this.selectedAngadiya == null) {
       this.commonService.emitSuccessErrorEventEmitter({ message: 'Enter all (*) fields', success: false });
       return;
