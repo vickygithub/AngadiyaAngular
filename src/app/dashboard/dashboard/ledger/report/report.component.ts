@@ -29,7 +29,7 @@ export class ReportComponent {
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.selectedAcount = history.state;
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
-    
+
     this.displayedColumns.push('particular');
     this.displayedColumns.push('type');
     if (this.loggedInUser.ProjectType === 2) {
@@ -75,23 +75,23 @@ export class ReportComponent {
         row
       )
     });
-    rows.push([{ text: 'Total', style: 'tableHeader' }, { text: this.balances[0]?.ClosingBalance.toFixed(2), style: 'tableHeader', color: this.amountMatched ? 'green' : 'red' },{ text: this.sendToken, style: 'tableHeader', alignment: 'center' }, { text: this.totalAmount.toFixed(2), style: 'tableHeader', alignment: "right" }])
+    rows.push([{ text: 'Total', style: 'tableHeader' }, { text: this.balances[0]?.ClosingBalance.toFixed(2), style: 'tableHeader', color: this.amountMatched ? 'green' : 'red' }, { text: this.sendToken, style: 'tableHeader', alignment: 'center' }, { text: this.totalAmount.toFixed(2), style: 'tableHeader', alignment: "right" }])
     return rows;
   }
   getPdfBody() {
-    
+
   }
   generatePdf() {
     let documentDefinition: any = {
       content: [
-        {text: 'Ledger', style: 'header', alignment: "center"},
+        { text: 'Ledger', style: 'header', alignment: "center" },
         {
           style: 'tableExample',
           table: {
             headerRows: 1,
             widths: [200, 100, '*', '150'],
             body: [
-              [{ text: this.selectedAcount.Name, style: 'tableHeader' }, { text: '', style: 'tableHeader' },{ text: '', style: 'tableHeader' }, { text: moment(this.date).format('DD-MM-YYYY'), style: 'tableHeader', alignment: "right" }]
+              [{ text: this.selectedAcount.Name, style: 'tableHeader' }, { text: '', style: 'tableHeader' }, { text: '', style: 'tableHeader' }, { text: moment(this.date).format('DD-MM-YYYY'), style: 'tableHeader', alignment: "right" }]
             ]
           },
           layout: 'noBorders'
@@ -143,7 +143,7 @@ export class ReportComponent {
 
         this.sendToken = res.filter((r: any) => r.TransitionType.toLowerCase() === 'send').length;
         res.forEach((r: any) => {
-          
+
           if (r.TransitionType.toLowerCase() === 'receive') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
               r['displayParticular'] = `${r.ReceiverName1 || r.ReceiverName}`;
@@ -161,7 +161,7 @@ export class ReportComponent {
           if (r.TransitionType.toLowerCase() === 'send') {
             r['displayParticular'] = `To- ${r.ReceiverCity == 'NA' ? '' : r.ReceiverCity}`;
           }
-          
+
           // if (r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr') {
           //   r['displayParticular'] = 'By- Cash';
           // }
@@ -231,6 +231,18 @@ export class ReportComponent {
         break;
       case "receive":
         this.router.navigate(['/dashboard/angadiya'], { state: row });
+        break;
+      case "loss":
+        this.router.navigate(['/dashboard/hisaab'], { state: row });
+        break;
+      case "profit":
+        this.router.navigate(['/dashboard/hisaab'], { state: row });
+        break;
+      case "sp":
+        this.router.navigate(['/dashboard/settling'], { state: row });
+        break;
+      case "sr":
+        this.router.navigate(['/dashboard/settling'], { state: row });
         break;
       default:
         break;
