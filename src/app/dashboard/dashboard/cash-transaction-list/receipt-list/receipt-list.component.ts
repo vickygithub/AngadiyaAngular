@@ -14,7 +14,7 @@ export class ReceiptListComponent {
   public loggedInUser: any;
   public transactions: any = [];
   public searchText: any;
-  public receiptLust: any = [];
+  public receiptList: any = [];
   public filteredReceiptList: any = [];
   public date: any = new Date();
   @Input() accountList: any = [];
@@ -48,8 +48,8 @@ export class ReceiptListComponent {
          
         })
        
-        this.receiptLust = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'cr');
-        this.filteredReceiptList = [...this.receiptLust];
+        this.receiptList = this.transactions.filter((t: any) => t.TransitionType.toLowerCase() === 'cr');
+        this.filteredReceiptList = [...this.receiptList];
       },
       error: (err) => {
         this.spinner.hide();
@@ -61,7 +61,7 @@ export class ReceiptListComponent {
     this.router.navigate(['/dashboard/cashtransaction'], { state: row });
   }
   filterList() {
-    this.filteredReceiptList = this.receiptLust.filter((s: any) => s.displayName.includes(this.searchText));
+    this.filteredReceiptList = this.receiptList.filter((s: any) => s.displayName.includes(this.searchText));
   }
   ngOnInit() {
     this.fetchTransactions();

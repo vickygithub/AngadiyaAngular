@@ -11,13 +11,8 @@ import { CrudService } from 'src/app/services/crud.service';
 })
 export class CashTransactionListComponent {
   public loggedInUser: any;
-  public transactions: any = [];
   public accountList: any = [];
-  public searchText: any;
-  public paymentList: any = [];
-  public receiptLust: any = [];
-  public filteredPaymentList: any = [];
-  public filteredReceiptList: any = [];
+  
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
