@@ -16,7 +16,7 @@
             </mat-hint>
         </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-lg-4">
+    <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="loggedInUser.ProjectType === 2">
         <mat-form-field class="w-100">
             <mat-label>Commission</mat-label>
             <input matInput type="number" placeholder="Commission" [(ngModel)]="commission">
