@@ -151,7 +151,7 @@ export class ReportComponent {
               r['displayParticular'] = `${r.SennderName}`;
             }
           }
-          if (r.TransitionType.toLowerCase() === 'jr' || r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr' || r.TransitionType.toLowerCase() === 'loss' || r.TransitionType.toLowerCase() === 'profit') {
+          if (r.TransitionType.toLowerCase() === 'jr' || r.TransitionType.toLowerCase() === 'cp' || r.TransitionType.toLowerCase() === 'cr' || r.TransitionType.toLowerCase() === 'loss' || r.TransitionType.toLowerCase() === 'profit' || r.TransitionType.toLowerCase() === 'sr' || r.TransitionType.toLowerCase() === 'sp') {
             if (this.selectedAcount.Guid === r.DebitGuid) {
               r['displayParticular'] = `To- ${r.ReceiverName}`;
             } else {
