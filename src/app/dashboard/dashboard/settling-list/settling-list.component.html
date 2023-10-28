@@ -1,0 +1,29 @@
+<div class="pt-4 pb-4">
+    <div class="d-flex align-items-center">
+        <div class="col-4">
+            <mat-icon color="primary" (click)="back()">arrow_back</mat-icon>
+        </div>
+        <div class="col-4 text-center">
+            <h2 class="m-0">Settling Transactions List</h2>
+        </div>
+    </div>
+    <mat-tab-group class="journal-mat-tab-group">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Payment List
+            </ng-template>
+            <ng-template matTabContent>
+                <app-settling-payment-list *ngIf="accountList" [accountList]="accountList"></app-settling-payment-list>
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Receipt List
+            </ng-template>
+            <ng-template matTabContent>
+                <app-settling-receipt-list *ngIf="accountList" [accountList]="accountList"></app-settling-receipt-list>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+

@@ -55,6 +55,9 @@ import { ProfitListComponent } from './dashboard/hisaab-list/profit-list/profit-
 import { LossListComponent } from './dashboard/hisaab-list/loss-list/loss-list.component';
 import { SettlingComponent } from './dashboard/settling/settling.component';
 import { SettlingTransactionComponent } from './dashboard/settling/settling-transaction/settling-transaction.component';
+import { SettlingListComponent } from './dashboard/settling-list/settling-list.component';
+import { SettlingPaymentListComponent } from './dashboard/settling-list/settling-payment-list/settling-payment-list.component';
+import { SettlingReceiptListComponent } from './dashboard/settling-list/settling-receipt-list/settling-receipt-list.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -101,7 +104,10 @@ export const MY_FORMATS = {
     ProfitListComponent,
     LossListComponent,
     SettlingComponent,
-    SettlingTransactionComponent
+    SettlingTransactionComponent,
+    SettlingListComponent,
+    SettlingPaymentListComponent,
+    SettlingReceiptListComponent
   ],
   imports: [
     CommonModule,

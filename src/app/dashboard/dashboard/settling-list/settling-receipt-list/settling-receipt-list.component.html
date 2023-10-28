@@ -1,0 +1,25 @@
+<div class="d-flex flex-column mb-2 gap-3">
+    <div class="d-flex align-items-center justify-content-between list-action-row">
+        <mat-form-field>
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput type="search" placeholder="Search" [(ngModel)]="searchText"
+                (keyup)="filterList()">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="fetchTransactions()">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <mat-card class="w-100" *ngFor="let obj of filteredPaymentList">
+        
+            <mat-card-content>
+                <div class="d-flex justify-content-between" (click)="goToComponent(obj)">
+                    <span>To - {{obj.displayName}}</span>
+                    <span>{{obj.Amount | number:'1.2-2'}}</span>
+                </div>
+            </mat-card-content>
+        
+        
+    </mat-card>
+</div>

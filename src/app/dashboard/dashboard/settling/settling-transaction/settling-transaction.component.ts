@@ -30,10 +30,13 @@ export class SettlingTransactionComponent {
   constructor(private spinner: NgxSpinnerService, private router: Router, private crudService: CrudService, private commonService: CommonService) {
     this.accountListSubject = this.accountListSubjectNotifier.subscribe((res: any) => {
       if (this.existingSettlingDetails.Guid != null) {
+        const angadiyas = this.options.filter((o: any) => o.Type.toLowerCase() === 'angadiya');
         if (this.existingSettlingDetails.TransitionType.toLowerCase() === 'sr') {
           this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingSettlingDetails.CreditGuid);
+          this.selectedAngadiya = angadiyas.find((c: any) => c.Guid === this.existingSettlingDetails.DebitGuid).Guid;
         } else { //sp
           this.receivedFrom = this.options.find((c: any) => c.Guid === this.existingSettlingDetails.DebitGuid);
+          this.selectedAngadiya = angadiyas.find((c: any) => c.Guid === this.existingSettlingDetails.CreditGuid).Guid;
         }
 
         //store delete data 

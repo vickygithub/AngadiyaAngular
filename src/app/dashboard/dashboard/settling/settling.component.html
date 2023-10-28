@@ -8,7 +8,7 @@
         </div>
     </div>
     <mat-tab-group class="journal-mat-tab-group" [selectedIndex]="selectedIndex">
-        <mat-tab>
+        <mat-tab [disabled]="existingSettlingDetails.Guid != null && existingSettlingDetails.TransitionType.toLowerCase() === 'sr'">
             <ng-template mat-tab-label>
                 SETTLING <br>
                 PAYMENT
@@ -17,7 +17,7 @@
                 <app-settling-transaction [existingSettlingDetails]="existingSettlingDetails" [tranType]="'sp'"></app-settling-transaction>
             </ng-template>
         </mat-tab>
-        <mat-tab>
+        <mat-tab [disabled]="existingSettlingDetails.Guid != null && existingSettlingDetails.TransitionType.toLowerCase() === 'sp'">
             <ng-template mat-tab-label>
                 SETTLING <br>
                 RECEIPT
