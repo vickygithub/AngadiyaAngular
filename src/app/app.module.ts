@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { ErrorHandler, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LimitMobileNumberDirective } from './limit-mobile-number.directive';
+import { GlobalErrorHandler } from './global-error-handler';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,7 @@ import { LimitMobileNumberDirective } from './limit-mobile-number.directive';
       // or after 30 seconds (whichever comes first).
     })
   ],
-  providers: [CrudService, AuthService, CommonService, UpdateService],
+  providers: [CrudService, AuthService, CommonService, UpdateService, {provide: ErrorHandler, useClass: GlobalErrorHandler}],
   bootstrap: [AppComponent],
   exports: []
 })
