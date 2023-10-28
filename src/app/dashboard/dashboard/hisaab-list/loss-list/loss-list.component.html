@@ -1,7 +1,7 @@
 <div class="d-flex flex-column mb-2 gap-3">
-    <div class="d-flex align-items-center justify-content-between list-action-row">
+    <!-- <div class="d-flex align-items-center justify-content-between list-action-row"> -->
         
-        <mat-form-field>
+        <!-- <mat-form-field>
             <mat-label>-- All --</mat-label>
             <mat-select [(ngModel)]="searchGuid" (selectionChange)="filterList()">
                 <mat-option>-- All --</mat-option>
@@ -12,13 +12,16 @@
                 </ng-container>
 
             </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput readonly [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="fetchTransactions()">
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-    </div>
+        </mat-form-field> -->
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+            <mat-form-field class="w-100">
+                <input matInput readonly [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="fetchTransactions()">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+       
+    <!-- </div> -->
     <mat-card class="w-100" *ngFor="let obj of filteredLossList">
         
             <mat-card-content>

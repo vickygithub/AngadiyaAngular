@@ -10,18 +10,18 @@
     <mat-tab-group class="journal-mat-tab-group">
         <mat-tab>
             <ng-template mat-tab-label>
-                Payment List
+                Settling Payment
             </ng-template>
             <ng-template matTabContent>
-                <app-settling-payment-list *ngIf="accountList" [accountList]="accountList"></app-settling-payment-list>
+                <app-settling-payment-list *ngIf="accountList.length > 0" [accountList]="accountList"></app-settling-payment-list>
             </ng-template>
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>
-                Receipt List
+                Settling Receipt
             </ng-template>
             <ng-template matTabContent>
-                <app-settling-receipt-list *ngIf="accountList" [accountList]="accountList"></app-settling-receipt-list>
+                <app-settling-receipt-list *ngIf="accountList.length > 0" [accountList]="accountList"></app-settling-receipt-list>
             </ng-template>
         </mat-tab>
     </mat-tab-group>
