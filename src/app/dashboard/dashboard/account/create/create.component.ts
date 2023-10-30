@@ -41,7 +41,7 @@ export class CreateComponent {
     }
    
     this.spinner.show();
-    const params = {
+    let params = {
       Name: this.name,
       OpeningBalance: this.openingBalance == null ? "0" : "" + this.openingBalance.toFixed(2),
       MobileNo: this.mobile == null ? this.loggedInUser.MobileNo : String(this.mobile),
@@ -55,6 +55,11 @@ export class CreateComponent {
       Guid: "",
       City: this.city == null || this.city == '' ? this.loggedInUser.City : this.city,
       SelfName: this.selfName || ''
+    }
+    // Bookie condition to hide mobile and selfName
+    if (this.loggedInUser.ProjectType === 4) {
+      params.MobileNo = 'NA';
+      params.SelfName = 'NA';
     }
     this.crudService.postByUrl('/AccountCreate', params).subscribe({
       next: (res: any) => {

@@ -21,7 +21,7 @@
             <input matInput type="number" placeholder="Opening Balance" [(ngModel)]="openingBalance">
         </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="type.toLowerCase() === 'angadiya' || type.toLowerCase() === 'client'">
+    <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="(type.toLowerCase() === 'angadiya' || type.toLowerCase() === 'client') && loggedInUser.ProjectType !== 4">
         <mat-form-field class="w-100">
             <mat-label>Mobile</mat-label>
             <input matInput appLimitMobileNumber type="number" placeholder="Mobile" [(ngModel)]="mobile"
@@ -38,7 +38,7 @@
                 pattern="[a-zA-Z]+" required>
         </mat-form-field>
     </div>
-    <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="type.toLowerCase() === 'angadiya'">
+    <div class="col-xs-12 col-sm-6 col-lg-4" *ngIf="type.toLowerCase() === 'angadiya' && loggedInUser.ProjectType !== 4">
         <mat-form-field class="w-100">
             <mat-label>Self Name with this Angadiya</mat-label>
             <input matInput placeholder="Name" [(ngModel)]="selfName" required>
