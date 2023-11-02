@@ -68,7 +68,7 @@ export class CreateComponent {
     this.crudService.postByUrl('/AccountCreate', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        if (res.includes('Mobile') || res.includes('Account')) {
+        if (res.includes('Already')) {
           this.commonService.emitSuccessErrorEventEmitter({message: res, success: false});
           return;
         }
