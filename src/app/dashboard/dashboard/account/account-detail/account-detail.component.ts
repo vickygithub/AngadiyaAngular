@@ -61,6 +61,10 @@ export class AccountDetailComponent {
     this.crudService.postByUrl('/AccountEdit', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
+        if (res.includes('Already')) {
+          this.commonService.emitSuccessErrorEventEmitter({message: res, success: false});
+          return;
+        }
         if ((typeof res) == "string") {
           this.commonService.emitSuccessErrorEventEmitter({ success: true });
         }
