@@ -29,7 +29,7 @@ export class SettlingReceiptListComponent {
       Token: this.loggedInUser.Token,
       LoginId: this.loggedInUser.Guid,
       TransactionType: 'settling',
-      TransitionType: 'SP',
+      TransitionType: 'SR',
       TranDate: moment(this.date).format('YYYY-MM-DD')
     }).subscribe({
       next: (res: any) => {

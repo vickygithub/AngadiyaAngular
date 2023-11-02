@@ -17,6 +17,7 @@ export class ProfitListComponent {
   public searchGuid: any = null;
   public date: any = new Date();
   @Input() accountList: any = [];
+  public totalBalance: any = 0;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -45,6 +46,9 @@ export class ProfitListComponent {
         })
         this.transactions = [...res];
         this.filteredProfitList = [...res];
+        this.totalBalance = this.filteredProfitList.reduce((acc: any, curr: any) => {
+          return acc + parseFloat(curr.Amount);
+        }, 0);
       },
       error: (err: any) => {
         this.spinner.hide();
@@ -60,7 +64,9 @@ export class ProfitListComponent {
   filterList() {
     if (this.searchGuid == null) {
       this.filteredProfitList = this.transactions; 
-     
+      this.totalBalance = this.filteredProfitList.reduce((acc: any, curr: any) => {
+        return acc + parseFloat(curr.Amount);
+      }, 0);
     } else {
       this.filteredProfitList = this.transactions.filter((s: any) => s.CreditGuid === this.searchGuid);
     }

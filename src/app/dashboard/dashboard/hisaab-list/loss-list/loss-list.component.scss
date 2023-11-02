@@ -1,0 +1,10 @@
+.hisaab-list {
+    overflow-y: auto;
+    height: calc(100vh - 14rem);
+
+    .bottom-sticky {
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
+    }
+}

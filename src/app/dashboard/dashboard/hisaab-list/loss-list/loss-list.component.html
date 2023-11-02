@@ -1,4 +1,4 @@
-<div class="d-flex flex-column mb-2 gap-3">
+<div class="d-flex flex-column mb-2 gap-3 hisaab-list">
     <!-- <div class="d-flex align-items-center justify-content-between list-action-row"> -->
         
         <!-- <mat-form-field>
@@ -32,4 +32,17 @@
             </mat-card-content>
        
     </mat-card>
+    <div class="bottom-sticky">
+        <mat-card class="w-100">
+
+            <mat-card-content>
+                <div class="d-flex justify-content-between">
+                    <strong>Total</strong>
+                    <strong>-{{totalBalance | number:'1.2-2'}}</strong>
+                </div>
+            </mat-card-content>
+
+
+        </mat-card>
+    </div>
 </div>

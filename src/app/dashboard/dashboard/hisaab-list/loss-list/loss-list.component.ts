@@ -17,6 +17,7 @@ export class LossListComponent {
   public searchGuid: any = null;
   public date: any = new Date();
   @Input() accountList: any = [];
+  public totalBalance: any = 0;
   constructor(private spinner: NgxSpinnerService, private crudService: CrudService, private commonService: CommonService, private router: Router) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -45,6 +46,9 @@ export class LossListComponent {
         })
         this.transactions = [...res];
         this.filteredLossList = [...res];
+        this.totalBalance = this.filteredLossList.reduce((acc: any, curr: any) => {
+          return acc + parseFloat(curr.Amount);
+        }, 0);
       },
       error: (err: any) => {
         this.spinner.hide();
@@ -60,7 +64,9 @@ export class LossListComponent {
   filterList() {
     if (this.searchGuid == null) {
       this.filteredLossList = this.transactions; 
-     
+      this.totalBalance = this.filteredLossList.reduce((acc: any, curr: any) => {
+        return acc + parseFloat(curr.Amount);
+      }, 0);
     } else {
       this.filteredLossList = this.transactions.filter((s: any) => s.DebitGuid === this.searchGuid);
     }

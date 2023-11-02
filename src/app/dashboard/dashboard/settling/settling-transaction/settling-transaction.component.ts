@@ -80,7 +80,7 @@ export class SettlingTransactionComponent {
       Token: this.loggedInUser.Token,
       DeviceId: "83e9568fa4df9fc1"
     }
-    this.crudService.postByUrl('/DeleteSendReceiveData', params).subscribe({
+    this.crudService.postByUrl('/DeleteBookieSettlingTransaction', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (res.includes('Successful')) {
