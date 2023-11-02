@@ -27,17 +27,20 @@ export class CreateComponent {
       this.commonService.emitSuccessErrorEventEmitter({message: 'Enter Name', success: false});
       return;
     }
-    if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isMobileValid(this.mobile) && (this.city == '' || this.city == null)) {
-      this.commonService.emitSuccessErrorEventEmitter({message: 'Mobile or City Invalid', success: false});
-      return;
-    }
-    if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isCityNameValid(this.city)) {
-      this.commonService.emitSuccessErrorEventEmitter({message: 'City Invalid', success: false});
-      return;
-    }
-    if (this.type.toLowerCase() === 'angadiya' && (this.selfName == null || this.selfName == '')) {
-      this.commonService.emitSuccessErrorEventEmitter({message: 'Enter all (*) details', success: false});
-      return;
+    // if not bookie
+    if (this.loggedInUser.ProjectType !== 4) {
+      if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isMobileValid(this.mobile) && (this.city == '' || this.city == null)) {
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Mobile or City Invalid', success: false});
+        return;
+      }
+      if ((this.type.toLowerCase() === 'angadiya' || this.type.toLowerCase() === 'client') && !this.commonService.isCityNameValid(this.city)) {
+        this.commonService.emitSuccessErrorEventEmitter({message: 'City Invalid', success: false});
+        return;
+      }
+      if (this.type.toLowerCase() === 'angadiya' && (this.selfName == null || this.selfName == '')) {
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Enter all (*) details', success: false});
+        return;
+      }
     }
    
     this.spinner.show();
@@ -60,6 +63,7 @@ export class CreateComponent {
     if (this.loggedInUser.ProjectType === 4) {
       params.MobileNo = 'NA';
       params.SelfName = 'NA';
+      params.City = '';
     }
     this.crudService.postByUrl('/AccountCreate', params).subscribe({
       next: (res: any) => {
