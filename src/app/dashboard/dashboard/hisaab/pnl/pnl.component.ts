@@ -181,7 +181,8 @@ export class PnlComponent {
     this.crudService.postByUrl('/ProfitAndLossTransaction', params).subscribe({
       next: (res: any) => {
         this.spinner.hide();
-        this.router.navigate(['/dashboard']);
+        // this.router.navigate(['/dashboard']);
+        this.reset();
       },
       error: (err) => {
         this.spinner.hide();
@@ -189,4 +190,5 @@ export class PnlComponent {
       }
     })
   }
+  
 }
