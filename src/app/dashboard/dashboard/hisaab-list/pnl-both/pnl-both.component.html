@@ -1,0 +1,32 @@
+<div class="d-flex flex-column mb-2 gap-3 hisaab-list">
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+        <mat-form-field class="w-100">
+            <input matInput readonly [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="fetchTransactions()">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <mat-card class="w-100" *ngFor="let obj of filteredPNLList">
+        
+            <mat-card-content>
+                <div class="d-flex justify-content-between" (click)="goToComponent(obj)">
+                    <span>{{obj.displayName}}</span>
+                    <span>{{obj.displayAmount | number:'1.2-2'}}</span>
+                </div>
+            </mat-card-content>
+       
+    </mat-card>
+    <div class="bottom-sticky">
+        <mat-card class="w-100">
+
+            <mat-card-content>
+                <div class="d-flex justify-content-between">
+                    <strong>Total</strong>
+                    <strong>{{totalBalance | number:'1.2-2'}}</strong>
+                </div>
+            </mat-card-content>
+
+
+        </mat-card>
+    </div>
+</div>

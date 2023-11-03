@@ -58,6 +58,7 @@ import { SettlingTransactionComponent } from './dashboard/settling/settling-tran
 import { SettlingListComponent } from './dashboard/settling-list/settling-list.component';
 import { SettlingPaymentListComponent } from './dashboard/settling-list/settling-payment-list/settling-payment-list.component';
 import { SettlingReceiptListComponent } from './dashboard/settling-list/settling-receipt-list/settling-receipt-list.component';
+import { PnlBothComponent } from './dashboard/hisaab-list/pnl-both/pnl-both.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -107,7 +108,8 @@ export const MY_FORMATS = {
     SettlingTransactionComponent,
     SettlingListComponent,
     SettlingPaymentListComponent,
-    SettlingReceiptListComponent
+    SettlingReceiptListComponent,
+    PnlBothComponent
   ],
   imports: [
     CommonModule,
