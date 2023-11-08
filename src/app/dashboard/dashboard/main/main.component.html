@@ -13,24 +13,26 @@
             </mat-card>
         </ng-container>
     </div>
-    <!-- <div *ngIf="loggedInUser.ProjectType === 1">
+    <div *ngIf="loggedInUser.ProjectType === 1" class="pt-4">
         <div class="col-xs-12 col-sm-6 col-lg-4">
             <mat-form-field class="w-100">
                 <mat-icon matPrefix>search</mat-icon>
                 <input matInput type="search" placeholder="Search" [(ngModel)]="searchText" (keyup)="filterList()">
             </mat-form-field>
         </div>
+        <mat-accordion>
+            <mat-expansion-panel class="w-100 mb-2" *ngFor="let obj of filteredUsers" hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{obj.MobileNo}}
+                    </mat-panel-title>
+                    
+                </mat-expansion-panel-header>
+                <button mat-raised-button color="primary" (click)="reposting(obj)">Repost</button>
+            </mat-expansion-panel>
 
-        <mat-card class="w-100 mb-2" *ngFor="let obj of filteredUsers">
-
-            <mat-card-content>
-                <div class="d-flex justify-content-between">
-                    <span>{{obj.MobileNo}}</span>
-
-                </div>
-            </mat-card-content>
-
-        </mat-card>
-    </div> -->
+        </mat-accordion>
+       
+    </div>
 
 </div>

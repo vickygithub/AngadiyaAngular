@@ -59,6 +59,7 @@ import { SettlingListComponent } from './dashboard/settling-list/settling-list.c
 import { SettlingPaymentListComponent } from './dashboard/settling-list/settling-payment-list/settling-payment-list.component';
 import { SettlingReceiptListComponent } from './dashboard/settling-list/settling-receipt-list/settling-receipt-list.component';
 import { PnlBothComponent } from './dashboard/hisaab-list/pnl-both/pnl-both.component';
+import {MatExpansionModule} from '@angular/material/expansion'
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -130,7 +131,8 @@ export const MY_FORMATS = {
     MatListModule,
     MatSelectModule,
     MatDividerModule,
-    MatTableModule
+    MatTableModule,
+    MatExpansionModule
   ],
   providers: [
     {

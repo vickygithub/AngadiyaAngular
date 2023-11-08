@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { NgxSpinnerService } from "ngx-spinner";
 import { CommonService } from 'src/app/services/common.service';
 import { CrudService } from 'src/app/services/crud.service';
@@ -55,12 +56,12 @@ export class MainComponent {
 
   ngOnInit() {
     this.fetchMenus();
-    // if (this.loggedInUser.ProjectType !== 1) {
-      //   this.fetchMenus();
-    // }
-    // if (this.loggedInUser.ProjectType === 1) {
-    //   this.fetchAdmins();
-    // }
+    if (this.loggedInUser.ProjectType !== 1) {
+        this.fetchMenus();
+    }
+    if (this.loggedInUser.ProjectType === 1) {
+      this.fetchAdmins();
+    }
   }
 
   fetchAdmins() {
@@ -77,6 +78,27 @@ export class MainComponent {
         }
         this.users = [...res];
         this.filteredUsers = [...res];
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+      }
+    })
+  }
+  reposting(admin: any) {
+    this.spinner.show();
+    this.crudService.postByUrl('/RepostingAllData', {
+      Token: this.loggedInUser.Token,
+      DeviceId: "83e9568fa4df9fc1",
+      AdminGuid: admin.Guid,
+      AccountStartDate: moment(this.commonService.getDatePickerDate(admin.AccountStartDate)).format('YYYY-MM-DD')
+    }).subscribe({
+      next: (res: any) => {
+        this.spinner.hide();
+        if (res == null || (typeof res === 'string' && res.toLowerCase().includes("invalid"))) {
+          this.commonService.emitSuccessErrorEventEmitter({message: 'Please refresh the page', success: false});
+        }
+        this.commonService.emitSuccessErrorEventEmitter({success: true});
       },
       error: (err) => {
         this.spinner.hide();
