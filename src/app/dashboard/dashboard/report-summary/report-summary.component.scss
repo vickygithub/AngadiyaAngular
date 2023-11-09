@@ -1,0 +1,18 @@
+.table-container {
+    height: calc(100vh - 10rem);
+    overflow-y: auto;
+
+    table {
+        th, td {
+            &:last-of-type {
+                text-align: right; 
+            }
+            &:nth-child(2) {
+                text-align: left;
+            }
+            &:nth-child(3) {
+                text-align: right;
+            }
+        }
+    }
+}

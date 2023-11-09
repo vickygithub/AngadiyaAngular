@@ -60,6 +60,7 @@ import { SettlingPaymentListComponent } from './dashboard/settling-list/settling
 import { SettlingReceiptListComponent } from './dashboard/settling-list/settling-receipt-list/settling-receipt-list.component';
 import { PnlBothComponent } from './dashboard/hisaab-list/pnl-both/pnl-both.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ReportSummaryComponent } from './dashboard/report-summary/report-summary.component';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -110,7 +111,8 @@ export const MY_FORMATS = {
     SettlingListComponent,
     SettlingPaymentListComponent,
     SettlingReceiptListComponent,
-    PnlBothComponent
+    PnlBothComponent,
+    ReportSummaryComponent
   ],
   imports: [
     CommonModule,

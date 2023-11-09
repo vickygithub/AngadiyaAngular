@@ -23,6 +23,7 @@ import { HisaabComponent } from './dashboard/hisaab/hisaab.component';
 import { HisaabListComponent } from './dashboard/hisaab-list/hisaab-list.component';
 import { SettlingComponent } from './dashboard/settling/settling.component';
 import { SettlingListComponent } from './dashboard/settling-list/settling-list.component';
+import { ReportSummaryComponent } from './dashboard/report-summary/report-summary.component';
 
 const routes: Routes = [
   {
@@ -48,7 +49,8 @@ const routes: Routes = [
       { path: 'hisaab', component: HisaabComponent },
       { path: 'hisaablist', component: HisaabListComponent },
       { path: 'settling', component: SettlingComponent },
-      { path: 'settlinglist', component: SettlingListComponent }
+      { path: 'settlinglist', component: SettlingListComponent },
+      { path: 'reportsummary/:type', component: ReportSummaryComponent }
     ]
   }
 ];
