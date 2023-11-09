@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -17,24 +16,25 @@ enum UserRoleEnum {
 })
 export class MainComponent {
   public loggedInUser: any;
-  public menus: any = [];
+  public breadcrumbs: any = [];
   public filteredMenus: any = [];
   public filteredUsers: any = [];
   public users: any = [];
   public searchText: any = '';
-  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   constructor(private crudService: CrudService, private router: Router, private spinner: NgxSpinnerService, private commonService: CommonService) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
+    this.breadcrumbs.push({Label: 'Main', Id: -1});
   }
   filterList() {
     this.filteredUsers = this.users.filter((s: any) => s.MobileNo.includes(this.searchText));
   }
-  fetchMenus() {
+  fetchMenus(parent: any = -1) {
     this.spinner.show();
     this.crudService.postByUrl('/UserMenuList', {
       Token: this.loggedInUser.Token,
       DeviceId: "83e9568fa4df9fc1",
-      ProjectTypeId: this.loggedInUser.ProjectType
+      ProjectTypeId: this.loggedInUser.ProjectType,
+      Parent: parent
     }).subscribe({
       next: (res: any) => {
         this.spinner.hide();
@@ -44,9 +44,8 @@ export class MainComponent {
         res.forEach((r: any) => {
           r.Icons = r.Icon.split(",");
         })
-        this.filteredMenus = res.filter((m: any) => m.Parent < 0);
-        this.filteredMenus = this.filteredMenus.sort((a: any, b: any) => a.SortOrder - b.SortOrder);
-        this.menus = res.sort((a: any, b: any) => a.SortOrder - b.SortOrder);
+        
+        this.filteredMenus = res.sort((a: any, b: any) => a.SortOrder - b.SortOrder);
       },
       error: (err) => {
         this.spinner.hide();
@@ -54,20 +53,27 @@ export class MainComponent {
       }
     })
   }
-
+  navigateBread(index: any, menu: any) {
+    if (index != this.breadcrumbs.length - 1) {
+      this.breadcrumbs = this.breadcrumbs.slice(index, this.breadcrumbs.length - 1);
+      this.fetchMenus(menu.Id)
+    }
+  }
   navigate(menu: any) {
     if (menu.Type === 'menu') {
-      this.trigger.openMenu();
+      this.fetchMenus(menu.Id);
+      this.breadcrumbs.push({Label: menu.Label, Id: menu.Id});
       return;
     }
     this.router.navigate([`/dashboard/${menu.Route}`]);
   }
 
   ngOnInit() {
-    this.fetchMenus();
     if (this.loggedInUser.ProjectType !== 1) {
         this.fetchMenus();
+        return;
     }
+    this.fetchMenus();
     if (this.loggedInUser.ProjectType === 1) {
       this.fetchAdmins();
     }

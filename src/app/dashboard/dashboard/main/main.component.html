@@ -1,29 +1,23 @@
 <div class="container pt-4 pb-4">
+    <nav aria-label="breadcrumb" *ngIf="breadcrumbs.length > 1">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" *ngFor="let bread of breadcrumbs; let index = index;" (click)="navigateBread(index, bread)"><a href="javascript:void(0)">{{bread.Label}}</a></li>
+        </ol>
+    </nav>
     <div class="cards-container d-flex flex-wrap justify-content-center align-items-center">
         <mat-card *ngFor="let menu of filteredMenus; let last = last; let even = even;let index = index;"
             class="menu-card" [ngClass]="{'flex-basis-full': last && even}" (click)="navigate(menu)">
-            <ng-container *ngIf="menu.Parent < 0">
+            <ng-container>
                 <mat-card-content class="h-100">
                     <div class="h-100 d-flex flex-column justify-content-between align-items-center">
                         <div class="d-flex flex-row">
                             <mat-icon *ngFor="let icon of menu.Icons" color="primary">{{icon}}</mat-icon>
                         </div>
-                        <span class="text-center" *ngIf="menu.Type === 'route'">{{menu.Label}}</span>
-                        <div *ngIf="menu.Type === 'menu'">
-                            <span [matMenuTriggerFor]="childMenus">{{menu.Label}}</span>
-                            <mat-menu #childMenus="matMenu">
-                                <ng-container *ngFor="let subMenu of menus">
-                                    <button mat-menu-item
-                                        *ngIf="subMenu.Parent != null &&  subMenu.Parent === menu.Id">{{subMenu.Label}}</button>
-                                </ng-container>
-                            </mat-menu>
-                        </div>
-
+                        <span class="text-center">{{menu.Label}}</span>
                     </div>
                 </mat-card-content>
             </ng-container>
         </mat-card>
-
     </div>
     <div *ngIf="loggedInUser.ProjectType === 1" class="pt-4">
         <div class="col-xs-12 col-sm-6 col-lg-4">
