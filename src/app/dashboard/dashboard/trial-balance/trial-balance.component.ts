@@ -27,8 +27,12 @@ export class TrialBalanceComponent {
   goToLedger(account: any) {
     this.router.navigate(['/dashboard/ledger/report'], { state: account });
   }
-  goToOpening() {
-    this.router.navigate(['/dashboard/openingtrialbalance']);
+  goToOpening(type: any) {
+    if (type === 'closing') {
+      this.router.navigate(['/dashboard/openingtrialbalance']);
+      return;
+    }
+    this.router.navigate(['/dashboard/trialbalance']);
   }
   ngOnInit() {
     this.spinner.show();

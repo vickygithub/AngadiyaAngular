@@ -7,7 +7,7 @@
             <h2>{{type === 'closing' ? 'Trial Balance' : 'Opening Trial Balance'}}</h2>
         </div>
         <div class="col-4 text-end">
-            <button mat-raised-button color="primary" (click)="goToOpening()" *ngIf="type === 'closing'">Opening</button>
+            <button mat-raised-button color="primary" (click)="goToOpening(type)">{{type === 'closing' ? 'Opening' : 'Closing'}}</button>
         </div>
     </div>
     <mat-tab-group>
