@@ -25,7 +25,7 @@ export class TrialBalanceComponent {
     this.router.navigate(['/dashboard/main']);
   }
   goToLedger(account: any) {
-    this.router.navigate(['/dashboard/ledger/report'], {state: account});
+    this.router.navigate(['/dashboard/ledger/report'], { state: account });
   }
   goToOpening() {
     this.router.navigate(['/dashboard/openingtrialbalance']);
@@ -45,36 +45,42 @@ export class TrialBalanceComponent {
         if (this.type === 'closing') {
           this.filteredReceivable = res.filter((r: any) => r.ClosingBalance > 0);
           this.filteredPayable = res.filter((r: any) => r.ClosingBalance < 0);
-  
+
           this.totalReceivable = this.filteredReceivable.reduce((acc: any, curr: any) => {
             return acc + parseFloat(curr.ClosingBalance);
           }, 0);
           this.totalPayable = this.filteredPayable.reduce((acc: any, curr: any) => {
+            return acc + parseFloat(curr.ClosingBalance);
+          }, 0);
+          // ALL
+          this.filteredAll = res.filter((r: any) => r.ClosingBalance !== 0);
+          this.totalAll = this.accountList.reduce((acc: any, curr: any) => {
             return acc + parseFloat(curr.ClosingBalance);
           }, 0);
         } else {
           this.filteredReceivable = res.filter((r: any) => r.OpeningBalance > 0);
           this.filteredPayable = res.filter((r: any) => r.OpeningBalance < 0);
-  
+
           this.totalReceivable = this.filteredReceivable.reduce((acc: any, curr: any) => {
             return acc + parseFloat(curr.OpeningBalance);
           }, 0);
           this.totalPayable = this.filteredPayable.reduce((acc: any, curr: any) => {
             return acc + parseFloat(curr.OpeningBalance);
           }, 0);
+          // ALL
+          this.filteredAll = res.filter((r: any) => r.OpeningBalance !== 0);
+          this.totalAll = this.accountList.reduce((acc: any, curr: any) => {
+            return acc + parseFloat(curr.OpeningBalance);
+          }, 0);
         }
-        this.balanceMatched = Math.abs(this.totalPayable) === Math.abs(this.totalReceivable); 
+        this.balanceMatched = Math.abs(this.totalPayable) === Math.abs(this.totalReceivable);
 
-        // ALL
-        this.filteredAll = res.filter((r: any) => r.ClosingBalance !== 0);
-        this.totalAll = this.accountList.reduce((acc: any, curr: any) => {
-          return acc + parseFloat(curr.OpeningBalance);
-        }, 0);
+
 
       },
       error: (err) => {
         this.spinner.hide();
-        this.commonService.emitSuccessErrorEventEmitter({message: 'Error!', success: false});
+        this.commonService.emitSuccessErrorEventEmitter({ message: 'Error!', success: false });
       }
     })
   }
