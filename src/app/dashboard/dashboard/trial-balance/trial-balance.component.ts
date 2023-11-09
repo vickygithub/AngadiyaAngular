@@ -12,10 +12,12 @@ import { CrudService } from 'src/app/services/crud.service';
 export class TrialBalanceComponent {
   public filteredReceivable: any;
   public filteredPayable: any;
+  public filteredAll: any;
   public accountList: any;
-  public balanceMatched: any = false;
+  public balanceMatched: any = true;
   public totalReceivable: any;
   public totalPayable: any;
+  public totalAll: any;
   @Input() type: any = 'closing';
   constructor(private router: Router, private crudService: CrudService, private spinner: NgxSpinnerService, private commonService: CommonService) { }
 
@@ -24,6 +26,9 @@ export class TrialBalanceComponent {
   }
   goToLedger(account: any) {
     this.router.navigate(['/dashboard/ledger/report'], {state: account});
+  }
+  goToOpening() {
+    this.router.navigate(['/dashboard/openingtrialbalance']);
   }
   ngOnInit() {
     this.spinner.show();
@@ -58,9 +63,14 @@ export class TrialBalanceComponent {
             return acc + parseFloat(curr.OpeningBalance);
           }, 0);
         }
-        
-
         this.balanceMatched = Math.abs(this.totalPayable) === Math.abs(this.totalReceivable); 
+
+        // ALL
+        this.filteredAll = res.filter((r: any) => r.ClosingBalance !== 0);
+        this.totalAll = this.accountList.reduce((acc: any, curr: any) => {
+          return acc + parseFloat(curr.OpeningBalance);
+        }, 0);
+
       },
       error: (err) => {
         this.spinner.hide();

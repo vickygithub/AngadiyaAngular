@@ -192,7 +192,7 @@ export class ReportComponent {
           displayParticular: 'Opening',
           TransitionType: '',
           TranSerialNo: '',
-          displayAmount: this.balances[0].OpeningBalance.toFixed(2) || "0.00"
+          displayAmount: this.balances[0].OpeningBalance || "0"
         }
         res.unshift(ob);
         this.totalAmount = res.reduce((acc: any, curr: any) => {

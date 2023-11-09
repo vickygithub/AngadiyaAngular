@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -17,9 +18,11 @@ enum UserRoleEnum {
 export class MainComponent {
   public loggedInUser: any;
   public menus: any = [];
+  public filteredMenus: any = [];
   public filteredUsers: any = [];
   public users: any = [];
   public searchText: any = '';
+  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   constructor(private crudService: CrudService, private router: Router, private spinner: NgxSpinnerService, private commonService: CommonService) {
     this.loggedInUser = JSON.parse(sessionStorage.getItem('userDetails')!);
   }
@@ -41,6 +44,8 @@ export class MainComponent {
         res.forEach((r: any) => {
           r.Icons = r.Icon.split(",");
         })
+        this.filteredMenus = res.filter((m: any) => m.Parent < 0);
+        this.filteredMenus = this.filteredMenus.sort((a: any, b: any) => a.SortOrder - b.SortOrder);
         this.menus = res.sort((a: any, b: any) => a.SortOrder - b.SortOrder);
       },
       error: (err) => {
@@ -51,6 +56,10 @@ export class MainComponent {
   }
 
   navigate(menu: any) {
+    if (menu.Type === 'menu') {
+      this.trigger.openMenu();
+      return;
+    }
     this.router.navigate([`/dashboard/${menu.Route}`]);
   }
 

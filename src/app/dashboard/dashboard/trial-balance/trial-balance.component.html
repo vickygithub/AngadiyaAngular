@@ -6,6 +6,9 @@
         <div class="col-4 text-center">
             <h2>{{type === 'closing' ? 'Trial Balance' : 'Opening Trial Balance'}}</h2>
         </div>
+        <div class="col-4 text-end">
+            <button mat-raised-button color="primary" (click)="goToOpening()" *ngIf="type === 'closing'">Opening</button>
+        </div>
     </div>
     <mat-tab-group>
         <mat-tab label="Receivable">
@@ -57,6 +60,28 @@
                                 <mat-icon class="amount-mismatched" *ngIf="!balanceMatched">close</mat-icon>
                             </span>
                             <strong>{{totalPayable | number:'1.2-2'}}</strong>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+        <mat-tab label="All">
+            <div class="d-flex flex-column mb-2 gap-3">
+                <mat-card class="w-100" *ngFor="let obj of filteredAll" (click)="goToLedger(obj)">
+                    <mat-card-content>
+                        <div class="d-flex justify-content-between">
+                            <span>{{obj.Name}}</span>
+                            <span>{{(type === 'closing' ? obj.ClosingBalance : obj.OpeningBalance) | number:'1.2-2'}}</span>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="mb-2">
+                <mat-card class="w-100">
+                    <mat-card-content>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong>Total</strong>
+                            <strong>{{totalAll | number:'1.2-2'}}</strong>
                         </div>
                     </mat-card-content>
                 </mat-card>
