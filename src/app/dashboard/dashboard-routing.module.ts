@@ -27,30 +27,72 @@ import { ReportSummaryComponent } from './dashboard/report-summary/report-summar
 
 const routes: Routes = [
   {
-    path: '', component: DashboardComponent, canActivate: [authGuard], children: [
+    path: '', component: DashboardComponent, children: [
       { path: '', redirectTo: 'main', pathMatch: 'full' },
-      { path: 'main', component: MainComponent },
-      { path: 'createuser', component: CreateUserComponent },
+      {
+        path: 'main', component: MainComponent, canActivate: [authGuard]
+      },
+      {
+        path: 'createuser', component: CreateUserComponent, canActivate: [authGuard], data: {
+          projectTypes: [1]
+        }
+      },
       { path: 'account', component: AccountComponent },
       { path: 'account/edit', component: AccountDetailComponent },
       { path: 'account/create', component: CreateComponent },
       { path: 'journaltransaction', component: JournalTransactionComponent },
       { path: 'cashtransaction', component: JournalComponent },
-      { path: 'city', component: CityComponent },
-      { path: 'city/add', component: AddCityComponent },
-      { path: 'angadiya', component: AngadiyaComponent },
+      {
+        path: 'city', component: CityComponent, canActivate: [authGuard], data: {
+          projectTypes: [2]
+        }
+      },
+      {
+        path: 'city/add', component: AddCityComponent, canActivate: [authGuard], data: {
+          projectTypes: [2]
+        }
+      },
+      {
+        path: 'angadiya', component: AngadiyaComponent, canActivate: [authGuard], data: {
+          projectTypes: [2]
+        }
+      },
       { path: 'ledger', component: LedgerComponent },
       { path: 'ledger/report', component: ReportComponent },
       { path: 'trialbalance', component: TrialBalanceComponent },
       { path: 'openingtrialbalance', component: OpeningTrialBalanceComponent },
-      { path: 'angadiyalist', component: AngadiyaListComponent },
+      {
+        path: 'angadiyalist', component: AngadiyaListComponent, canActivate: [authGuard], data: {
+          projectTypes: [2]
+        }
+      },
       { path: 'cashtransactionlist', component: CashTransactionListComponent },
       { path: 'journallist', component: JournalListComponent },
-      { path: 'hisaab', component: HisaabComponent },
-      { path: 'hisaablist', component: HisaabListComponent },
-      { path: 'settling', component: SettlingComponent },
-      { path: 'settlinglist', component: SettlingListComponent },
-      { path: 'reportsummary/:type', component: ReportSummaryComponent }
+      {
+        path: 'hisaab', component: HisaabComponent, canActivate: [authGuard], data: {
+          projectTypes: [4]
+        }
+      },
+      {
+        path: 'hisaablist', component: HisaabListComponent, canActivate: [authGuard], data: {
+          projectTypes: [4]
+        }
+      },
+      {
+        path: 'settling', component: SettlingComponent, canActivate: [authGuard], data: {
+          projectTypes: [4]
+        }
+      },
+      {
+        path: 'settlinglist', component: SettlingListComponent, canActivate: [authGuard], data: {
+          projectTypes: [4]
+        }
+      },
+      {
+        path: 'reportsummary/:type', component: ReportSummaryComponent, canActivate: [authGuard], data: {
+          projectTypes: [4]
+        }
+      }
     ]
   }
 ];
