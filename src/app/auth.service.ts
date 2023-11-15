@@ -5,9 +5,11 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(private router: Router) {
+    
+  }
 
-  constructor(private router: Router) { }
-
+  
   isAuthenticated() {
     const userDetails = sessionStorage.getItem('userDetails');
     if (userDetails == null || userDetails == '') {
@@ -28,8 +30,12 @@ export class AuthService {
   redirectToChangePassword() {
     this.router.navigate(['/changepassword']);
   }
+  redirectToMain() {
+    this.router.navigate(['/dashboard/main']);
+  }
   logout() {
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
+  
 }
